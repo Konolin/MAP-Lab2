@@ -1,6 +1,6 @@
 package org.example.entities.users;
 
-import org.example.entities.Label;
+import org.example.entities.misc.Label;
 import org.example.entities.audios.Album;
 
 import java.util.ArrayList;

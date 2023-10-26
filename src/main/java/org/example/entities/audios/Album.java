@@ -13,7 +13,7 @@ public class Album {
     private List<Song> songs;
     private Date releaseDate;
 
-    public Album(Integer id, String name, Artist artist, List<Song> songs, Date releaseDate) {
+    public Album(Integer id, String name, Artist artist, Date releaseDate) {
         this.id = id;
         this.name = name;
         this.artist = artist;
@@ -27,7 +27,7 @@ public class Album {
 
     public void removeSong(Song song) {
         if (!songs.remove(song)) {
-            throw new IllegalArgumentException("Album::Song can't be removed, it isn't part of the list.")
+            throw new IllegalArgumentException("Album::Song can't be removed, it isn't part of the list.");
         }
     }
 }

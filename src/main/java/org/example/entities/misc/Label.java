@@ -1,4 +1,4 @@
-package org.example.entities;
+package org.example.entities.misc;
 
 import java.util.Date;
 
