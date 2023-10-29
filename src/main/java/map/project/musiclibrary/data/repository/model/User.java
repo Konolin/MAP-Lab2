@@ -17,14 +17,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
-    private Long id;
+    protected Long id;
 
     @Column(name = "name")
-    private String name;
+    protected String name;
 
     @Column(name = "email")
-    private String email;
+    protected String email;
 
     @Column(name = "birthDate")
-    private Date birthDate;
+    protected Date birthDate;
 }
