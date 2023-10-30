@@ -19,7 +19,7 @@ public class Album {
 
     @ManyToOne
     @JoinColumn(name = "artist_id")
-    private ArtistUser artistUser;
+    private ArtistUser artist;
 
     @OneToMany(mappedBy = "album")
     private List<Song> songs;

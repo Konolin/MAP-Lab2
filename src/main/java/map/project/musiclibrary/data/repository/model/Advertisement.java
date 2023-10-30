@@ -3,10 +3,12 @@ package map.project.musiclibrary.data.repository.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "advertisments")
-public class Advertisement {
+public class Advertisement extends Audio {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
@@ -17,4 +19,7 @@ public class Advertisement {
 
     @Column(name = "type")
     private AdvertisementType advertisementType;
+
+    @ManyToMany(mappedBy = "advertisements")
+    private List<Podcast> podcasts;
 }
