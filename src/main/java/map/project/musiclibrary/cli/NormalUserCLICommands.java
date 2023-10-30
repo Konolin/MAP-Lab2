@@ -43,7 +43,7 @@ public class NormalUserCLICommands {
         return normalUserService.save(user).toString();
     }
 
-    @ShellMethod(key = "findUser", value = "Find user")
+    @ShellMethod(key = "findUser", value = "Find a user by name")
     public String findUser(@ShellOption(value = {"name"}, help = "Name of the user") final String name) {
         return normalUserService.findByName(name).toString();
     }
