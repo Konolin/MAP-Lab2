@@ -10,5 +10,5 @@ public class Podcast extends Audio {
 
     @ManyToOne
     @JoinColumn(name = "host_id")
-    private Host host;
+    private HostUser hostUser;
 }

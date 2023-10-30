@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Hosts")
-public class Host extends User {
+public class HostUser extends User {
     @OneToMany(mappedBy = "host")
     private List<Podcast> podcasts;
 }

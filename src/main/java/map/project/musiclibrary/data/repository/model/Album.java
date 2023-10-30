@@ -3,7 +3,6 @@ package map.project.musiclibrary.data.repository.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -20,7 +19,7 @@ public class Album {
 
     @ManyToOne
     @JoinColumn(name = "artist_id")
-    private Artist artist;
+    private ArtistUser artistUser;
 
     @OneToMany(mappedBy = "album")
     private List<Song> songs;

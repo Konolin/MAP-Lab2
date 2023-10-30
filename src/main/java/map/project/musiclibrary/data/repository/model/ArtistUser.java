@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "artists")
-public class Artist extends User {
+public class ArtistUser extends User {
     @ManyToOne
     @JoinColumn(name = "label_id")
     private Label label;
