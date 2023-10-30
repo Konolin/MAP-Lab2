@@ -25,6 +25,6 @@ public class User {
     @Column(name = "email")
     protected String email;
 
-    @Column(name = "birthDate")
-    protected Date birthDate;
+    @Column(name = "birthdate")
+    protected Date birthdate;
 }
