@@ -2,6 +2,8 @@ package map.project.musiclibrary.data.repository.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "podcasts")
 public class Podcast extends Audio {
@@ -10,5 +12,13 @@ public class Podcast extends Audio {
 
     @ManyToOne
     @JoinColumn(name = "host_id")
-    private Host host;
+    private HostUser host;
+
+    @ManyToMany
+    @JoinTable(
+            name = "podcast_advertisement",
+            joinColumns = @JoinColumn(name = "podcast_id"),
+            inverseJoinColumns = @JoinColumn(name = "advertisement_id")
+    )
+    private List<Advertisement> advertisements;
 }

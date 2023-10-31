@@ -1,7 +1,7 @@
 package map.project.musiclibrary.cli;
 
-import map.project.musiclibrary.data.repository.model.User;
-import map.project.musiclibrary.service.UserService;
+import map.project.musiclibrary.data.repository.model.NormalUser;
+import map.project.musiclibrary.service.NormalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -12,24 +12,24 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @ShellComponent
-public class UserCLICommands {
-    private final UserService userService;
+public class NormalUserCLICommands {
+    private final NormalUserService normalUserService;
 
     @Autowired
-    public UserCLICommands(UserService userService) {
-        this.userService = userService;
+    public NormalUserCLICommands(NormalUserService normalUserService) {
+        this.normalUserService = normalUserService;
     }
 
-    @ShellMethod(key = "list", value = "List all users")
+    @ShellMethod(key = "listUsers", value = "List all users")
     public String listUsers() {
-        return userService.findAll().toString();
+        return normalUserService.findAll().toString();
     }
 
-    @ShellMethod(key = "add", value = "Add a user")
+    @ShellMethod(key = "addUser", value = "Add a user")
     public String addUser(@ShellOption(value = {"name"}, help = "Name of the user") final String name,
                           @ShellOption(value = {"email"}, help = "Email of the user") final String email,
                           @ShellOption(value = {"birthdate"}, help = "Birthdate of the user (yyyy-MM-dd)") final String birthdateString) {
-        User user = new User();
+        NormalUser user = new NormalUser();
         user.setName(name);
         user.setEmail(email);
 
@@ -40,11 +40,11 @@ public class UserCLICommands {
         } catch (ParseException e) {
             return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
         }
-        return userService.save(user).toString();
+        return normalUserService.save(user).toString();
     }
 
-    @ShellMethod(key = "find", value = "Find user")
+    @ShellMethod(key = "findUser", value = "Find a user by name")
     public String findUser(@ShellOption(value = {"name"}, help = "Name of the user") final String name) {
-        return userService.findByName(name).toString();
+        return normalUserService.findByName(name).toString();
     }
 }
