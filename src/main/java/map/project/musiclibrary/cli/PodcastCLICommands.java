@@ -55,20 +55,21 @@ public class PodcastCLICommands {
             return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
         }
 
+        // TODO - add ads to podcast
+//        podcast.setAdvertisements();
+
         try {
             Long hostId = Long.parseLong(hostIdStr);
             Optional<HostUser> hostUserOptional = hostUserService.findById(hostId);
             if (hostUserOptional.isPresent()) {
                 podcast.setHost(hostUserOptional.get());
+                hostUserOptional.get().addPodcast(podcast);
             } else {
                 return "Error: A host with that id does not exist";
             }
         } catch (NumberFormatException e) {
             return "Error: Invalid integer format. Please provide a valid number.";
         }
-
-        // TODO - add ads to podcast
-//        podcast.setAdvertisements();
 
         return podcastService.save(podcast).toString();
     }

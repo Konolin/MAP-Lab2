@@ -66,3 +66,15 @@
 1698951598154:listHosts
 1698951655036:addPodcast
 1698951801966:addPodcast --topic gg --releaseDate 1111-11-11 --hostId 1 --name sr --length 111
+1698953170225:addHost --email 111 --name 111 --birthdate 1111-11-11
+1698953175930:addPodcast --topic gg --releaseDate 1111-11-11 --hostId 1 --name sr --length 111
+1698953856230:addHost --email 111 --name 111 --birthdate 1111-11-11
+1698953861164:addPodcast --topic gg --releaseDate 1111-11-11 --hostId 1 --name sr --length 111
+1698953870971:listHostsPodcasts
+1698953878436:listHostsPodcasts --id 1
+1698954037300:addHost --email 111 --name 111 --birthdate 1111-11-11
+1698954042968:addPodcast --topic gg --releaseDate 1111-11-11 --hostId 1 --name sr --length 111
+1698954052916:listHostsPodcasts
+1698954062108:listHostsPodcasts --id 1
+1698954075790:listHostsPodcasts --id 2
+1698954435955:listHostsPodcasts --id 1

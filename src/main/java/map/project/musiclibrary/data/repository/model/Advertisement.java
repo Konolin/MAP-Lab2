@@ -19,6 +19,6 @@ public class Advertisement extends Audio {
     @Column(name = "type")
     private String advertisementType;
 
-    @ManyToMany(mappedBy = "advertisements")
+    @ManyToMany(mappedBy = "advertisements", fetch = FetchType.EAGER)
     private List<Podcast> podcasts;
 }

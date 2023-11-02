@@ -15,7 +15,7 @@ public class ArtistUser extends User {
     @JoinColumn(name = "label_id")
     private Label label;
 
-    @OneToMany(mappedBy = "artist")
+    @OneToMany(mappedBy = "artist", fetch = FetchType.EAGER)
     private List<Album> albums;
 
     @Override

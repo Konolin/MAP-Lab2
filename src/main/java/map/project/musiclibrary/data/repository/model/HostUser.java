@@ -29,9 +29,7 @@ public class HostUser extends User {
 
     public String podcastsToString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("HostUser(");
-        sb.append("podcasts=[");
-
+        sb.append("Hosts podcasts=[");
         if (podcasts != null) {
             for (Podcast podcast : podcasts) {
                 sb.append(podcast.toString()).append(", ");
@@ -41,5 +39,9 @@ public class HostUser extends User {
         }
         sb.append("])");
         return sb.toString();
+    }
+
+    public boolean addPodcast(Podcast podcast) {
+        return podcasts.add(podcast);
     }
 }

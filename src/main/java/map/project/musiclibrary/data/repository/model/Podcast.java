@@ -18,7 +18,7 @@ public class Podcast extends Audio {
     @JoinColumn(name = "host_id")
     private HostUser host;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "podcast_advertisement",
             joinColumns = @JoinColumn(name = "podcast_id"),

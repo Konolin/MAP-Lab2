@@ -41,8 +41,6 @@ public class HostCLICommands {
         } catch (ParseException e) {
             return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
         }
-        // TODO - add podcasts to host
-//        host.setPodcasts();
 
         return hostUserService.save(host).toString();
     }
@@ -50,5 +48,17 @@ public class HostCLICommands {
     @ShellMethod(key = "findHost", value = "Find a host by name")
     public String findHost(@ShellOption(value = {"name"}, help = "Name of the host") final String name) {
         return hostUserService.findByName(name).toString();
+    }
+
+    @ShellMethod(key = "listHostsPodcasts", value = "List all the podcasts of a specific host")
+    public String listHostsPodcasts(@ShellOption(value = {"id"}, help = "Id of the host") final String idStr) {
+        try {
+            Long id = Long.parseLong(idStr);
+            return hostUserService.listHostsPodcasts(id).toString();
+        } catch (NumberFormatException e) {
+            return "Error: Invalid integer format. Please provide a valid number.";
+        } catch (RuntimeException e) {
+            return "Error: Host with specified id doesn't exist";
+        }
     }
 }
