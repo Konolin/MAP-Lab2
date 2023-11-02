@@ -7,6 +7,10 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @ShellComponent
 public class AdvertisementCLICommands {
     private final AdvertisementService advertisementService;
@@ -24,15 +28,28 @@ public class AdvertisementCLICommands {
     @ShellMethod
     public String addAdvertisement(@ShellOption(value = {"name"}, help = "Name of the advertisement") final String name,
                                    @ShellOption(value = {"length"}, help = "Length of the advertisement") final String length,
-                                   @ShellOption(value = {"type"}, help = "The type of the advertisement") final String type) {
+                                   @ShellOption(value = {"type"}, help = "The type of the advertisement") final String type,
+                                   @ShellOption(value = {"releaseDate"}, help = "The release date of the ad (yyyy-MM-dd)") final String releaseDateStr) {
         Advertisement advertisement = new Advertisement();
+
         advertisement.setName(name);
         advertisement.setLength(Integer.parseInt(length));
-//        advertisement.setAdvertisementType();
-//        advertisement.setReleaseDate();
-        // TODO - aici
+        advertisement.setAdvertisementType(type);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date releaseDate = dateFormat.parse(releaseDateStr);
+            advertisement.setReleaseDate(releaseDate);
+        } catch (ParseException e) {
+            return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
+        }
+        // TODO - add podcasts that have the ad
 //        advertisement.setPodcasts();
-//        advertisement.setCompany();
         return advertisementService.save(advertisement).toString();
+    }
+
+    @ShellMethod(key = "findAd", value = "Find an ad by name")
+    public String findAd(@ShellOption(value = {"name"}, help = "Name of the ad") final String name) {
+        return advertisementService.findByName(name).toString();
     }
 }

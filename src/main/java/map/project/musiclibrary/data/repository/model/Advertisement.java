@@ -14,11 +14,8 @@ public class Advertisement extends Audio {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "company")
-    private String company;
-
     @Column(name = "type")
-    private AdvertisementType advertisementType;
+    private String advertisementType;
 
     @ManyToMany(mappedBy = "advertisements")
     private List<Podcast> podcasts;
