@@ -35,13 +35,17 @@ public class PodcastService {
     }
 
     public Podcast addAd(Long adId, Long podcastId) {
+        // search for the podcast and advertisement with the corresponding ids
         Optional<Podcast> podcastOptional = podcastRepository.findById(podcastId);
         Optional<Advertisement> advertisementOptional = advertisementRepository.findById(adId);
 
         if (podcastOptional.isPresent() && advertisementOptional.isPresent()) {
+            // get the podcast and advertisement with the corresponding ids
             Podcast podcast = podcastOptional.get();
             Advertisement advertisement = advertisementOptional.get();
+            // add advertisement to the podcast list of ads
             podcast.addAdvertisement(advertisement);
+            // update the podcast in repo
             return podcastRepository.save(podcast);
         }
 

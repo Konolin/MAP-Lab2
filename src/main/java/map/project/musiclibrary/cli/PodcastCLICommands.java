@@ -57,9 +57,11 @@ public class PodcastCLICommands {
         }
 
         try {
+            // search host by id
             Long hostId = Long.parseLong(hostIdStr);
             Optional<HostUser> hostUserOptional = hostUserService.findById(hostId);
             if (hostUserOptional.isPresent()) {
+                // add host to podcast and add podcast to hosts list
                 podcast.setHost(hostUserOptional.get());
                 hostUserOptional.get().addPodcast(podcast);
             } else {

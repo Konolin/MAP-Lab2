@@ -19,31 +19,19 @@ public class HostUser extends User {
 
     @Override
     public String toString() {
-        String podcastsString = "[]";
-        if (podcasts != null) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("[");
-            for (Podcast podcast : podcasts) {
-                sb.append("(")
-                        .append("ID: ").append(podcast.getId())
-                        .append(", Name: ").append(podcast.getName())
-                        .append(", Topic: ").append(podcast.getTopic())
-                        .append("), ");
-            }
-            if (!podcasts.isEmpty()) {
-                sb.delete(sb.length() - 2, sb.length());
-            }
-            sb.append("])");
-            podcastsString = sb.toString();
-        }
-
+        // special string format for podcast list to stop unnecessary data
+        // in the String representation and stop infinite loops
         return "HostUser(" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", birthdate=" + birthdate +
-                ", podcasts=" + podcastsString +
+                ", podcasts=" + Podcast.listToString(podcasts) +
                 ')';
+    }
+
+    public String toShortString() {
+        return "(Id: " + id + ", Name: " + name + ')';
     }
 
     public boolean addPodcast(Podcast podcast) {
