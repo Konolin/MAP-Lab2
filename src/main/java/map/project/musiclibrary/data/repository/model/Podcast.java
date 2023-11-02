@@ -28,14 +28,38 @@ public class Podcast extends Audio {
 
     @Override
     public String toString() {
+        String advertisementsString = "[]";
+        if (advertisements != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("[");
+            for (Advertisement ad : advertisements) {
+                sb.append("(")
+                        .append("ID: ").append(ad.getId())
+                        .append(", Name: ").append(ad.getName())
+                        .append(", Type: ").append(ad.getAdvertisementType())
+                        .append("), ");
+            }
+            if (!advertisements.isEmpty()) {
+                sb.delete(sb.length() - 2, sb.length());
+            }
+            sb.append("]");
+            advertisementsString = sb.toString();
+        }
+
+        String hostStr = "[Id: " + host.getId() + ", Name: " + host.getName() + ']';
+
         return "Podcast(" +
-                "topic='" + topic + '\'' +
-                ", host=" + host +
-                ", advertisements=" + advertisements +
-                ", id=" + id +
+                "id=" + id +
+                ", topic='" + topic + '\'' +
+                ", host=" + hostStr +
+                ", advertisements=" + advertisementsString +
                 ", name='" + name + '\'' +
                 ", length=" + length +
                 ", releaseDate=" + releaseDate +
                 ')';
+    }
+
+    public boolean addAdvertisement(Advertisement advertisement) {
+        return advertisements.add(advertisement);
     }
 }

@@ -40,6 +40,7 @@ public class PodcastCLICommands {
 
         podcast.setName(name);
         podcast.setTopic(topic);
+
         try {
             int length = Integer.parseInt(lengthStr);
             podcast.setLength(length);
@@ -54,9 +55,6 @@ public class PodcastCLICommands {
         } catch (ParseException e) {
             return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
         }
-
-        // TODO - add ads to podcast
-//        podcast.setAdvertisements();
 
         try {
             Long hostId = Long.parseLong(hostIdStr);
@@ -77,5 +75,17 @@ public class PodcastCLICommands {
     @ShellMethod(key = "findPodcast", value = "Find a podcast by name")
     public String findPodcast(@ShellOption(value = {"name"}, help = "Name of the podcast") final String name) {
         return podcastService.findByName(name).toString();
+    }
+
+    @ShellMethod(key = "addAdToPodcast", value = "Add an advertisement to a podcast")
+    public String addAdToPodcast(@ShellOption(value = {"adId"}, help = "Id of the advertisement") final String adIdStr,
+                                 @ShellOption(value = {"podcastId"}, help = "Id of the podcast") final String podcastIdStr) {
+        try {
+            Long adId = Long.parseLong(adIdStr);
+            Long podcastId = Long.parseLong(podcastIdStr);
+            return podcastService.addAd(adId, podcastId).toString();
+        } catch (NumberFormatException e) {
+            return "Error: Invalid integer format. Please provide a valid number.";
+        }
     }
 }

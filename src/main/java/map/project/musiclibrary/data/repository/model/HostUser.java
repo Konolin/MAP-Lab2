@@ -19,26 +19,31 @@ public class HostUser extends User {
 
     @Override
     public String toString() {
+        String podcastsString = "[]";
+        if (podcasts != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("[");
+            for (Podcast podcast : podcasts) {
+                sb.append("(")
+                        .append("ID: ").append(podcast.getId())
+                        .append(", Name: ").append(podcast.getName())
+                        .append(", Topic: ").append(podcast.getTopic())
+                        .append("), ");
+            }
+            if (!podcasts.isEmpty()) {
+                sb.delete(sb.length() - 2, sb.length());
+            }
+            sb.append("])");
+            podcastsString = sb.toString();
+        }
+
         return "HostUser(" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", birthdate=" + birthdate +
+                ", podcasts=" + podcastsString +
                 ')';
-    }
-
-    public String podcastsToString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Hosts podcasts=[");
-        if (podcasts != null) {
-            for (Podcast podcast : podcasts) {
-                sb.append(podcast.toString()).append(", ");
-            }
-        } else {
-            sb.append("null");
-        }
-        sb.append("])");
-        return sb.toString();
     }
 
     public boolean addPodcast(Podcast podcast) {
