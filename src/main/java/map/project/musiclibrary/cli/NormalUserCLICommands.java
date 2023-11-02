@@ -28,10 +28,19 @@ public class NormalUserCLICommands {
     @ShellMethod(key = "addUser", value = "Add a user")
     public String addUser(@ShellOption(value = {"name"}, help = "Name of the user") final String name,
                           @ShellOption(value = {"email"}, help = "Email of the user") final String email,
-                          @ShellOption(value = {"birthdate"}, help = "Birthdate of the user (yyyy-MM-dd)") final String birthdateString) {
+                          @ShellOption(value = {"birthdate"}, help = "Birthdate of the user (yyyy-MM-dd)") final String birthdateString,
+                          @ShellOption(value = {"isPremium"}, help = "Is the user premium (boolean)") final String isPremiumStr) {
         NormalUser user = new NormalUser();
+
         user.setName(name);
         user.setEmail(email);
+
+        try {
+            boolean isPremium = Boolean.parseBoolean(isPremiumStr);
+            user.setPremium(isPremium);
+        } catch (NumberFormatException e) {
+            return "Error: Invalid boolean string";
+        }
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
