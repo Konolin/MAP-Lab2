@@ -14,9 +14,6 @@ public class Advertisement extends Audio {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "company")
-    private String company;
-
     @Column(name = "type")
     private String advertisementType;
 
