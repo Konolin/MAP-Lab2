@@ -47,4 +47,9 @@ public class AdvertisementCLICommands {
 //        advertisement.setPodcasts();
         return advertisementService.save(advertisement).toString();
     }
+
+    @ShellMethod(key = "findAd", value = "Find an ad by name")
+    public String findAd(@ShellOption(value = {"name"}, help = "Name of the ad") final String name) {
+        return advertisementService.findByName(name).toString();
+    }
 }

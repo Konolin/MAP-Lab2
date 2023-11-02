@@ -47,7 +47,7 @@ public class HostCLICommands {
     }
 
     @ShellMethod(key = "findHost", value = "Find a host by name")
-    public String findUser(@ShellOption(value = {"name"}, help = "Name of the host") final String name) {
+    public String findHost(@ShellOption(value = {"name"}, help = "Name of the host") final String name) {
         return hostUserService.findByName(name).toString();
     }
 }
