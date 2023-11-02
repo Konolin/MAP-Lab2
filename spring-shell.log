@@ -8,3 +8,12 @@
 1698656321213:addUser --name ifk --email idakd --birthdate 1999-12-12
 1698656329884:listUsers
 1698656337171:exit
+1698917397521:addUser
+1698917435124:addUser --isPremium true --name koaks --email ldaniwjdo --birthdate 1111-11-11
+1698917444381:listUsers
+1698917492800:addUser --isPremium true --name koaks --email ldaniwjdo --birthdate 1111-11-11
+1698917502407:listUsers
+1698917530711:addLabel
+1698917539567:addLabel --name dad
+1698917555393:listLabels
+1698917917423:help
