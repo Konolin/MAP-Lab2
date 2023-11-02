@@ -33,6 +33,7 @@ public class HostCLICommands {
 
         host.setName(name);
         host.setEmail(email);
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date birthdate = dateFormat.parse(birthdateString);
