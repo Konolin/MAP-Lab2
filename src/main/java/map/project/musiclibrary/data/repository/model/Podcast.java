@@ -25,4 +25,17 @@ public class Podcast extends Audio {
             inverseJoinColumns = @JoinColumn(name = "advertisement_id")
     )
     private List<Advertisement> advertisements;
+
+    @Override
+    public String toString() {
+        return "Podcast(" +
+                "topic='" + topic + '\'' +
+                ", host=" + host +
+                ", advertisements=" + advertisements +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", length=" + length +
+                ", releaseDate=" + releaseDate +
+                ')';
+    }
 }

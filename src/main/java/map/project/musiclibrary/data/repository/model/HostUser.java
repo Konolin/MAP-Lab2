@@ -15,4 +15,15 @@ import java.util.List;
 public class HostUser extends User {
     @OneToMany(mappedBy = "host")
     private List<Podcast> podcasts;
+
+    @Override
+    public String toString() {
+        return "HostUser(" +
+                "podcasts=" + podcasts +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", birthdate=" + birthdate +
+                ')';
+    }
 }

@@ -20,3 +20,14 @@
 1698942150912:listAds
 1698942157693:help listAds
 1698942193325:help addUser
+1698946368444:help
+1698946388989:addUser
+1698946440377:addUser --name idk --email idk@gmail.com --isPremium true --birthdate 1999-10-10
+1698946446933:listUsers
+1698946677967:addUser --name idk --email idk@gmail.com --isPremium true --birthdate 1999-10-10
+1698946685568:listUsers
+1698946704472:help
+1698946776785:addHost
+1698946834233:addHost --email ikk@gmail.com --birthdate 1999-12-12 --name bruh
+1698946898551:addLabel
+1698946903951:addLabel paul

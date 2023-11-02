@@ -17,4 +17,16 @@ public class ArtistUser extends User {
 
     @OneToMany(mappedBy = "artist")
     private List<Album> albums;
+
+    @Override
+    public String toString() {
+        return "ArtistUser(" +
+                "label=" + label +
+                ", albums=" + albums +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", birthdate=" + birthdate +
+                ')';
+    }
 }
