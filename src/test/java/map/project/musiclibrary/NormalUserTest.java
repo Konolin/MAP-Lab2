@@ -1,4 +1,4 @@
-package map.project.musiclibrary.entities;
+package map.project.musiclibrary;
 
 import map.project.musiclibrary.data.repository.model.NormalUser;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 class NormalUserTest {
-    NormalUser normalUser = new NormalUser();
+
+    private NormalUser normalUser = new NormalUser();
 
     @Test
     void testNormalUserEntity() {
