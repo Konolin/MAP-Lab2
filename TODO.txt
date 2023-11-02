@@ -1,0 +1,21 @@
+CLI
+    - corectare
+    - completare
+
+Teste
+
+User:
+    - add password (atribut si cli)
+    - login / choose user
+    - add song to playlist
+    - user crate playlist (leaga automat user de playlist)
+
+Song, podcast:
+    - play song
+    - play ad if not premium
+
+
+Suplimentar:
+    - Wildcard repos
+    - user admin
+    - logat direct / schimbi cont (permisinui??)

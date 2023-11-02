@@ -25,6 +25,7 @@ public class AdvertisementCLICommands {
         return advertisementService.findAll().toString();
     }
 
+    //TODO - aiiiiiccoooiii
     @ShellMethod
     public String addAdvertisement(@ShellOption(value = {"name"}, help = "Name of the advertisement") final String name,
                                    @ShellOption(value = {"length"}, help = "Length of the advertisement") final String length,

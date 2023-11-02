@@ -1,6 +1,5 @@
 package map.project.musiclibrary.data.repository;
 
-import map.project.musiclibrary.data.repository.model.Advertisement;
 import map.project.musiclibrary.data.repository.model.Album;
 import org.springframework.data.jpa.repository.JpaRepository;
 
