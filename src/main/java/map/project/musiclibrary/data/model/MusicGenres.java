@@ -1,4 +1,4 @@
-package map.project.musiclibrary.data.repository.model;
+package map.project.musiclibrary.data.model;
 
 public enum MusicGenres {
     POP,

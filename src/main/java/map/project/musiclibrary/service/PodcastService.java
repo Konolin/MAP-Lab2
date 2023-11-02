@@ -2,9 +2,8 @@ package map.project.musiclibrary.service;
 
 import map.project.musiclibrary.data.repository.AdvertisementRepository;
 import map.project.musiclibrary.data.repository.PodcastRepository;
-import map.project.musiclibrary.data.repository.model.Advertisement;
-import map.project.musiclibrary.data.repository.model.HostUser;
-import map.project.musiclibrary.data.repository.model.Podcast;
+import map.project.musiclibrary.data.model.Advertisement;
+import map.project.musiclibrary.data.model.Podcast;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

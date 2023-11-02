@@ -1,6 +1,6 @@
 package map.project.musiclibrary.cli;
 
-import map.project.musiclibrary.data.repository.model.Album;
+import map.project.musiclibrary.data.model.Album;
 import map.project.musiclibrary.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;

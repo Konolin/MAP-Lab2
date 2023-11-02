@@ -1,6 +1,6 @@
 package map.project.musiclibrary;
 
-import map.project.musiclibrary.data.repository.model.NormalUser;
+import map.project.musiclibrary.data.model.NormalUser;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

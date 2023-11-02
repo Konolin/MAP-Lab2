@@ -1,7 +1,7 @@
 package map.project.musiclibrary.service;
 
 import map.project.musiclibrary.data.repository.SongRepository;
-import map.project.musiclibrary.data.repository.model.Song;
+import map.project.musiclibrary.data.model.Song;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

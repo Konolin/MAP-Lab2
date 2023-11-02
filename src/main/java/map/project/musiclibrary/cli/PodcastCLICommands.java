@@ -1,7 +1,7 @@
 package map.project.musiclibrary.cli;
 
-import map.project.musiclibrary.data.repository.model.HostUser;
-import map.project.musiclibrary.data.repository.model.Podcast;
+import map.project.musiclibrary.data.model.HostUser;
+import map.project.musiclibrary.data.model.Podcast;
 import map.project.musiclibrary.service.HostUserService;
 import map.project.musiclibrary.service.PodcastService;
 import org.springframework.beans.factory.annotation.Autowired;
