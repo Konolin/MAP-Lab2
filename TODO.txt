@@ -1,7 +1,3 @@
-CLI
-    - corectare
-    - completare
-
 Teste
 
 User:
@@ -14,6 +10,7 @@ Song, podcast:
     - play song
     - play ad if not premium
 
+Adaugare ads la podcast si invers
 
 Suplimentar:
     - Wildcard repos

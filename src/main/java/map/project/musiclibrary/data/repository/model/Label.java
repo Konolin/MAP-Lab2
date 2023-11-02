@@ -14,4 +14,6 @@ public class Label {
 
     @Column(name = "name")
     private String name;
+
+    // TODO - add artist list (1:M)
 }

@@ -20,3 +20,61 @@
 1698942150912:listAds
 1698942157693:help listAds
 1698942193325:help addUser
+1698946368444:help
+1698946388989:addUser
+1698946440377:addUser --name idk --email idk@gmail.com --isPremium true --birthdate 1999-10-10
+1698946446933:listUsers
+1698946677967:addUser --name idk --email idk@gmail.com --isPremium true --birthdate 1999-10-10
+1698946685568:listUsers
+1698946704472:help
+1698946776785:addHost
+1698946834233:addHost --email ikk@gmail.com --birthdate 1999-12-12 --name bruh
+1698946898551:addLabel
+1698946903951:addLabel paul
+1698949167372:addhost
+1698949170746:addHost
+1698949211238:addHost --birthdate 1111-11-11 --email djiajd --name ikd
+1698949217716:listHosts
+1698949503783:addHost --name ida --email eae --birthdate 1111-11-11
+1698949514195:listHosts
+1698949580511:addHost --name jokdj --email dad --birthdate 1111-11-11
+1698949669518:addHost --email 1221 --name djij --birthdate 1111-11-11
+1698949676131:listHosts
+1698949927067:addHost --email 111 --name 111 --birthdate 1111-11-11
+1698949937263:listHost
+1698949942250:listHosts
+1698950118207:addHost --email 111 --name 111 --birthdate 1111-11-11
+1698950122691:listHosts
+1698950259424:addHost --email 111 --name 111 --birthdate 1111-11-11
+1698950346505:listHosts
+1698950372954:addHost --email 111 --name 111 --birthdate 1111-11-11
+1698950381089:listHosts
+1698950425309:public String toString() {
+1698950425322://        if (podcasts != null) {
+1698950425324://            for (Podcast podcast : podcasts) {
+1698950425328://                sb.append(podcast.toString()).append(", ");
+1698950425329://            }
+1698950425330://        } else {
+1698950425332://            sb.append("null");
+1698950425333://        }
+1698950440928:addHost --email 111 --name 111 --birthdate 1111-11-11
+1698950444202:listHosts
+1698950534609:addHost --email 111 --name 111 --birthdate 1111-11-11
+1698950538657:listsHosts
+1698950543539:listHosts
+1698950575402:addHost --email 111 --name 111 --birthdate 1111-11-11
+1698951598154:listHosts
+1698951655036:addPodcast
+1698951801966:addPodcast --topic gg --releaseDate 1111-11-11 --hostId 1 --name sr --length 111
+1698953170225:addHost --email 111 --name 111 --birthdate 1111-11-11
+1698953175930:addPodcast --topic gg --releaseDate 1111-11-11 --hostId 1 --name sr --length 111
+1698953856230:addHost --email 111 --name 111 --birthdate 1111-11-11
+1698953861164:addPodcast --topic gg --releaseDate 1111-11-11 --hostId 1 --name sr --length 111
+1698953870971:listHostsPodcasts
+1698953878436:listHostsPodcasts --id 1
+1698954037300:addHost --email 111 --name 111 --birthdate 1111-11-11
+1698954042968:addPodcast --topic gg --releaseDate 1111-11-11 --hostId 1 --name sr --length 111
+1698954052916:listHostsPodcasts
+1698954062108:listHostsPodcasts --id 1
+1698954075790:listHostsPodcasts --id 2
+1698954435955:listHostsPodcasts --id 1

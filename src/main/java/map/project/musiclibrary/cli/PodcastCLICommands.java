@@ -1,6 +1,8 @@
 package map.project.musiclibrary.cli;
 
+import map.project.musiclibrary.data.repository.model.HostUser;
 import map.project.musiclibrary.data.repository.model.Podcast;
+import map.project.musiclibrary.service.HostUserService;
 import map.project.musiclibrary.service.PodcastService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -10,14 +12,17 @@ import org.springframework.shell.standard.ShellOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 @ShellComponent
 public class PodcastCLICommands {
     private final PodcastService podcastService;
+    private final HostUserService hostUserService;
 
     @Autowired
-    public PodcastCLICommands(PodcastService podcastService) {
+    public PodcastCLICommands(PodcastService podcastService, HostUserService hostUserService) {
         this.podcastService = podcastService;
+        this.hostUserService = hostUserService;
     }
 
     @ShellMethod(key = "listPodcasts", value = "List all podcasts")
@@ -27,9 +32,10 @@ public class PodcastCLICommands {
 
     @ShellMethod(key = "addPodcast", value = "Add a podcast")
     public String addPodcast(@ShellOption(value = {"name"}, help = "Name of the podcast") final String name,
-                             @ShellOption(value = {"length"}, help = "Length of the podcast") final String lengthStr,
+                             @ShellOption(value = {"length"}, help = "Length of the podcast(in seconds)") final String lengthStr,
                              @ShellOption(value = {"topic"}, help = "The topic of the podcast") final String topic,
-                             @ShellOption(value = {"releaseDate"}, help = "The release date of the podcast") final String releaseDateStr) {
+                             @ShellOption(value = {"releaseDate"}, help = "The release date of the podcast") final String releaseDateStr,
+                             @ShellOption(value = {"hostId"}, help = "The id of the host") final String hostIdStr) {
         Podcast podcast = new Podcast();
 
         podcast.setName(name);
@@ -40,6 +46,7 @@ public class PodcastCLICommands {
         } catch (NumberFormatException e) {
             return "Error: Invalid integer format. Please provide a valid number.";
         }
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date releaseDate = dateFormat.parse(releaseDateStr);
@@ -47,9 +54,22 @@ public class PodcastCLICommands {
         } catch (ParseException e) {
             return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
         }
-        // TODO - add chestiile astea in podcastCLI
-//        podcast.setHost();
+
+        // TODO - add ads to podcast
 //        podcast.setAdvertisements();
+
+        try {
+            Long hostId = Long.parseLong(hostIdStr);
+            Optional<HostUser> hostUserOptional = hostUserService.findById(hostId);
+            if (hostUserOptional.isPresent()) {
+                podcast.setHost(hostUserOptional.get());
+                hostUserOptional.get().addPodcast(podcast);
+            } else {
+                return "Error: A host with that id does not exist";
+            }
+        } catch (NumberFormatException e) {
+            return "Error: Invalid integer format. Please provide a valid number.";
+        }
 
         return podcastService.save(podcast).toString();
     }

@@ -2,10 +2,12 @@ package map.project.musiclibrary.service;
 
 import map.project.musiclibrary.data.repository.HostUserRepository;
 import map.project.musiclibrary.data.repository.model.HostUser;
+import map.project.musiclibrary.data.repository.model.Podcast;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HostUserService {
@@ -26,5 +28,17 @@ public class HostUserService {
 
     public List<HostUser> findAll() {
         return hostUserRepository.findAll();
+    }
+
+    public Optional<HostUser> findById(Long id) {
+        return hostUserRepository.findById(id);
+    }
+
+    public List<Podcast> listHostsPodcasts(Long id) {
+        Optional<HostUser> hostUserOptional = hostUserRepository.findById(id);
+        if (hostUserOptional.isPresent()) {
+            return hostUserOptional.get().getPodcasts();
+        }
+        throw new RuntimeException("HostUserService::Host with specified id doesn't exist");
     }
 }

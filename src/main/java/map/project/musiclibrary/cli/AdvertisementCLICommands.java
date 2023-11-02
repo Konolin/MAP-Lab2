@@ -25,8 +25,7 @@ public class AdvertisementCLICommands {
         return advertisementService.findAll().toString();
     }
 
-    //TODO - aiiiiiccoooiii
-    @ShellMethod
+    @ShellMethod(key = "addAd", value = "Add an advertisement")
     public String addAdvertisement(@ShellOption(value = {"name"}, help = "Name of the advertisement") final String name,
                                    @ShellOption(value = {"length"}, help = "Length of the advertisement") final String length,
                                    @ShellOption(value = {"type"}, help = "The type of the advertisement") final String type,
@@ -44,8 +43,7 @@ public class AdvertisementCLICommands {
         } catch (ParseException e) {
             return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
         }
-        // TODO - add podcasts that have the ad
-//        advertisement.setPodcasts();
+
         return advertisementService.save(advertisement).toString();
     }
 

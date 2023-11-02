@@ -18,11 +18,24 @@ public class Podcast extends Audio {
     @JoinColumn(name = "host_id")
     private HostUser host;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "podcast_advertisement",
             joinColumns = @JoinColumn(name = "podcast_id"),
             inverseJoinColumns = @JoinColumn(name = "advertisement_id")
     )
     private List<Advertisement> advertisements;
+
+    @Override
+    public String toString() {
+        return "Podcast(" +
+                "topic='" + topic + '\'' +
+                ", host=" + host +
+                ", advertisements=" + advertisements +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", length=" + length +
+                ", releaseDate=" + releaseDate +
+                ')';
+    }
 }

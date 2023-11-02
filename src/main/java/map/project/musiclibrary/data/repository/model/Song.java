@@ -15,4 +15,16 @@ public class Song extends Audio {
     @ManyToOne
     @JoinColumn(name = "album_id")
     private Album album;
+
+    @Override
+    public String toString() {
+        return "Song(" +
+                "genre='" + genre + '\'' +
+                ", album=" + album +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", length=" + length +
+                ", releaseDate=" + releaseDate +
+                ')';
+    }
 }

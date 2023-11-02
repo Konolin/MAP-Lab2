@@ -13,4 +13,15 @@ import lombok.EqualsAndHashCode;
 public class NormalUser extends User {
     @Column(name = "isPremium")
     private boolean isPremium;
+
+    @Override
+    public String toString() {
+        return "NormalUser(" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", birthdate=" + birthdate +
+                ", isPremium=" + isPremium +
+                ')';
+    }
 }
