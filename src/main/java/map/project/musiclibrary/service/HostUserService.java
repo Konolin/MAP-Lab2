@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HostUserService {
@@ -26,5 +27,9 @@ public class HostUserService {
 
     public List<HostUser> findAll() {
         return hostUserRepository.findAll();
+    }
+
+    public Optional<HostUser> findById(Long id) {
+        return hostUserRepository.findById(id);
     }
 }

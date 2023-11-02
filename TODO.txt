@@ -1,7 +1,3 @@
-CLI
-    - corectare
-    - completare
-
 Teste
 
 User:

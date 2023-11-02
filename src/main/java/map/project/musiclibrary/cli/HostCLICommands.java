@@ -21,7 +21,7 @@ public class HostCLICommands {
     }
 
     @ShellMethod(key = "listHosts", value = "List all hosts")
-    public String listUsers() {
+    public String listHostUsers() {
         return hostUserService.findAll().toString();
     }
 
