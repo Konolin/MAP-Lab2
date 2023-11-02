@@ -21,4 +21,11 @@ public abstract class User {
 
     @Column(name = "birthdate")
     protected Date birthdate;
+
+    public void setBirthdate(Date birthdate) {
+        if (birthdate == null) {
+            throw new IllegalArgumentException("Birthdate cannot be null");
+        }
+        this.birthdate = birthdate;
+    }
 }

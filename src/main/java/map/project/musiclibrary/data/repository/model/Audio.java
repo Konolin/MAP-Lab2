@@ -22,6 +22,13 @@ public abstract class Audio {
     @Column(name = "releaseDate")
     protected Date releaseDate;
 
+    public void setReleaseDate(Date releaseDate) {
+        if (releaseDate == null){
+            throw new IllegalArgumentException();
+        }
+        this.releaseDate = releaseDate;
+    }
+
     public void play() {
         System.out.println(name + " is now playing...");
     }
