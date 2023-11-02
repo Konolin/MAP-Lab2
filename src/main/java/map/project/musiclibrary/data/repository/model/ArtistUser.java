@@ -21,9 +21,9 @@ public class ArtistUser extends User {
     @Override
     public String toString() {
         return "ArtistUser(" +
-                "label=" + label +
+                "id=" + id +
+                ", label=" + label +
                 ", albums=" + albums +
-                ", id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", birthdate=" + birthdate +

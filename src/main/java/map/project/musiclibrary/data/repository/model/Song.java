@@ -19,9 +19,9 @@ public class Song extends Audio {
     @Override
     public String toString() {
         return "Song(" +
-                "genre='" + genre + '\'' +
+                "id=" + id +
+                ", genre='" + genre + '\'' +
                 ", album=" + album +
-                ", id=" + id +
                 ", name='" + name + '\'' +
                 ", length=" + length +
                 ", releaseDate=" + releaseDate +
