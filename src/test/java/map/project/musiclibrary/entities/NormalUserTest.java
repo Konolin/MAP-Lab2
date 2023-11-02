@@ -45,5 +45,4 @@ class NormalUserTest {
         //test exception handling
         assertThrows(IllegalArgumentException.class, () -> normalUser.setBirthdate(null));
     }
-
 }
