@@ -27,7 +27,7 @@ public class PodcastCLICommands {
 
     @ShellMethod(key = "addPodcast", value = "Add a podcast")
     public String addPodcast(@ShellOption(value = {"name"}, help = "Name of the podcast") final String name,
-                             @ShellOption(value = {"length"}, help = "Length of the podcast") final String lengthStr,
+                             @ShellOption(value = {"length"}, help = "Length of the podcast(in seconds)") final String lengthStr,
                              @ShellOption(value = {"topic"}, help = "The topic of the podcast") final String topic,
                              @ShellOption(value = {"releaseDate"}, help = "The release date of the podcast") final String releaseDateStr) {
         Podcast podcast = new Podcast();

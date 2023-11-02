@@ -21,7 +21,7 @@ public class AlbumCLICommands {
         return albumService.findAll().toString();
     }
 
-    @ShellMethod
+    @ShellMethod(key = "addAlbum", value = "Add an album")
     public String addAlbum(@ShellOption(value = {"name"}, help = "Name of the album") final String name) {
         Album album = new Album();
 

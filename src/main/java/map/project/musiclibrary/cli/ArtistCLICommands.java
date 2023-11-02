@@ -25,7 +25,7 @@ public class ArtistCLICommands {
         return artistUserService.findAll().toString();
     }
 
-    @ShellMethod
+    @ShellMethod(key = "addArtist", value = "Add an artist")
     public String addArtist(@ShellOption(value = {"name"}, help = "Name of the artist") final String name,
                             @ShellOption(value = {"email"}, help = "Email of the artist") final String email,
                             @ShellOption(value = {"birthdate"}, help = "Birthdate of the artist") final String birthdateStr) {
