@@ -1,0 +1,9 @@
+addHost --birthdate 2000-10-10 --name Dani --email bruh@gmail.com
+addPodcast --hostId 1 --name theG --releaseDate 2010-10-10 --topic money --length 2000
+addAd --type gambling --name Superbet --length 200 --releaseDate 2010-01-01
+addAddToPodcast --adId 1 --podcastId 1
+
+
+addArtist --name ifk --email dkokd --birthdate 1111-11-11
+addLabel --name idad
+addArtistToLabel --artistId 1 --labelId 1

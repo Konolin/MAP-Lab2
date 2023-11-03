@@ -1,7 +1,13 @@
 Teste
 
+Add song to album
+Add album to artist
+
+User login:
+    - password si email
+    - clasa separata
+
 User:
-    - add password (atribut si cli)
     - login / choose user
     - add song to playlist
     - user crate playlist (leaga automat user de playlist)
@@ -13,6 +19,5 @@ Song, podcast:
 Adaugare ads la podcast si invers
 
 Suplimentar:
-    - Wildcard repos
     - user admin
     - logat direct / schimbi cont (permisinui??)

@@ -9,6 +9,7 @@ import org.springframework.shell.standard.ShellOption;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 @ShellComponent
@@ -41,9 +42,7 @@ public class ArtistCLICommands {
         } catch (ParseException e) {
             return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
         }
-        // TODO - si aici
-//        artist.setLabel();
-//        artist.setAlbums();
+        artist.setAlbums(new ArrayList<>());
 
         return artistUserService.save(artist).toString();
     }

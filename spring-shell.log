@@ -153,3 +153,56 @@
 1698961240119:listHosts
 1698961246970:listPodcasts
 1698961252928:listAds
+1699012146708:addPodcast
+1699012154376:addHost
+1699012188815:addHost --birthdate 2000-10-10 --name Dani --bruh@gmail.com
+1699012201813:addHost --birthdate 2000-10-10 --name Dani --email bruh@gmail.com
+1699012207576:addPodcast
+1699012246984:addPodcast --hostId 1 --name theG --releaseDate 2010-10-10 --topic money --length 2000
+1699012255715:addAd
+1699012285314:addAd --type gambling --name Superbet --length 200 --releaseDate 2010-01-01
+1699012295500:addAdToPodcast
+1699012321874:addAddToPodcast --adId 1 --podcastId 1
+1699012331303:adAddToPodcast --adId 1 --podcastId 1
+1699012337977:addAdToPodcast --adId 1 --podcastId 1
+1699012351292:listHosts
+1699012369783:listPodcasts
+1699012375687:litstAds
+1699012379629:listAds
+1699013373932:addLabel
+1699013381054:addLabel --name idk
+1699014280550:addArtist
+1699014304467:addArtist --name ifk --email dkokd --birthDate 1111-11-11
+1699014311528:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699014328043:addLabel
+1699014340828:addLabel --name idad
+1699014349324:addArtistToLabel
+1699014362630:addArtistToLabel --artistId 1 --labelId 1
+1699014393743:listLabels
+1699014512219:addArtistToLabel --artistId 1 --labelId 1
+1699014519945:listLabels
+1699014709562:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699014713795:addLabel --name idad
+1699014716971:addArtistToLabel --artistId 1 --labelId 1
+1699014722324:listLabels
+1699014775956:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699014781967:addLabel --name idad
+1699014786217:addArtistToLabel --artistId 1 --labelId 1
+1699014791621:listArtist
+1699014796550:listArtists
+1699014830143:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699014833067:addLabel --name idad
+1699014836512:addArtistToLabel --artistId 1 --labelId 1
+1699014972847:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699014976381:addLabel --name idad
+1699014979481:addArtistToLabel --artistId 1 --labelId 1
+1699014985590:listArtists
+1699015153582:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699015156168:addLabel --name idad
+1699015159289:addArtistToLabel --artistId 1 --labelId 1
+1699015165392:listLabels
+1699015172326:listArtists
+1699015258024:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699015446510:addLabel --name idad
+1699015451101:addArtistToLabel --artistId 1 --labelId 1
+1699015466926:listArtists
