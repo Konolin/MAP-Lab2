@@ -9,7 +9,7 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     protected Long id;
 

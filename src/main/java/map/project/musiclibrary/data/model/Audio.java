@@ -9,7 +9,7 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class Audio {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     protected Long id;
 
