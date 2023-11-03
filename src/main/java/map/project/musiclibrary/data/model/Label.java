@@ -3,17 +3,39 @@ package map.project.musiclibrary.data.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "labels")
 public class Label {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
     private String name;
 
-    // TODO - add artist list (1:M)
+    @OneToMany(mappedBy = "label", fetch = FetchType.EAGER)
+    private List<ArtistUser> artists;
+
+    public boolean addArtist(ArtistUser artistUser) {
+        return artists.add(artistUser);
+    }
+
+    @Override
+    public String toString() {
+        return "Label(" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", artists=" + ArtistUser.listToString(artists) +
+                ')';
+    }
+
+    public String toShortString() {
+        return "(ID: " + id +
+                ", Name: " + name +
+                ")";
+    }
 }

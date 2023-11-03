@@ -20,13 +20,37 @@ public class ArtistUser extends User {
 
     @Override
     public String toString() {
+        String labelStr = label == null ? "null" : label.toString();
         return "ArtistUser(" +
                 "id=" + id +
-                ", label=" + label +
+                ", label=" + labelStr +
                 ", albums=" + albums +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", birthdate=" + birthdate +
                 ')';
+    }
+
+    public String toShortString() {
+        return "(ID: " + id +
+                ", Name: " + name +
+                ")";
+    }
+
+    public static String listToString(List<ArtistUser> artists) {
+        String artistsString = "[]";
+        if (artists != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("[");
+            for (ArtistUser artist : artists) {
+                sb.append(artist.toShortString()).append(", ");
+            }
+            if (!artists.isEmpty()) {
+                sb.delete(sb.length() - 2, sb.length());
+            }
+            sb.append("])");
+            artistsString = sb.toString();
+        }
+        return artistsString;
     }
 }
