@@ -18,13 +18,17 @@ public class ArtistUser extends User {
     @OneToMany(mappedBy = "artist", fetch = FetchType.EAGER)
     private List<Song> songs;
 
+    public boolean addSong(Song song) {
+        return songs.add(song);
+    }
+
     @Override
     public String toString() {
         String labelStr = label == null ? "null" : label.toString();
         return "ArtistUser(" +
                 "id=" + id +
                 ", label=" + labelStr +
-                ", albums=" + songs +
+                ", songs=" + Song.listToString(songs) +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", birthdate=" + birthdate +

@@ -1,11 +1,12 @@
 package map.project.musiclibrary.service;
 
-import map.project.musiclibrary.data.repository.SongRepository;
 import map.project.musiclibrary.data.model.Song;
+import map.project.musiclibrary.data.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SongService {
@@ -26,5 +27,9 @@ public class SongService {
 
     public List<Song> findAll() {
         return songRepository.findAll();
+    }
+
+    public Optional<Song> findById(Long id) {
+        return songRepository.findById(id);
     }
 }

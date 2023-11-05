@@ -35,7 +35,6 @@ public class ArtistCLICommands {
         artist.setName(name);
         artist.setEmail(email);
         artist.setSongs(new ArrayList<>());
-        //TODO - add songs to artist
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {

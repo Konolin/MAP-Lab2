@@ -19,4 +19,20 @@ public class Album {
 
     @OneToMany(mappedBy = "album", fetch = FetchType.EAGER)
     private List<Song> songs;
+
+    public String toShortString() {
+        return "Song(" +
+                "id=" + id +
+                ", name='" + name +
+                "')";
+    }
+
+    @Override
+    public String toString() {
+        return "Album(" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", songs=" + Song.listToString(songs) +
+                ')';
+    }
 }

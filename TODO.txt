@@ -1,8 +1,5 @@
 Teste
 
-Add song to album
-Add album to artist
-
 User login:
     - password si email
     - clasa separata
@@ -15,8 +12,10 @@ User:
 Song, podcast:
     - play song
     - play ad if not premium
+    - add genre enum
 
-Adaugare ads la podcast si invers
+Ads:
+    - add tpye enum
 
 Suplimentar:
     - user admin
