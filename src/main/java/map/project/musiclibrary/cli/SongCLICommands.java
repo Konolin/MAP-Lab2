@@ -1,6 +1,9 @@
 package map.project.musiclibrary.cli;
 
+import map.project.musiclibrary.data.model.ArtistUser;
+import map.project.musiclibrary.data.model.HostUser;
 import map.project.musiclibrary.data.model.Song;
+import map.project.musiclibrary.service.ArtistUserService;
 import map.project.musiclibrary.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -10,14 +13,17 @@ import org.springframework.shell.standard.ShellOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 @ShellComponent
 public class SongCLICommands {
     private SongService songService;
+    private ArtistUserService artistUserService;
 
     @Autowired
-    public SongCLICommands(SongService songService) {
+    public SongCLICommands(SongService songService, ArtistUserService artistUserService) {
         this.songService = songService;
+        this.artistUserService = artistUserService;
     }
 
     @ShellMethod(key = "listSongs", value = "List all songs")
@@ -29,7 +35,8 @@ public class SongCLICommands {
     public String addSong(@ShellOption(value = {"name"}, help = "Name of the song") final String name,
                           @ShellOption(value = {"genre"}, help = "Genre of the song") final String genre,
                           @ShellOption(value = {"length"}, help = "Length of the song(in seconds)") final String lengthStr,
-                          @ShellOption(value = {"releaseDate"}, help = "The release date of the song") final String releaseDateStr) {
+                          @ShellOption(value = {"releaseDate"}, help = "The release date of the song") final String releaseDateStr,
+                          @ShellOption(value = {"artistId"}, help = "The id of the artist of the song") final String artistIdStr) {
         Song song = new Song();
 
         song.setName(name);
@@ -48,8 +55,23 @@ public class SongCLICommands {
         } catch (ParseException e) {
             return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
         }
+
+        try {
+            // search artist by id
+            Long artistId = Long.parseLong(artistIdStr);
+            Optional<ArtistUser> artistUserOptional = artistUserService.findById(artistId);
+            if (artistUserOptional.isPresent()) {
+                // add artist to song and add song to artists list
+                song.setArtist(artistUserOptional.get());
+                artistUserOptional.get().addSong(song);
+            } else {
+                return "Error: A host with that id does not exist";
+            }
+        } catch (NumberFormatException e) {
+            return "Error: Invalid integer format. Please provide a valid number.";
+        }
+
         //TODO - add song to album
-        //TODO - add artist to song
 
         return songService.save(song).toString();
     }
