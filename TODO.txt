@@ -1,7 +1,5 @@
 Teste
 
-Add song to album
-
 User login:
     - password si email
     - clasa separata

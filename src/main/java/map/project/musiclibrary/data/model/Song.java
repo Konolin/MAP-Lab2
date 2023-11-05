@@ -24,10 +24,11 @@ public class Song extends Audio {
 
     @Override
     public String toString() {
+        String albumStr = album != null ? album.toShortString() : "null";
         return "Song(" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", album=" + album +
+                ", album=" + albumStr +
                 ", artist=" + artist.toShortString() +
                 ", genre='" + genre + '\'' +
                 ", length=" + length +
@@ -53,7 +54,7 @@ public class Song extends Audio {
             if (!songs.isEmpty()) {
                 sb.delete(sb.length() - 2, sb.length());
             }
-            sb.append("])");
+            sb.append("]");
             songsString = sb.toString();
         }
         return songsString;

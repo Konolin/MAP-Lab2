@@ -220,3 +220,87 @@
 1699183223402:listSOngs
 1699183229226:listSongs
 1699183236734:listArtists
+1699183661231:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699183666677:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699183674680:listArtists
+1699183677403:listSongs
+1699183693879:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699183697889:listsSongs
+1699183701301:listSOngs
+1699183704717:listSongs
+1699183713971:listArtists
+1699184847324:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699184857302:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699184861943:addSong --length 100 --name hahah --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699184867976:addSong --length 100 --name hahahaeage --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699184872275:listArtists
+1699184877465:listSongs
+1699184893333:addAlbum
+1699184907647:addAlbum --name test --songsId 1 2 3
+1699184917981:addAlbum --name test --songIds 1 2 3
+1699184933189:addAlbum --name test --songIds 1
+1699185038679:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699185045793:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699185133284:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699185138312:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699185142466:addSong --length 100 --name brudash --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699185145893:addSong --length 100 --name eqauh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699185151284:listArtists
+1699185158889:listSongs
+1699185182047:addAlbum --name bbbb --songIds 1
+1699185190342:listAlbums
+1699185237429:listSongs
+1699185248735:listAlbums
+1699185258325:addAlbum --name bbbb --songIds 1 2
+1699185343214:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699185348749:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699185365398:addAblum --name idk --songIds 1,2,3
+1699185385536:addAlbum --name idk --songIds 1,2,3
+1699185396279:listAlbums
+1699185399753:listSOngs
+1699185402559:listSongs
+1699185513026:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699185518818:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699185546503:addAlbum --name idk --songIds 1,2
+1699185640610:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699185644570:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699185649122:addAlbum --name idk --songIds 1,2
+1699185653036:listSongs
+1699185657424:listAlbums
+1699185927189:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699185932841:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699185936518:addAlbum --name idk --songIds 1,2
+1699185940918:listSongs
+1699185949260:listAlbums
+1699186502957:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699186508206:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699186512638:addAlbum --name idk --songIds 1,2
+1699186516143:listSongs
+1699186526160:listAlbums
+1699186630652:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699186637376:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699186641511:addAlbum --name idk --songIds 1,2
+1699186794280:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699186799725:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699186803701:addAlbum --name idk --songIds 1,2
+1699186835187:listSongs
+1699186917688:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699186923629:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699186928030:addAlbum --name idk --songIds 1,2
+1699187057660:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699187062855:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699187066331:addAlbum --name idk --songIds 1,2
+1699187072073:listAlbums
+1699187075468:listSongs
+1699187117470:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699187120645:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699187124078:addAlbum --name idk --songIds 1,2
+1699187127656:listSongs
+1699187136223:listAlbums
+1699187147298:listArtists
+1699187214271:addArtist --name ifk --email dkokd --birthdate 1111-11-11
+1699187218569:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699187223635:addAlbum --name idk --songIds 1,2
+1699187227466:listSOngs
+1699187230767:listSongs
+1699187241039:listAlbums

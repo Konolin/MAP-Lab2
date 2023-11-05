@@ -70,8 +70,6 @@ public class SongCLICommands {
             return "Error: Invalid integer format. Please provide a valid number.";
         }
 
-        //TODO - add song to album
-
         return songService.save(song).toString();
     }
 
