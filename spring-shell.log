@@ -206,3 +206,6 @@
 1699015446510:addLabel --name idad
 1699015451101:addArtistToLabel --artistId 1 --labelId 1
 1699015466926:listArtists
+1699180919327:addUser
+1699180955388:addUser --email bruh@Gmail.com --isPremium true --name cristi --birthdate 2000-01-01
+1699180958398:listUsers

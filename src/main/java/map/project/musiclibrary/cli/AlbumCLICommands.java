@@ -26,9 +26,7 @@ public class AlbumCLICommands {
         Album album = new Album();
 
         album.setName(name);
-        // TODO - add artist si songs
-//        album.setArtist();
-//        album.setSongs();
+        // TODO - add songs to album
 
         return albumService.save(album).toString();
     }

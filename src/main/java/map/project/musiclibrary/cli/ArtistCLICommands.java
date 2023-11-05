@@ -34,6 +34,8 @@ public class ArtistCLICommands {
 
         artist.setName(name);
         artist.setEmail(email);
+        artist.setSongs(new ArrayList<>());
+        //TODO - add songs to artist
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -42,7 +44,6 @@ public class ArtistCLICommands {
         } catch (ParseException e) {
             return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
         }
-        artist.setAlbums(new ArrayList<>());
 
         return artistUserService.save(artist).toString();
     }

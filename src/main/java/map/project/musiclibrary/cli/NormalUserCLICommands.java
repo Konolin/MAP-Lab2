@@ -20,7 +20,6 @@ public class NormalUserCLICommands {
         this.normalUserService = normalUserService;
     }
 
-    // TODO - nu merge?
     @ShellMethod(key = "listUsers", value = "List all users")
     public String listUsers() {
         return normalUserService.findAll().toString();

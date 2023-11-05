@@ -16,7 +16,7 @@ public class ArtistUser extends User {
     private Label label;
 
     @OneToMany(mappedBy = "artist", fetch = FetchType.EAGER)
-    private List<Album> albums;
+    private List<Song> songs;
 
     @Override
     public String toString() {
@@ -24,7 +24,7 @@ public class ArtistUser extends User {
         return "ArtistUser(" +
                 "id=" + id +
                 ", label=" + labelStr +
-                ", albums=" + albums +
+                ", albums=" + songs +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", birthdate=" + birthdate +

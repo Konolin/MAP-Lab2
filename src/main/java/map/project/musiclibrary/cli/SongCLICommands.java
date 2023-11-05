@@ -49,7 +49,7 @@ public class SongCLICommands {
             return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
         }
         //TODO - add song to album
-//        song.setAlbum();
+        //TODO - add artist to song
 
         return songService.save(song).toString();
     }
