@@ -1,7 +1,7 @@
 package map.project.musiclibrary.service;
 
-import map.project.musiclibrary.data.repository.NormalUserRepository;
 import map.project.musiclibrary.data.model.NormalUser;
+import map.project.musiclibrary.data.repository.NormalUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

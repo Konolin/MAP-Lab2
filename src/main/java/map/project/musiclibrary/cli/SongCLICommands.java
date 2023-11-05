@@ -1,7 +1,6 @@
 package map.project.musiclibrary.cli;
 
 import map.project.musiclibrary.data.model.ArtistUser;
-import map.project.musiclibrary.data.model.HostUser;
 import map.project.musiclibrary.data.model.Song;
 import map.project.musiclibrary.service.ArtistUserService;
 import map.project.musiclibrary.service.SongService;

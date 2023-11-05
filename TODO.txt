@@ -1,7 +1,6 @@
 Teste
 
 Add song to album
-Add album to artist
 
 User login:
     - password si email
@@ -15,8 +14,10 @@ User:
 Song, podcast:
     - play song
     - play ad if not premium
+    - add genre enum
 
-Adaugare ads la podcast si invers
+Ads:
+    - add tpye enum
 
 Suplimentar:
     - user admin
