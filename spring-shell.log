@@ -304,3 +304,12 @@
 1699187227466:listSOngs
 1699187230767:listSongs
 1699187241039:listAlbums
+1699287962897:addUser
+1699287990398:addUser --isPremium true --password 123 --name idk --email 12345 --birthdate 1111-11-11
+1699287996080:listUsers
+1699288110663:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699288115900:listUsers
+1699288446625:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699288451341:listUsers
+1699288594016:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699288600197:listUsers

@@ -16,9 +16,6 @@ public abstract class User {
     @Column(name = "name")
     protected String name;
 
-    @Column(name = "email")
-    protected String email;
-
     @Column(name = "birthdate")
     protected Date birthdate;
 

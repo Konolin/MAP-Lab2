@@ -24,7 +24,6 @@ public class HostUser extends User {
         return "HostUser(" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
                 ", birthdate=" + birthdate +
                 ", podcasts=" + Podcast.listToString(podcasts) +
                 ')';

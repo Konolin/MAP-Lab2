@@ -1,6 +1,8 @@
 package map.project.musiclibrary.cli;
 
+import map.project.musiclibrary.data.model.LoginCredentials;
 import map.project.musiclibrary.data.model.NormalUser;
+import map.project.musiclibrary.data.model.User;
 import map.project.musiclibrary.service.NormalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -28,12 +30,18 @@ public class NormalUserCLICommands {
     @ShellMethod(key = "addUser", value = "Add a user")
     public String addUser(@ShellOption(value = {"name"}, help = "Name of the user") final String name,
                           @ShellOption(value = {"email"}, help = "Email of the user") final String email,
+                          @ShellOption(value = {"password"}, help = "Password of the user") final String password,
                           @ShellOption(value = {"birthdate"}, help = "Birthdate of the user (yyyy-MM-dd)") final String birthdateString,
                           @ShellOption(value = {"isPremium"}, help = "Is the user premium (boolean)") final String isPremiumStr) {
         NormalUser user = new NormalUser();
-
         user.setName(name);
-        user.setEmail(email);
+
+        LoginCredentials loginCredentials = new LoginCredentials();
+        loginCredentials.setEmail(email);
+        loginCredentials.setPassword(password);
+
+        user.setLoginCredentials(loginCredentials);
+        loginCredentials.setUser(user);
 
         try {
             boolean isPremium = Boolean.parseBoolean(isPremiumStr);
