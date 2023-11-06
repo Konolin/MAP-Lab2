@@ -313,3 +313,12 @@
 1699288451341:listUsers
 1699288594016:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
 1699288600197:listUsers
+1699289760728:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699289774044:currentUser
+1699289783115:login
+1699289794116:login --email 1223 --password 123
+1699289813783:login --password 123 --email 123
+1699289822811:currentUser
+1699289863778:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699289876097:login --email 123 --password 123
+1699289882508:currentUser

@@ -16,6 +16,7 @@ import java.util.Date;
 @ShellComponent
 public class NormalUserCLICommands {
     private final NormalUserService normalUserService;
+    private NormalUser currentUser;
 
     @Autowired
     public NormalUserCLICommands(NormalUserService normalUserService) {
@@ -37,7 +38,7 @@ public class NormalUserCLICommands {
         user.setName(name);
 
         LoginCredentials loginCredentials = new LoginCredentials();
-        loginCredentials.setEmail(email);
+        loginCredentials.setEmail(email);  // TODO - email unic sau cauta logincredential daca mai exista si thorw exception
         loginCredentials.setPassword(password);
 
         user.setLoginCredentials(loginCredentials);
@@ -63,5 +64,23 @@ public class NormalUserCLICommands {
     @ShellMethod(key = "findUser", value = "Find a user by name")
     public String findUser(@ShellOption(value = {"name"}, help = "Name of the user") final String name) {
         return normalUserService.findByName(name).toString();
+    }
+
+    @ShellMethod(key = "login", value = "Login into a user")
+    public String login(@ShellOption(value = {"email"}, help = "Email of the user") final String email,
+                        @ShellOption(value = {"password"}, help = "Password of the user") final String password) {
+        NormalUser user = normalUserService.login(email, password);
+
+        if (user != null) {
+            currentUser = user;
+            return "Login successful!";
+        } else {
+            return "Invalid credentials. Please try again.";
+        }
+    }
+
+    @ShellMethod(key = "currentUser", value = "Get the current user that is logged in")
+    public String getCurrentUser() {
+        return currentUser != null ? this.currentUser.toString() : "No user is currently logged in.";
     }
 }
