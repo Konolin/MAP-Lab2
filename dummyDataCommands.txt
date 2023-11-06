@@ -8,7 +8,6 @@ addArtist --name ifk --birthdate 1111-11-11
 addLabel --name idad
 addArtistToLabel --artistId 1 --labelId 1
 
-addUser --isPremium true --name cristi --birthdate 2000-01-01
 addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
 addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
 addAlbum --name idk --songIds 1,2
