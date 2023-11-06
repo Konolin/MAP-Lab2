@@ -1,11 +1,6 @@
 Teste
 
-User login:
-    - password si email
-    - clasa separata
-
 User:
-    - login / choose user
     - add song to playlist
     - user crate playlist (leaga automat user de playlist)
 
