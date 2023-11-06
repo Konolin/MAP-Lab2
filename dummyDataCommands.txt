@@ -1,13 +1,14 @@
-addHost --birthdate 2000-10-10 --name Dani --email bruh@gmail.com
+addHost --birthdate 2000-10-10 --name Dani
 addPodcast --hostId 1 --name theG --releaseDate 2010-10-10 --topic money --length 2000
 addAd --type gambling --name Superbet --length 200 --releaseDate 2010-01-01
 addAddToPodcast --adId 1 --podcastId 1
 
 
-addArtist --name ifk --email dkokd --birthdate 1111-11-11
+addArtist --name ifk --birthdate 1111-11-11
 addLabel --name idad
 addArtistToLabel --artistId 1 --labelId 1
 
-addUser --email bruh@Gmail.com --isPremium true --name cristi --birthdate 2000-01-01
+addUser --isPremium true --name cristi --birthdate 2000-01-01
+addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
 addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
 addAlbum --name idk --songIds 1,2

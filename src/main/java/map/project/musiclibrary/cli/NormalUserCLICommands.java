@@ -1,6 +1,8 @@
 package map.project.musiclibrary.cli;
 
+import map.project.musiclibrary.data.model.LoginCredentials;
 import map.project.musiclibrary.data.model.NormalUser;
+import map.project.musiclibrary.data.model.User;
 import map.project.musiclibrary.service.NormalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -14,6 +16,7 @@ import java.util.Date;
 @ShellComponent
 public class NormalUserCLICommands {
     private final NormalUserService normalUserService;
+    private NormalUser currentUser;
 
     @Autowired
     public NormalUserCLICommands(NormalUserService normalUserService) {
@@ -28,12 +31,18 @@ public class NormalUserCLICommands {
     @ShellMethod(key = "addUser", value = "Add a user")
     public String addUser(@ShellOption(value = {"name"}, help = "Name of the user") final String name,
                           @ShellOption(value = {"email"}, help = "Email of the user") final String email,
+                          @ShellOption(value = {"password"}, help = "Password of the user") final String password,
                           @ShellOption(value = {"birthdate"}, help = "Birthdate of the user (yyyy-MM-dd)") final String birthdateString,
                           @ShellOption(value = {"isPremium"}, help = "Is the user premium (boolean)") final String isPremiumStr) {
         NormalUser user = new NormalUser();
-
         user.setName(name);
-        user.setEmail(email);
+
+        LoginCredentials loginCredentials = new LoginCredentials();
+        loginCredentials.setEmail(email);  // TODO - email unic sau cauta logincredential daca mai exista si thorw exception
+        loginCredentials.setPassword(password);
+
+        user.setLoginCredentials(loginCredentials);
+        loginCredentials.setUser(user);
 
         try {
             boolean isPremium = Boolean.parseBoolean(isPremiumStr);
@@ -55,5 +64,23 @@ public class NormalUserCLICommands {
     @ShellMethod(key = "findUser", value = "Find a user by name")
     public String findUser(@ShellOption(value = {"name"}, help = "Name of the user") final String name) {
         return normalUserService.findByName(name).toString();
+    }
+
+    @ShellMethod(key = "login", value = "Login into a user")
+    public String login(@ShellOption(value = {"email"}, help = "Email of the user") final String email,
+                        @ShellOption(value = {"password"}, help = "Password of the user") final String password) {
+        NormalUser user = normalUserService.login(email, password);
+
+        if (user != null) {
+            currentUser = user;
+            return "Login successful!";
+        } else {
+            return "Invalid credentials. Please try again.";
+        }
+    }
+
+    @ShellMethod(key = "currentUser", value = "Get the current user that is logged in")
+    public String getCurrentUser() {
+        return currentUser != null ? this.currentUser.toString() : "No user is currently logged in.";
     }
 }

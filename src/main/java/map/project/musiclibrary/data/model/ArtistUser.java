@@ -30,7 +30,6 @@ public class ArtistUser extends User {
                 ", label=" + labelStr +
                 ", songs=" + Song.listToString(songs) +
                 ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
                 ", birthdate=" + birthdate +
                 ')';
     }

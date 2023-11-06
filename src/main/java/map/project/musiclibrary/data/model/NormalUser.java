@@ -1,8 +1,6 @@
 package map.project.musiclibrary.data.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,14 +12,20 @@ public class NormalUser extends User {
     @Column(name = "isPremium")
     private boolean isPremium;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "credentials_id", referencedColumnName = "id")
+    private LoginCredentials loginCredentials;
+
     @Override
     public String toString() {
         return "NormalUser(" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
                 ", birthdate=" + birthdate +
                 ", isPremium=" + isPremium +
+                // TODO - temporar
+                ", email=" + loginCredentials.getEmail() +
+                ", password=" + loginCredentials.getPassword() +
                 ')';
     }
 }

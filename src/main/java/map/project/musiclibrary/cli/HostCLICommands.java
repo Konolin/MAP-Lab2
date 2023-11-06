@@ -27,12 +27,10 @@ public class HostCLICommands {
 
     @ShellMethod(key = "addHost", value = "Add a host")
     public String addHost(@ShellOption(value = {"name"}, help = "Name of the host") final String name,
-                          @ShellOption(value = {"email"}, help = "Email of the user") final String email,
                           @ShellOption(value = {"birthdate"}, help = "Birthdate of the user (yyyy-MM-dd)") final String birthdateString) {
         HostUser host = new HostUser();
 
         host.setName(name);
-        host.setEmail(email);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
