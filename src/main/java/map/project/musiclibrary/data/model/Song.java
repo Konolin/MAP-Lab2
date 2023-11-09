@@ -22,6 +22,10 @@ public class Song extends Audio {
     @JoinColumn(name = "artist_id")
     private ArtistUser artist;
 
+    @ManyToOne
+    @JoinColumn(name = "playlist_id")
+    private Playlist playlist;
+
     @Override
     public String toString() {
         String albumStr = album != null ? album.toShortString() : "null";

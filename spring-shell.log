@@ -322,3 +322,36 @@
 1699289863778:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
 1699289876097:login --email 123 --password 123
 1699289882508:currentUser
+1699560371340:help
+1699560389202:help addAlbum
+1699560424544:help addSong
+1699560586568:help addArtist
+1699560657781:addArtist --name Travis Scott --birthDate 1990-01-23
+1699560672497:addArtist --name Travis Scott --birthdate 1990-01-23
+1699560718827:addSong --name My Eyes --genre Rap --length 245 --releaseDate 2023-07-28 --artistId 1
+1699560792429:addAlbum --name Utopia --songIds 1
+1699560895159:help addLabel
+1699560915546:addLabel --name Cactus Jack
+1699560941402:addLabel --name Cactus Jack --artists 1
+1699560966084:help addPodcast
+1699561039205:clear
+1699561046313:login help
+1699561050478:help login
+1699561076371:login --email example@test.com --password coffee
+1699561140230:listPlaylists
+1699561156959:addSong
+1699561164123:listSongs
+1699561343737:findArtist --name Drake
+1699561361134:help findArtist
+1699561379554:findArtist --name Travis Scott
+1699561551305:help currentUser
+1699561557717:currentUser
+1699561593899:help
+1699563619332:help Playlist
+1699563646960:help addSongToPlaylist
+1699563921634:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699563994119:addArtist --name ifk --birthdate 1111-11-11
+1699564000842:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699564022994:help addPlaylist
+1699564048905:listPlaylists
+1699564205173:addSongToPlaylist --songId 1 --playListId 1
