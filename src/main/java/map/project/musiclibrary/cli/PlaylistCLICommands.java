@@ -1,10 +1,13 @@
 package map.project.musiclibrary.cli;
 
+import map.project.musiclibrary.data.model.Playlist;
 import map.project.musiclibrary.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+
+import java.util.ArrayList;
 
 @ShellComponent
 public class PlaylistCLICommands {
@@ -18,6 +21,14 @@ public class PlaylistCLICommands {
     @ShellMethod(key = "listPlaylists", value = "List all playlists")
     public String listPlaylists() {
         return playlistService.findAll().toString();
+    }
+
+    @ShellMethod(key = "addPlaylist", value = "Add a playlist")
+    public String addPlaylist(@ShellOption (value = {"name"}, help = "Name of the playlist to be added") final String name){
+        Playlist playlist = new Playlist();
+        playlist.setName(name);
+        playlist.setSongs(new ArrayList<>());
+        return playlistService.save(playlist).toString();
     }
 
     @ShellMethod(key = "addSongToPlaylist", value = "Add a song to a playlist")

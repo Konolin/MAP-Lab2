@@ -6,6 +6,7 @@ import map.project.musiclibrary.data.repository.PlaylistRepository;
 import map.project.musiclibrary.data.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +34,7 @@ public class PlaylistService {
         return playlistRepository.findAll();
     }
 
+    @Transactional
     public Playlist addSong(Long songId, Long playListId){
         Optional<Song> songOptional = songRepository.findById(songId);
         Optional<Playlist> playlistOptional = playlistRepository.findById(playListId);

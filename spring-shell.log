@@ -355,3 +355,31 @@
 1699564022994:help addPlaylist
 1699564048905:listPlaylists
 1699564205173:addSongToPlaylist --songId 1 --playListId 1
+1699565095669:help
+1699565112802:addArtist --name ifk --birthdate 1111-11-11
+1699565125638:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699565149716:addPlaylist --name Utopia
+1699565189100:help addSongToPlaylist
+1699565218003:addSongToPlaylist --songId 1 playListId 1
+1699565228662:addSongToPlaylist --songId 1 --playListId 1
+1699565332455:listPlaylists
+1699565571980:addLabel --name idad
+1699565583288:addArtistToLabel --artistId 1 --labelId 1
+1699566069016:addPlaylist --name Utopia
+1699566080643:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699566089189:addArtist --name ifk --birthdate 1111-11-11
+1699566096048:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699566131952:addSongToPlaylist --songId 1 --playListId 1
+1699566240290:addPlaylist --name Bruh
+1699566255532:addArtist --name ifk --birthdate 1111-11-11
+1699566259676:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699566285972:addSongToPlaylist --songId 1 --playListId 1
+1699566305517:addSongToPlaylist --songId 1 --PlayListId 1
+1699566421365:addArtist --name ifk --birthdate 1111-11-11
+1699566429040:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699566444291:addPlaylist --name Bruh
+1699566466057:addSongToPlaylist --songId 1 --playListId 1
+1699566567115:addArtist --name ifk --birthdate 1111-11-11
+1699566572893:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699566577989:addPlaylist --name Bruh
+1699566584025:addSongToPlaylist --songId 1 --playListId 1
