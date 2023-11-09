@@ -1,6 +1,7 @@
 package map.project.musiclibrary.cli;
 
 import map.project.musiclibrary.data.model.HostUser;
+import map.project.musiclibrary.data.model.NormalUser;
 import map.project.musiclibrary.data.model.Podcast;
 import map.project.musiclibrary.service.HostUserService;
 import map.project.musiclibrary.service.PodcastService;
@@ -18,11 +19,13 @@ import java.util.Optional;
 public class PodcastCLICommands {
     private final PodcastService podcastService;
     private final HostUserService hostUserService;
+    private final NormalUser normalUser;
 
     @Autowired
     public PodcastCLICommands(PodcastService podcastService, HostUserService hostUserService) {
         this.podcastService = podcastService;
         this.hostUserService = hostUserService;
+        this.normalUser = new NormalUser();
     }
 
     @ShellMethod(key = "listPodcasts", value = "List all podcasts")
@@ -89,5 +92,13 @@ public class PodcastCLICommands {
         } catch (NumberFormatException e) {
             return "Error: Invalid integer format. Please provide a valid number.";
         }
+    }
+
+    //TODO - de structurat mai bine metodele (de ex sa fie clar ce am nevoie in service/CLI ca sa mentin encapsularea)
+    //TODO - cand apare un Ad, nu se poate identifica ce nume are pentru ca e null for now
+    @ShellMethod(key = "playPodcast", value = "Play a podcast by ID")
+    public void playPodcast(@ShellOption(value = {"podcastId"}, help = "ID of the podcast") final Long podcastId) {
+        boolean isPremium = normalUser.isPremium();
+        podcastService.playPodcast(podcastId, isPremium);
     }
 }

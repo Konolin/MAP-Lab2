@@ -14,11 +14,13 @@ import java.util.Optional;
 public class PodcastService {
     private final PodcastRepository podcastRepository;
     private final AdvertisementRepository advertisementRepository;
+    private final NormalUserService normalUserService;
 
     @Autowired
-    public PodcastService(PodcastRepository podcastRepository, AdvertisementRepository advertisementRepository) {
+    public PodcastService(PodcastRepository podcastRepository, AdvertisementRepository advertisementRepository, NormalUserService normalUserService) {
         this.podcastRepository = podcastRepository;
         this.advertisementRepository = advertisementRepository;
+        this.normalUserService = normalUserService;
     }
 
     public Podcast save(Podcast podcast) {
@@ -49,5 +51,16 @@ public class PodcastService {
         }
 
         throw new RuntimeException("PodcastService::Advertisement or podcast with specified id doesn't exist");
+    }
+
+    public void playPodcast(Long songId, boolean isPremium) {
+        Optional<Podcast> podcastOptional = podcastRepository.findById(songId);
+
+        if (podcastOptional.isPresent()) {
+            Podcast podcast = podcastOptional.get();
+            normalUserService.playAudio(podcast, isPremium);
+        } else {
+            throw new RuntimeException("Podcast not found");
+        }
     }
 }

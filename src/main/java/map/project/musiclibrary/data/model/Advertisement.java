@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "advertisments")
-public class Advertisement extends Audio {
+public class Advertisement extends Audio implements Playable{
     @Column(name = "type")
     private String advertisementType;
 
@@ -36,5 +36,10 @@ public class Advertisement extends Audio {
                 ", Name: " + name +
                 ", Type: " + advertisementType +
                 ")";
+    }
+
+    @Override
+    public void play(){
+        System.out.printf("Playing ad " + name);
     }
 }

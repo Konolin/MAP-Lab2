@@ -383,3 +383,19 @@
 1699566572893:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
 1699566577989:addPlaylist --name Bruh
 1699566584025:addSongToPlaylist --songId 1 --playListId 1
+1699571842199:help
+1699571859789:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699571865114:addArtist --name ifk --birthdate 1111-11-11
+1699571870364:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699571886650:help playSong
+1699571897797:playSong --songId 1
+1699572005180:addArtist --name ifk --birthdate 1111-11-11
+1699572011270:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699572022101:playSong --songId 1
+1699572366505:addArtist --name ifk --birthdate 1111-11-11
+1699572372443:addHost --birthdate 2000-10-10 --name Dani
+1699572379973:addPodcast --hostId 1 --name theG --releaseDate 2010-10-10 --topic money --length 2000
+1699572384974:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699572396906:playSong --songId 1
+1699572416083:playPodcast --podcastId 1
+1699572449225:playSong --songId 1

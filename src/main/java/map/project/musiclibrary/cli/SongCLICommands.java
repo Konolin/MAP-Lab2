@@ -1,6 +1,7 @@
 package map.project.musiclibrary.cli;
 
 import map.project.musiclibrary.data.model.ArtistUser;
+import map.project.musiclibrary.data.model.NormalUser;
 import map.project.musiclibrary.data.model.Song;
 import map.project.musiclibrary.service.ArtistUserService;
 import map.project.musiclibrary.service.SongService;
@@ -18,11 +19,13 @@ import java.util.Optional;
 public class SongCLICommands {
     private SongService songService;
     private ArtistUserService artistUserService;
+    private NormalUser normalUser;
 
     @Autowired
     public SongCLICommands(SongService songService, ArtistUserService artistUserService) {
         this.songService = songService;
         this.artistUserService = artistUserService;
+        this.normalUser = new NormalUser();
     }
 
     @ShellMethod(key = "listSongs", value = "List all songs")
@@ -76,5 +79,13 @@ public class SongCLICommands {
     @ShellMethod(key = "findSong", value = "Find a song by name")
     public String findSong(@ShellOption(value = {"name"}, help = "Name of the song") final String name) {
         return songService.findByName(name).toString();
+    }
+
+    //TODO - de structurat mai bine metodele (de ex sa fie clar ce am nevoie in service/CLI ca sa mentin encapsularea)
+    //TODO - cand apare un Ad, nu se poate identifica ce nume are pentru ca e null for now
+    @ShellMethod(key = "playSong", value = "Play a song by ID")
+    public void playSong(@ShellOption(value = {"songId"}, help = "ID of the song") final Long songId) {
+        boolean isPremium = normalUser.isPremium();
+        songService.playSong(songId, isPremium);
     }
 }
