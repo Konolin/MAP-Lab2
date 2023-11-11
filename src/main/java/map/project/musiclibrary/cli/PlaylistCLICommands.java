@@ -18,6 +18,7 @@ public class PlaylistCLICommands {
         this.playlistService = playlistService;
     }
 
+    //TODO - failed to lazily initialize a collection of role
     @ShellMethod(key = "listPlaylists", value = "List all playlists")
     public String listPlaylists() {
         return playlistService.findAll().toString();

@@ -1,8 +1,8 @@
 package map.project.musiclibrary.cli;
 
 import map.project.musiclibrary.data.model.ArtistUser;
-import map.project.musiclibrary.data.model.NormalUser;
 import map.project.musiclibrary.data.model.Song;
+import map.project.musiclibrary.data.model.UserSession;
 import map.project.musiclibrary.service.ArtistUserService;
 import map.project.musiclibrary.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +19,13 @@ import java.util.Optional;
 public class SongCLICommands {
     private SongService songService;
     private ArtistUserService artistUserService;
-    private NormalUser normalUser;
+    private UserSession userSession;
 
     @Autowired
-    public SongCLICommands(SongService songService, ArtistUserService artistUserService) {
+    public SongCLICommands(SongService songService, ArtistUserService artistUserService, UserSession userSession) {
         this.songService = songService;
         this.artistUserService = artistUserService;
-        this.normalUser = new NormalUser();
+        this.userSession = userSession;
     }
 
     @ShellMethod(key = "listSongs", value = "List all songs")
@@ -84,8 +84,11 @@ public class SongCLICommands {
     //TODO - de structurat mai bine metodele (de ex sa fie clar ce am nevoie in service/CLI ca sa mentin encapsularea)
     //TODO - cand apare un Ad, nu se poate identifica ce nume are pentru ca e null for now
     @ShellMethod(key = "playSong", value = "Play a song by ID")
-    public void playSong(@ShellOption(value = {"songId"}, help = "ID of the song") final Long songId) {
-        boolean isPremium = normalUser.isPremium();
-        songService.playSong(songId, isPremium);
+    public void playSong(@ShellOption(value = {"songId"}, help = "ID of the song") final String songIdstr) {
+        if (userSession.getCurrentUser() == null) {
+            throw new RuntimeException("You must log in to play a song.");
+        }
+        Long songId = Long.parseLong(songIdstr);
+        songService.playSong(songId, userSession.getCurrentUser());
     }
 }

@@ -2,7 +2,7 @@ Teste
 
 User:
     - add song to playlist
-    - user crate playlist (leaga automat user de playlist)
+    - user crate playlist (leaga automat user de playlist, altfel throw exception)
 
 Song, podcast:
     - play song
@@ -15,3 +15,9 @@ Ads:
 Suplimentar:
     - user admin
     - logat direct / schimbi cont (permisinui??)
+
+Design Patterns:
+    - Singleton - un admin care poate sa modifice baza de date (un user poate doar sa adauge playlisturi si sa dea play la song/podcast
+    - Builder - pentru albume
+    - Observer - notify users when a new album has been released
+    -

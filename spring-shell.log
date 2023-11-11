@@ -399,3 +399,106 @@
 1699572396906:playSong --songId 1
 1699572416083:playPodcast --podcastId 1
 1699572449225:playSong --songId 1
+1699611779118:help
+1699612048138:addArtist --name ifk --birthdate 1111-11-11
+1699612055092:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699612071293:playSong --songId 1
+1699612235621:addPodcast --hostId 1 --name Keep Gambling --releaseDate 2010-10-10 --topic money --length 2000
+1699612242632:addHost --birthdate 2000-10-10 --name Dani
+1699612250395:addPodcast --hostId 1 --name Keep Gambling --releaseDate 2010-10-10 --topic money --length 2000
+1699612267351:playPodcast --podcastId 1
+1699612479573:help
+1699612520232:help addUser
+1699695159148:help
+1699708302207:addUser
+1699708316130:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699708326273:login
+1699708336887:login --email 123 --password 123
+1699708669541:addArtist --name ifk --birthdate 1111-11-11
+1699708674952:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699708685442:playSong --songId1 --artistId 1
+1699708695528:playSong --songId1
+1699708700772:playSong songId 1
+1699708869785:addArtist --name ifk --birthdate 1111-11-11
+1699708875050:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699708886617:playSong --songId 1
+1699708947278:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699708963558:playSong --songId 2
+1699708991499:addSong --length 100 --name bruuuuh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699709003182:playSong --songId 3
+1699709022296:currentUser
+1699709098290:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699709108330:login --email 123 --password 123
+1699709115983:playSong --songId 2
+1699709127653:playSong --songId 3
+1699709444615:currentUser
+1699709466751:addUser --email 123 --password 123 --name dwbjn --birthdate 1111-11-11 --isPremium true
+1699709471778:currentUser
+1699709511596:addUser --email 12345 --password 12334 --name dwbjn --birthdate 1111-11-11 --isPremium true
+1699709528828:login --email 12345 --password 12334
+1699709533661:currentUser
+1699709558590:addPlaylist
+1699709569184:addPlaylist --name Worout
+1699709579770:listPlaylists
+1699709632083:addPodcast --hostId 1 --name Keep Gambling --releaseDate 2010-10-10 --topic money --length 2000
+1699709639187:addHost --birthdate 2000-10-10 --name Dani
+1699709644283:addPodcast --hostId 1 --name Keep Gambling --releaseDate 2010-10-10 --topic money --length 2000
+1699709650026:listPodcasts
+1699709665534:login --email 123 --password 123
+1699709672644:listPodcasts
+1699709694435:listPlaylists
+1699709876591:findPodcast --name Keep Gambling
+1699709910438:findPlaylist Bruh
+1699709919524:listPlaylists
+1699710137843:addPlaylist --name Bruh
+1699710144105:listPlaylists
+1699712972043:addArtist --name ifk --birthdate 1111-11-11
+1699712977717:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699712983298:playSong --songId 1
+1699712993662:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699713004239:login --email 123 --password 123
+1699713010631:playSong --songId 1
+1699713019509:currentUser
+1699713026067:playSong --songId 1
+1699713357196:addArtist --name ifk --birthdate 1111-11-11
+1699713361209:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699713368053:playSong --songId 1
+1699713377562:currentUser
+1699713392785:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699713405692:login --email 123 --password 123
+1699713770754:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699713774767:login
+1699713783934:login --email 123 --password 123
+1699713890769:currentUser
+1699713899381:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699713922687:login --email 123 --password 123
+1699713942005:login --email bruh --password kdw
+1699713951608:addArtist --name ifk --birthdate 1111-11-11
+1699713957060:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699713964775:playSong --songId 1
+1699714135156:addArtist --name ifk --birthdate 1111-11-11
+1699714139393:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699714146092:playSong --songId 1
+1699714154816:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699714170136:login --email 123 --password 123
+1699714174484:currentUser
+1699714180781:playSong --songId 1
+1699715272244:login --email bruh --password byr
+1699715277181:currentUser
+1699715489748:help
+1699715644977:currentUser
+1699715646635:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699715650840:currentUser
+1699715671158:login --email 123 --password 123
+1699715675887:currentUser
+1699715680450:help logout
+1699715686055:logout
+1699715690142:currentUser
+1699715704430:logout
+1699715732585:addArtist --name ifk --birthdate 1111-11-11
+1699715740615:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699715749804:playSong --songId 1
+1699715762499:login --email 123 --password 123
+1699715773530:playSong --songId 1
+1699715783321:logout
+1699715790409:playSong --songId 1

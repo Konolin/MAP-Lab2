@@ -2,7 +2,7 @@ package map.project.musiclibrary.cli;
 
 import map.project.musiclibrary.data.model.LoginCredentials;
 import map.project.musiclibrary.data.model.NormalUser;
-import map.project.musiclibrary.data.model.User;
+import map.project.musiclibrary.data.model.UserSession;
 import map.project.musiclibrary.service.NormalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -16,11 +16,12 @@ import java.util.Date;
 @ShellComponent
 public class NormalUserCLICommands {
     private final NormalUserService normalUserService;
-    private NormalUser currentUser;
+    private final UserSession userSession;
 
     @Autowired
-    public NormalUserCLICommands(NormalUserService normalUserService) {
+    public NormalUserCLICommands(NormalUserService normalUserService, UserSession userSession) {
         this.normalUserService = normalUserService;
+        this.userSession = userSession;
     }
 
     @ShellMethod(key = "listUsers", value = "List all users")
@@ -66,21 +67,31 @@ public class NormalUserCLICommands {
         return normalUserService.findByName(name).toString();
     }
 
-    @ShellMethod(key = "login", value = "Login into a user")
+    @ShellMethod(key = "login", value = "Log in as a user")
     public String login(@ShellOption(value = {"email"}, help = "Email of the user") final String email,
                         @ShellOption(value = {"password"}, help = "Password of the user") final String password) {
         NormalUser user = normalUserService.login(email, password);
-
         if (user != null) {
-            currentUser = user;
-            return "Login successful!";
+            userSession.setCurrentUser(user);
+            return "Login successful";
         } else {
             return "Invalid credentials. Please try again.";
         }
     }
 
+    @ShellMethod(key = "logout", value = "Log out the current user")
+    public String logout() {
+        if (userSession.isLoggedIn()) {
+            userSession.logout();
+            return "Logout successful";
+        } else {
+            return "No user is currently logged in.";
+        }
+    }
+
+
     @ShellMethod(key = "currentUser", value = "Get the current user that is logged in")
     public String getCurrentUser() {
-        return currentUser != null ? this.currentUser.toString() : "No user is currently logged in.";
+        return userSession.getCurrentUser() != null ? this.userSession.getCurrentUser().toString() : "No user is currently logged in.";
     }
 }
