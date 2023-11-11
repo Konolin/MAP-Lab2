@@ -1,8 +1,8 @@
 package map.project.musiclibrary.cli;
 
 import map.project.musiclibrary.data.model.HostUser;
-import map.project.musiclibrary.data.model.NormalUser;
 import map.project.musiclibrary.data.model.Podcast;
+import map.project.musiclibrary.data.model.UserSession;
 import map.project.musiclibrary.service.HostUserService;
 import map.project.musiclibrary.service.PodcastService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +19,13 @@ import java.util.Optional;
 public class PodcastCLICommands {
     private final PodcastService podcastService;
     private final HostUserService hostUserService;
-    private final NormalUser normalUser;
+    private final UserSession userSession;
 
     @Autowired
-    public PodcastCLICommands(PodcastService podcastService, HostUserService hostUserService) {
+    public PodcastCLICommands(PodcastService podcastService, HostUserService hostUserService, UserSession userSession) {
         this.podcastService = podcastService;
         this.hostUserService = hostUserService;
-        this.normalUser = new NormalUser();
+        this.userSession = userSession;
     }
 
     @ShellMethod(key = "listPodcasts", value = "List all podcasts")
@@ -97,8 +97,11 @@ public class PodcastCLICommands {
     //TODO - de structurat mai bine metodele (de ex sa fie clar ce am nevoie in service/CLI ca sa mentin encapsularea)
     //TODO - cand apare un Ad, nu se poate identifica ce nume are pentru ca e null for now
     @ShellMethod(key = "playPodcast", value = "Play a podcast by ID")
-    public void playPodcast(@ShellOption(value = {"podcastId"}, help = "ID of the podcast") final Long podcastId) {
-        boolean isPremium = normalUser.isPremium();
-        podcastService.playPodcast(podcastId, isPremium);
+    public void playPodcast(@ShellOption(value = {"podcastId"}, help = "ID of the podcast") final String podcastIdstr) {
+        if (!userSession.isLoggedIn()) {
+            throw new RuntimeException("You must log in to play a podcast.");
+        }
+        Long podcastId = Long.parseLong(podcastIdstr);
+        podcastService.playPodcast(podcastId, userSession.getCurrentUser());
     }
 }

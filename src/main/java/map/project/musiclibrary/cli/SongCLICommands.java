@@ -33,6 +33,7 @@ public class SongCLICommands {
         return songService.findAll().toString();
     }
 
+    //TODO - check for a user before attempting to add a song
     @ShellMethod(key = "addSong", value = "Add a song")
     public String addSong(@ShellOption(value = {"name"}, help = "Name of the song") final String name,
                           @ShellOption(value = {"genre"}, help = "Genre of the song") final String genre,
@@ -67,7 +68,7 @@ public class SongCLICommands {
                 song.setArtist(artistUserOptional.get());
                 artistUserOptional.get().addSong(song);
             } else {
-                return "Error: A host with that id does not exist";
+                return "Error: An artist with that id does not exist";
             }
         } catch (NumberFormatException e) {
             return "Error: Invalid integer format. Please provide a valid number.";
@@ -85,7 +86,7 @@ public class SongCLICommands {
     //TODO - cand apare un Ad, nu se poate identifica ce nume are pentru ca e null for now
     @ShellMethod(key = "playSong", value = "Play a song by ID")
     public void playSong(@ShellOption(value = {"songId"}, help = "ID of the song") final String songIdstr) {
-        if (userSession.getCurrentUser() == null) {
+        if (!userSession.isLoggedIn()) {
             throw new RuntimeException("You must log in to play a song.");
         }
         Long songId = Long.parseLong(songIdstr);

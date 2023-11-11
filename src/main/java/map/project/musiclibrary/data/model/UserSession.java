@@ -15,10 +15,6 @@ public class UserSession {
         return currentUser;
     }
 
-    public void setCurrentUser(NormalUser currentUser) {
-        this.currentUser = currentUser;
-    }
-
     public void logout() {
         this.currentUser = null;
     }

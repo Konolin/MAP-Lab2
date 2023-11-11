@@ -1,5 +1,6 @@
 addHost --birthdate 2000-10-10 --name Dani
 addAd --type gambling --name Superbet --length 200 --releaseDate 2010-01-01
+addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
 addAddToPodcast --adId 1 --podcastId 1
 
 

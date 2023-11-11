@@ -32,4 +32,8 @@ public class Playlist {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private NormalUser normalUser;
+
+    public void setUser(NormalUser normalUser) {
+        this.normalUser = normalUser;
+    }
 }

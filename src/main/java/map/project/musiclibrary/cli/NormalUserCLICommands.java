@@ -72,8 +72,8 @@ public class NormalUserCLICommands {
                         @ShellOption(value = {"password"}, help = "Password of the user") final String password) {
         NormalUser user = normalUserService.login(email, password);
         if (user != null) {
-            userSession.setCurrentUser(user);
-            return "Login successful";
+            userSession.login(user);
+            return "Login successful. Welcome, " + userSession.getCurrentUser().getName();
         } else {
             return "Invalid credentials. Please try again.";
         }
@@ -82,8 +82,9 @@ public class NormalUserCLICommands {
     @ShellMethod(key = "logout", value = "Log out the current user")
     public String logout() {
         if (userSession.isLoggedIn()) {
+            String goodbyeMessage = "Logout successful. Goodbye " + userSession.getCurrentUser().getName();
             userSession.logout();
-            return "Logout successful";
+            return goodbyeMessage;
         } else {
             return "No user is currently logged in.";
         }
@@ -92,6 +93,6 @@ public class NormalUserCLICommands {
 
     @ShellMethod(key = "currentUser", value = "Get the current user that is logged in")
     public String getCurrentUser() {
-        return userSession.getCurrentUser() != null ? this.userSession.getCurrentUser().toString() : "No user is currently logged in.";
+        return userSession.isLoggedIn() ? this.userSession.getCurrentUser().toString() : "No user is currently logged in.";
     }
 }
