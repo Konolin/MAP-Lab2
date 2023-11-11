@@ -78,4 +78,14 @@ public class PlaylistService {
         throw new RuntimeException("PlaylistService::Song or Playlist with specified id doesn't exist");
     }
 
+    @Transactional
+    public List<Playlist> findByUser(NormalUser user) {
+        List<Playlist> playlists = playlistRepository.findByNormalUser(user);
+        playlists.forEach(playlist -> {
+            playlist.getSongs().size();
+        });
+
+        return playlists;
+    }
+
 }

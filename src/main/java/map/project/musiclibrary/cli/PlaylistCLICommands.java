@@ -1,5 +1,6 @@
 package map.project.musiclibrary.cli;
 
+import map.project.musiclibrary.data.model.NormalUser;
 import map.project.musiclibrary.data.model.Playlist;
 import map.project.musiclibrary.data.model.UserSession;
 import map.project.musiclibrary.service.PlaylistService;
@@ -9,6 +10,7 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @ShellComponent
 public class PlaylistCLICommands {
@@ -21,15 +23,18 @@ public class PlaylistCLICommands {
         this.userSession = userSession;
     }
 
-    //TODO - make sure playlist list is tailored and personalized for each user individually, because in current implementation, it retrieves all playlists, but it should only retrieve playlists from the user that has sent that request. Probably an idea would be to create a list of playlists for each userSession
     @ShellMethod(key = "listPlaylists", value = "List all playlists")
     public String listPlaylists() {
         if (!userSession.isLoggedIn()) {
             throw new RuntimeException("You must log in to see your playlists.");
         }
 
-        return playlistService.findAll().toString();
+        NormalUser currentUser = userSession.getCurrentUser();
+        List<Playlist> userPlaylists = playlistService.findByUser(currentUser);
+
+        return userPlaylists.toString();
     }
+
 
     @ShellMethod(key = "addPlaylist", value = "Add a playlist")
     public String addPlaylist(@ShellOption(value = {"name"}, help = "Name of the playlist to be added") final String name) {

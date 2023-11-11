@@ -606,3 +606,40 @@
 1699727106677:logout
 1699727121249:login --email 12345 --password 12345
 1699727127860:listPlaylists
+1699737759103:addPlaylist --name Bruh
+1699737765967:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699737776613:login --email 123 --password 123
+1699737788594:addPlaylist --name Bruh
+1699737794248:addPlaylist --name Topia
+1699737800803:listPlaylists
+1699737967999:addPlaylist --name Bruh
+1699737974290:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699737982392:login --email 123 --password 123
+1699737993112:addPlaylist --name Bruh
+1699737996246:addPlaylist --name Topia
+1699738001481:listPlaylists
+1699738048746:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699738058181:login --email 123 --password 123
+1699738079379:addPlaylist --name Bruh
+1699738087297:addPlaylist --name Topia
+1699738092438:listPlaylists
+1699738098238:logout
+1699738109359:login --email 123 --password 123
+1699738115374:listPlaylists
+1699738122096:logout
+1699738137921:addUser --email 12345 --password 12345 --name Dani --birthdate 1111-11-11 --isPremium true
+1699738149775:login --email 12345 --password 12345
+1699738155954:listPlaylists
+1699738188417:addPlaylist --name Heroes&Villains
+1699738198712:listPlaylists
+1699738206147:logout
+1699738216919:login --email 123 --password 123
+1699738221474:listPlaylists
+1699738245885:logout
+1699738256583:login --email 123 --password 123
+1699738260144:logout
+1699738271838:login --email 12345 --password 12345
+1699738279173:listPlaylists
+1699738311253:currentUser
+1699738315204:logout
+1699738318419:currentUser
