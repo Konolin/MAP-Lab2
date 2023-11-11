@@ -21,7 +21,7 @@ public class PlaylistCLICommands {
         this.userSession = userSession;
     }
 
-    //TODO - make sure playlist list is tailored and personalized for each user individually, because in current implementation, it retrieves all playlists, but it should only retrieve playlists from the user that has sent that request
+    //TODO - make sure playlist list is tailored and personalized for each user individually, because in current implementation, it retrieves all playlists, but it should only retrieve playlists from the user that has sent that request. Probably an idea would be to create a list of playlists for each userSession
     @ShellMethod(key = "listPlaylists", value = "List all playlists")
     public String listPlaylists() {
         if (!userSession.isLoggedIn()) {
