@@ -5,13 +5,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserSession {
 
-    private NormalUser currentUser;
+    private User currentUser;
 
-    public void login(NormalUser user) {
+    public void login(User user) {
         this.currentUser = user;
     }
 
-    public NormalUser getCurrentUser() {
+    public User getCurrentUser() {
         return currentUser;
     }
 

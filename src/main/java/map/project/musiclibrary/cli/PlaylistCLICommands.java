@@ -2,6 +2,7 @@ package map.project.musiclibrary.cli;
 
 import map.project.musiclibrary.data.model.NormalUser;
 import map.project.musiclibrary.data.model.Playlist;
+import map.project.musiclibrary.data.model.User;
 import map.project.musiclibrary.data.model.UserSession;
 import map.project.musiclibrary.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,15 @@ public class PlaylistCLICommands {
             throw new RuntimeException("You must log in to see your playlists.");
         }
 
-        NormalUser currentUser = userSession.getCurrentUser();
-        List<Playlist> userPlaylists = playlistService.findByUser(currentUser);
+        User currentUser = userSession.getCurrentUser();
+        if (currentUser instanceof NormalUser) {
+            List<Playlist> userPlaylists = playlistService.findByUser(currentUser);
+            return userPlaylists.toString();
+        } else {
+            throw new RuntimeException("Only normal users can see their playlists.");
+        }
 
-        return userPlaylists.toString();
+
     }
 
 
@@ -44,9 +50,13 @@ public class PlaylistCLICommands {
 
         Playlist playlist = new Playlist();
         playlist.setName(name);
-        playlist.setUser(userSession.getCurrentUser());
-        playlist.setSongs(new ArrayList<>());
-        return playlistService.save(playlist).toString();
+        if (userSession.getCurrentUser() instanceof NormalUser){
+            playlist.setUser((NormalUser) userSession.getCurrentUser());
+            playlist.setSongs(new ArrayList<>());
+            return playlistService.save(playlist).toString();
+        } else {
+            throw new RuntimeException("Only normal users can add a playlist.");
+        }
     }
 
 

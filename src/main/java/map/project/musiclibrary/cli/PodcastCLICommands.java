@@ -1,8 +1,6 @@
 package map.project.musiclibrary.cli;
 
-import map.project.musiclibrary.data.model.HostUser;
-import map.project.musiclibrary.data.model.Podcast;
-import map.project.musiclibrary.data.model.UserSession;
+import map.project.musiclibrary.data.model.*;
 import map.project.musiclibrary.service.HostUserService;
 import map.project.musiclibrary.service.PodcastService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,42 +37,48 @@ public class PodcastCLICommands {
                              @ShellOption(value = {"topic"}, help = "The topic of the podcast") final String topic,
                              @ShellOption(value = {"releaseDate"}, help = "The release date of the podcast") final String releaseDateStr,
                              @ShellOption(value = {"hostId"}, help = "The id of the host") final String hostIdStr) {
-        Podcast podcast = new Podcast();
 
-        podcast.setName(name);
-        podcast.setTopic(topic);
+        //check if the currentUser is an admin, because only admins can add podcasts to the library
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+            Podcast podcast = new Podcast();
 
-        try {
-            int length = Integer.parseInt(lengthStr);
-            podcast.setLength(length);
-        } catch (NumberFormatException e) {
-            return "Error: Invalid integer format. Please provide a valid number.";
-        }
+            podcast.setName(name);
+            podcast.setTopic(topic);
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date releaseDate = dateFormat.parse(releaseDateStr);
-            podcast.setReleaseDate(releaseDate);
-        } catch (ParseException e) {
-            return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
-        }
-
-        try {
-            // search host by id
-            Long hostId = Long.parseLong(hostIdStr);
-            Optional<HostUser> hostUserOptional = hostUserService.findById(hostId);
-            if (hostUserOptional.isPresent()) {
-                // add host to podcast and add podcast to hosts list
-                podcast.setHost(hostUserOptional.get());
-                hostUserOptional.get().addPodcast(podcast);
-            } else {
-                return "Error: A host with that id does not exist";
+            try {
+                int length = Integer.parseInt(lengthStr);
+                podcast.setLength(length);
+            } catch (NumberFormatException e) {
+                return "Error: Invalid integer format. Please provide a valid number.";
             }
-        } catch (NumberFormatException e) {
-            return "Error: Invalid integer format. Please provide a valid number.";
-        }
 
-        return podcastService.save(podcast).toString();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date releaseDate = dateFormat.parse(releaseDateStr);
+                podcast.setReleaseDate(releaseDate);
+            } catch (ParseException e) {
+                return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
+            }
+
+            try {
+                // search host by id
+                Long hostId = Long.parseLong(hostIdStr);
+                Optional<HostUser> hostUserOptional = hostUserService.findById(hostId);
+                if (hostUserOptional.isPresent()) {
+                    // add host to podcast and add podcast to hosts list
+                    podcast.setHost(hostUserOptional.get());
+                    hostUserOptional.get().addPodcast(podcast);
+                } else {
+                    return "Error: A host with that id does not exist";
+                }
+            } catch (NumberFormatException e) {
+                return "Error: Invalid integer format. Please provide a valid number.";
+            }
+
+            return podcastService.save(podcast).toString();
+        } else {
+            throw new RuntimeException("Only admins may add podcasts");
+        }
     }
 
     @ShellMethod(key = "findPodcast", value = "Find a podcast by name")
@@ -102,6 +106,10 @@ public class PodcastCLICommands {
             throw new RuntimeException("You must log in to play a podcast.");
         }
         Long podcastId = Long.parseLong(podcastIdstr);
-        podcastService.playPodcast(podcastId, userSession.getCurrentUser());
+        if (userSession.getCurrentUser() instanceof NormalUser) {
+            podcastService.playPodcast(podcastId, (NormalUser) userSession.getCurrentUser());
+        } else {
+            throw new RuntimeException("Only normal users can play podcasts");
+        }
     }
 }

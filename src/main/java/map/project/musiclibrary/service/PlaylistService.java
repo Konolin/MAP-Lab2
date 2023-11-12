@@ -1,9 +1,6 @@
 package map.project.musiclibrary.service;
 
-import map.project.musiclibrary.data.model.NormalUser;
-import map.project.musiclibrary.data.model.Playlist;
-import map.project.musiclibrary.data.model.Song;
-import map.project.musiclibrary.data.model.UserSession;
+import map.project.musiclibrary.data.model.*;
 import map.project.musiclibrary.data.repository.PlaylistRepository;
 import map.project.musiclibrary.data.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,9 +58,9 @@ public class PlaylistService {
             Playlist playlist = playlistOptional.get();
 
             //associate the playlist with the logged-in user
-            NormalUser currentUser = userSession.getCurrentUser();
-            if (currentUser != null) {
-                playlist.setUser(currentUser);
+            User currentUser = userSession.getCurrentUser();
+            if (currentUser instanceof NormalUser) {
+                playlist.setUser((NormalUser) currentUser);
             } else {
                 //handle the case where the current user is not a NormalUser (de ex admin)
                 throw new RuntimeException("Only normal users can add songs to playlists.");
@@ -79,8 +76,8 @@ public class PlaylistService {
     }
 
     @Transactional
-    public List<Playlist> findByUser(NormalUser user) {
-        List<Playlist> playlists = playlistRepository.findByNormalUser(user);
+    public List<Playlist> findByUser(User user) {
+        List<Playlist> playlists = playlistRepository.findByNormalUser((NormalUser) user);
         playlists.forEach(playlist -> {
             playlist.getSongs().size();
         });

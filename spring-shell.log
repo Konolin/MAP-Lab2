@@ -643,3 +643,101 @@
 1699738311253:currentUser
 1699738315204:logout
 1699738318419:currentUser
+1699738737165:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699738758626:addUser --email 12345 --password 12345 --name Dani --birthdate 1111-11-11 --isPremium true
+1699738769881:login --email 123 --password 123
+1699738781824:addPlaylist --name Bruh
+1699738786518:addArtist --name ifk --birthdate 1111-11-11
+1699738791880:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699738798714:addSongToPlaylist --songId 1 --playListId 1
+1699738818805:addSong --length 100 --name blahblah --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699738836929:addSongToPlaylist --songId 2 --playListId 1
+1699738862174:logout
+1699738882521:login --email 123 --password 123
+1699738886677:listPlaylists
+1699738903617:logout
+1699738914420:login --email 12345 --password 12345
+1699738929471:addPlaylist --name macamaca
+1699738938596:addSongToPlaylist --songId 1 --playListId 1
+1699738952317:addSongToPlaylist --songId 1 --playListId 2
+1699738986161:addPlaylist --bingchilling
+1699738996486:addPlaylist --name bingchilling
+1699739001306:listPlaylists
+1699739048984:logout
+1699739060632:login --email 123 --password 123
+1699739066844:listPlaylists
+1699739089681:addPlaylsit --name bruuuh
+1699739101486:addPlaylist --name bruuuh
+1699739108286:listPlaylists
+1699739112047:logout
+1699739124525:login --email 12345 --password 12345
+1699739128441:listPlaylists
+1699739165404:logout
+1699739175396:login --email 123 --password 123
+1699739179201:listPlaylists
+1699822259441:addPlaylist --name Bruh
+1699822274580:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699822288391:addPlaylist --name Bruh
+1699822300594:login --email 123 --password 123
+1699822313227:addPlaylist --name Bruh
+1699822318196:listPlaylists
+1699822320912:logout
+1699822326815:currentUser
+1699822346217:addUser --email 12345 --password 12345 --name Dani --birthdate 1111-11-11 --isPremium true
+1699822357979:login --email 12345 --password 12345
+1699822364122:listPlaylists
+1699822369143:logout
+1699822376836:login --email 123 --password 123
+1699822381275:listPlaylists
+1699823318950:help
+1699823334718:adminLogin help
+1699823344504:help adminLogin
+1699823359418:adminLogin --email admin --password admin
+1699823535007:currentUser
+1699823551135:logout
+1699823559216:currentUser
+1699823565058:adminLogout
+1699823597336:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699823609147:login --email 123 --password 123
+1699823613588:currentUser
+1699823621718:logout
+1699823632835:loginAdmin --email admin --password admin
+1699823654407:adminLogin --email admin --password admin
+1699823661569:currentUser
+1699823684309:adminLogout
+1699823708246:adminLogin --email admin --password admin
+1699823719403:addPlaylist --name Bruh
+1699823734236:listPlaylists
+1699823756535:adminLogout
+1699823763388:login --email 123 --password 123
+1699823775365:addPlaylist --name Bruh
+1699823782408:listPlaylists
+1699824190747:adminLogin --email admin --password admin
+1699824194914:currentUser
+1699824475089:adminLogin --email admin --password admin
+1699824479988:currentUser
+1699824675509:adminLogin --email admin --password admin
+1699824679809:currentUser
+1699824691623:adminLogout
+1699824696565:currentUser
+1699824708101:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699824719971:login --email 123 --password 123
+1699824732310:currentUser
+1699824735517:logout
+1699824750087:adminLogin --email admin --password admin
+1699824761033:addPlaylist --name Bruh
+1699825038287:adminLogin --email admin --password admin
+1699825049603:listPlaylists
+1699825063333:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699825071476:adminLogout
+1699825082791:login --email 123 --password 123
+1699825096101:listPlaylists
+1699825872081:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1699825895533:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699825905177:login --email 123 --password 123
+1699825915917:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1699825921061:logout
+1699825939526:adminLogin --email admin --password admin
+1699825947838:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1699825956810:addHost --birthdate 2000-10-10 --name Dani
+1699825964168:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1

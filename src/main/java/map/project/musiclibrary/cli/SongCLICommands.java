@@ -1,6 +1,7 @@
 package map.project.musiclibrary.cli;
 
 import map.project.musiclibrary.data.model.ArtistUser;
+import map.project.musiclibrary.data.model.NormalUser;
 import map.project.musiclibrary.data.model.Song;
 import map.project.musiclibrary.data.model.UserSession;
 import map.project.musiclibrary.service.ArtistUserService;
@@ -90,6 +91,10 @@ public class SongCLICommands {
             throw new RuntimeException("You must log in to play a song.");
         }
         Long songId = Long.parseLong(songIdstr);
-        songService.playSong(songId, userSession.getCurrentUser());
+        if (userSession.getCurrentUser() instanceof NormalUser){
+            songService.playSong(songId, (NormalUser) userSession.getCurrentUser());
+        } else {
+            throw new RuntimeException("Only normal users can play songs");
+        }
     }
 }

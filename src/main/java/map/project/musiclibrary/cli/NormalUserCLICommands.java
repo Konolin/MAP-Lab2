@@ -1,5 +1,6 @@
 package map.project.musiclibrary.cli;
 
+import map.project.musiclibrary.data.model.Admin;
 import map.project.musiclibrary.data.model.LoginCredentials;
 import map.project.musiclibrary.data.model.NormalUser;
 import map.project.musiclibrary.data.model.UserSession;
@@ -67,7 +68,7 @@ public class NormalUserCLICommands {
         return normalUserService.findByName(name).toString();
     }
 
-    @ShellMethod(key = "login", value = "Log in as a user")
+    @ShellMethod(key = "login", value = "Log in as a NormalUser")
     public String login(@ShellOption(value = {"email"}, help = "Email of the user") final String email,
                         @ShellOption(value = {"password"}, help = "Password of the user") final String password) {
         NormalUser user = normalUserService.login(email, password);
@@ -93,6 +94,12 @@ public class NormalUserCLICommands {
 
     @ShellMethod(key = "currentUser", value = "Get the current user that is logged in")
     public String getCurrentUser() {
-        return userSession.isLoggedIn() ? this.userSession.getCurrentUser().toString() : "No user is currently logged in.";
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin)
+            return ((Admin) this.userSession.getCurrentUser()).toString();
+        else if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser){
+            return this.userSession.getCurrentUser().toString();
+        } else {
+            return "No user is currently logged in.";
+        }
     }
 }
