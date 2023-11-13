@@ -1,6 +1,9 @@
 package map.project.musiclibrary.cli;
 
-import map.project.musiclibrary.data.model.*;
+import map.project.musiclibrary.data.model.Admin;
+import map.project.musiclibrary.data.model.NormalUser;
+import map.project.musiclibrary.data.model.Podcast;
+import map.project.musiclibrary.data.model.UserSession;
 import map.project.musiclibrary.service.HostUserService;
 import map.project.musiclibrary.service.PodcastBuilder;
 import map.project.musiclibrary.service.PodcastService;
@@ -40,19 +43,19 @@ public class PodcastCLICommands {
 
         //check if the currentUser is an admin, because only admins can add podcasts to the library
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
-           try {
-              Podcast podcast = new PodcastBuilder()
-                      .setName(name)
-                      .setLength(lengthStr)
-                      .setTopic(topic)
-                      .setReleaseDate(releaseDateStr)
-                      .setHostId(hostIdStr)
-                      .build(hostUserService);
+            try {
+                Podcast podcast = new PodcastBuilder()
+                        .setName(name)
+                        .setLength(lengthStr)
+                        .setTopic(topic)
+                        .setReleaseDate(releaseDateStr)
+                        .setHostId(hostIdStr)
+                        .build(hostUserService);
 
-              return podcastService.save(podcast).toString();
-          } catch (IllegalArgumentException e) {
-              return e.getMessage();
-          }
+                return podcastService.save(podcast).toString();
+            } catch (IllegalArgumentException e) {
+                return e.getMessage();
+            }
         } else {
             return "Only admins may add podcasts";
         }

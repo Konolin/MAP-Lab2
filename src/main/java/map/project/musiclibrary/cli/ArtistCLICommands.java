@@ -54,7 +54,7 @@ public class ArtistCLICommands {
 
             return artistUserService.save(artist).toString();
         } else {
-            throw new RuntimeException("Only admin can add an artist");
+            return "Only admin can add an artist";
         }
     }
 

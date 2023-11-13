@@ -29,7 +29,7 @@ public class AdvertisementCLICommands {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
             return advertisementService.findAll().toString();
         } else {
-            throw new RuntimeException("Only admin can list all ads");
+            return "Only admin can list all ads";
         }
     }
 
@@ -55,7 +55,7 @@ public class AdvertisementCLICommands {
 
             return advertisementService.save(advertisement).toString();
         } else {
-            throw new RuntimeException("Only admin can add ads");
+            return "Only admin can add ads";
         }
     }
 

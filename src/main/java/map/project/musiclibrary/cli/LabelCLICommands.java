@@ -39,7 +39,7 @@ public class LabelCLICommands {
             label.setArtists(new ArrayList<>());
             return labelService.save(label).toString();
         } else {
-            throw new RuntimeException("Only admin can add a label");
+            return "Only admin can add a label";
         }
     }
 

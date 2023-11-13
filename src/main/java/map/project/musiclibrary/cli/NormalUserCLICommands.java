@@ -68,7 +68,7 @@ public class NormalUserCLICommands {
             }
             return normalUserService.save(user).toString();
         } else {
-            throw new RuntimeException("Only admin can add users");  //again, depinde de cum vrem sa modelam logica
+            return "Only admin can add users";
         }
     }
 
@@ -109,7 +109,7 @@ public class NormalUserCLICommands {
     public String getCurrentUser() {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin)
             return (this.userSession.getCurrentUser()).toString();
-        else if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser){
+        else if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
             return this.userSession.getCurrentUser().toString();
         } else {
             return "No user is currently logged in.";

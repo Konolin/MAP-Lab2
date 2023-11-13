@@ -35,10 +35,8 @@ public class PlaylistCLICommands {
             List<Playlist> userPlaylists = playlistService.findByUser(currentUser);
             return userPlaylists.toString();
         } else {
-            throw new RuntimeException("Only normal users can see their playlists.");
+            return "Only normal users can see their playlists.";
         }
-
-
     }
 
 
@@ -50,7 +48,7 @@ public class PlaylistCLICommands {
 
         Playlist playlist = new Playlist();
         playlist.setName(name);
-        if (userSession.getCurrentUser() instanceof NormalUser){
+        if (userSession.getCurrentUser() instanceof NormalUser) {
             playlist.setUser((NormalUser) userSession.getCurrentUser());
             playlist.setSongs(new ArrayList<>());
             return playlistService.save(playlist).toString();
@@ -61,9 +59,9 @@ public class PlaylistCLICommands {
 
 
     @ShellMethod(key = "addSongToPlaylist", value = "Add a song to a playlist")
-    public String addSongToPlaylist(@ShellOption (value = {"songId"}, help = "Id of the song") final String songIdstr,
-                                 @ShellOption (value = {"playListId"}, help = "Id of the playlist") final String playListIdstr) {
-        try{
+    public String addSongToPlaylist(@ShellOption(value = {"songId"}, help = "Id of the song") final String songIdstr,
+                                    @ShellOption(value = {"playListId"}, help = "Id of the playlist") final String playListIdstr) {
+        try {
             Long songId = Long.parseLong(songIdstr);
             Long playListId = Long.parseLong(playListIdstr);
             return playlistService.addSong(songId, playListId).toString();

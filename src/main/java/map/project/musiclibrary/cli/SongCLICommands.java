@@ -79,7 +79,7 @@ public class SongCLICommands {
 
             return songService.save(song).toString();
         } else {
-            throw new RuntimeException("Only admin can add songs");
+            return "Only admin can add songs";
         }
     }
 
@@ -96,7 +96,7 @@ public class SongCLICommands {
             throw new RuntimeException("You must log in to play a song.");
         }
         Long songId = Long.parseLong(songIdstr);
-        if (userSession.getCurrentUser() instanceof NormalUser){
+        if (userSession.getCurrentUser() instanceof NormalUser) {
             songService.playSong(songId, (NormalUser) userSession.getCurrentUser());
         } else {
             throw new RuntimeException("Only normal users can play songs");

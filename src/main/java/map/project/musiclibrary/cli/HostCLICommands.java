@@ -29,7 +29,7 @@ public class HostCLICommands {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
             return hostUserService.findAll().toString();
         } else {
-            throw new RuntimeException("Only admin can list all hosts");
+            return "Only admin can list all hosts";
         }
     }
 
