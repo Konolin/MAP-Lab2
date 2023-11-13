@@ -1,9 +1,6 @@
 package map.project.musiclibrary.cli;
 
-import map.project.musiclibrary.data.model.ArtistUser;
-import map.project.musiclibrary.data.model.NormalUser;
-import map.project.musiclibrary.data.model.Song;
-import map.project.musiclibrary.data.model.UserSession;
+import map.project.musiclibrary.data.model.*;
 import map.project.musiclibrary.service.ArtistUserService;
 import map.project.musiclibrary.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +15,9 @@ import java.util.Optional;
 
 @ShellComponent
 public class SongCLICommands {
-    private SongService songService;
-    private ArtistUserService artistUserService;
-    private UserSession userSession;
+    private final SongService songService;
+    private final ArtistUserService artistUserService;
+    private final UserSession userSession;
 
     @Autowired
     public SongCLICommands(SongService songService, ArtistUserService artistUserService, UserSession userSession) {
@@ -31,7 +28,11 @@ public class SongCLICommands {
 
     @ShellMethod(key = "listSongs", value = "List all songs")
     public String listSongs() {
-        return songService.findAll().toString();
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+            return songService.findAll().toString();
+        } else {
+            throw new RuntimeException("Only admin can list all songs");
+        }
     }
 
     //TODO - check for a user before attempting to add a song
@@ -41,41 +42,45 @@ public class SongCLICommands {
                           @ShellOption(value = {"length"}, help = "Length of the song(in seconds)") final String lengthStr,
                           @ShellOption(value = {"releaseDate"}, help = "The release date of the song") final String releaseDateStr,
                           @ShellOption(value = {"artistId"}, help = "The id of the artist of the song") final String artistIdStr) {
-        Song song = new Song();
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+            Song song = new Song();
 
-        song.setName(name);
-        song.setGenre(genre);
-        try {
-            int length = Integer.parseInt(lengthStr);
-            song.setLength(length);
-        } catch (NumberFormatException e) {
-            return "Error: Invalid integer format. Please provide a valid number.";
-        }
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date releaseDate = dateFormat.parse(releaseDateStr);
-            song.setReleaseDate(releaseDate);
-        } catch (ParseException e) {
-            return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
-        }
-
-        try {
-            // search artist by id
-            Long artistId = Long.parseLong(artistIdStr);
-            Optional<ArtistUser> artistUserOptional = artistUserService.findById(artistId);
-            if (artistUserOptional.isPresent()) {
-                // add artist to song and add song to artists list
-                song.setArtist(artistUserOptional.get());
-                artistUserOptional.get().addSong(song);
-            } else {
-                return "Error: An artist with that id does not exist";
+            song.setName(name);
+            song.setGenre(genre);
+            try {
+                int length = Integer.parseInt(lengthStr);
+                song.setLength(length);
+            } catch (NumberFormatException e) {
+                return "Error: Invalid integer format. Please provide a valid number.";
             }
-        } catch (NumberFormatException e) {
-            return "Error: Invalid integer format. Please provide a valid number.";
-        }
 
-        return songService.save(song).toString();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date releaseDate = dateFormat.parse(releaseDateStr);
+                song.setReleaseDate(releaseDate);
+            } catch (ParseException e) {
+                return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
+            }
+
+            try {
+                // search artist by id
+                Long artistId = Long.parseLong(artistIdStr);
+                Optional<ArtistUser> artistUserOptional = artistUserService.findById(artistId);
+                if (artistUserOptional.isPresent()) {
+                    // add artist to song and add song to artists list
+                    song.setArtist(artistUserOptional.get());
+                    artistUserOptional.get().addSong(song);
+                } else {
+                    return "Error: An artist with that id does not exist";
+                }
+            } catch (NumberFormatException e) {
+                return "Error: Invalid integer format. Please provide a valid number.";
+            }
+
+            return songService.save(song).toString();
+        } else {
+            throw new RuntimeException("Only admin can add songs");
+        }
     }
 
     @ShellMethod(key = "findSong", value = "Find a song by name")

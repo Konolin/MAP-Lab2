@@ -20,4 +20,6 @@ Design Patterns:
     - Singleton - un admin care poate sa modifice baza de date (un user poate doar sa adauge playlisturi si sa dea play la song/podcast
     - Builder - pentru albume
     - Observer - notify users when a new album has been released
-    -
+
+
+new TODO - implement the same logic for the admin role for the other methods where it makes sense, as it is in addPodcast rn

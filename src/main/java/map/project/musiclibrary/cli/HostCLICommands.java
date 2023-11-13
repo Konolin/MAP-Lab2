@@ -1,6 +1,8 @@
 package map.project.musiclibrary.cli;
 
+import map.project.musiclibrary.data.model.Admin;
 import map.project.musiclibrary.data.model.HostUser;
+import map.project.musiclibrary.data.model.UserSession;
 import map.project.musiclibrary.service.HostUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -14,33 +16,43 @@ import java.util.Date;
 @ShellComponent
 public class HostCLICommands {
     private final HostUserService hostUserService;
+    private final UserSession userSession;
 
     @Autowired
-    public HostCLICommands(HostUserService hostUserService) {
+    public HostCLICommands(HostUserService hostUserService, UserSession userSession) {
         this.hostUserService = hostUserService;
+        this.userSession = userSession;
     }
 
     @ShellMethod(key = "listHosts", value = "List all hosts")
     public String listHostUsers() {
-        return hostUserService.findAll().toString();
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+            return hostUserService.findAll().toString();
+        } else {
+            throw new RuntimeException("Only admin can list all hosts");
+        }
     }
 
     @ShellMethod(key = "addHost", value = "Add a host")
     public String addHost(@ShellOption(value = {"name"}, help = "Name of the host") final String name,
                           @ShellOption(value = {"birthdate"}, help = "Birthdate of the user (yyyy-MM-dd)") final String birthdateString) {
-        HostUser host = new HostUser();
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+            HostUser host = new HostUser();
 
-        host.setName(name);
+            host.setName(name);
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date birthdate = dateFormat.parse(birthdateString);
-            host.setBirthdate(birthdate);
-        } catch (ParseException e) {
-            return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date birthdate = dateFormat.parse(birthdateString);
+                host.setBirthdate(birthdate);
+            } catch (ParseException e) {
+                return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
+            }
+
+            return hostUserService.save(host).toString();
+        } else {
+            throw new RuntimeException("Only admin can add a host");
         }
-
-        return hostUserService.save(host).toString();
     }
 
     @ShellMethod(key = "findHost", value = "Find a host by name")

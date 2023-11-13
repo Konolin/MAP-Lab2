@@ -28,7 +28,11 @@ public class PodcastCLICommands {
 
     @ShellMethod(key = "listPodcasts", value = "List all podcasts")
     public String listPodcasts() {
-        return podcastService.findAll().toString();
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+            return podcastService.findAll().toString();
+        } else {
+            throw new RuntimeException("Only admin can list all podcasts");
+        }
     }
 
     @ShellMethod(key = "addPodcast", value = "Add a podcast")
@@ -89,12 +93,16 @@ public class PodcastCLICommands {
     @ShellMethod(key = "addAdToPodcast", value = "Add an advertisement to a podcast")
     public String addAdToPodcast(@ShellOption(value = {"adId"}, help = "Id of the advertisement") final String adIdStr,
                                  @ShellOption(value = {"podcastId"}, help = "Id of the podcast") final String podcastIdStr) {
-        try {
-            Long adId = Long.parseLong(adIdStr);
-            Long podcastId = Long.parseLong(podcastIdStr);
-            return podcastService.addAd(adId, podcastId).toString();
-        } catch (NumberFormatException e) {
-            return "Error: Invalid integer format. Please provide a valid number.";
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+            try {
+                Long adId = Long.parseLong(adIdStr);
+                Long podcastId = Long.parseLong(podcastIdStr);
+                return podcastService.addAd(adId, podcastId).toString();
+            } catch (NumberFormatException e) {
+                return "Error: Invalid integer format. Please provide a valid number.";
+            }
+        } else {
+            throw new RuntimeException("Only admin can add an ad to a podcast");
         }
     }
 

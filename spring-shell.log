@@ -741,3 +741,31 @@
 1699825947838:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
 1699825956810:addHost --birthdate 2000-10-10 --name Dani
 1699825964168:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1699870459659:addAd --type gambling --name Superbet --length 200 --releaseDate 2010-01-01
+1699870473526:listAds
+1699870480455:findAd
+1699870486108:findAd --name edsf
+1699871699106:addArtist --name ifk --birthdate 1111-11-11
+1699871713864:adminLogin --email admin --password admin
+1699871719903:addArtist --name ifk --birthdate 1111-11-11
+1699871727320:adminLogout
+1699871739335:addLabel --name idad
+1699871760719:adminLogin --email admin --password admin
+1699871768668:addLabel --name idad
+1699871781447:currentUser
+1699871785751:adminLogout
+1699871790513:currentUser
+1699871801672:addArtistToLabel --artistId 1 --labelId 1
+1699872030339:findUser --name bruh
+1699872045482:adminLogin --email admin --password admin
+1699872054314:findUser --name bruh
+1699872069531:currentUser
+1699872075607:adminLogout
+1699872112461:addPlaylist --name Bruh
+1699872131789:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699872149278:adminLogin --email admin --password admin
+1699872154449:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699872165421:addPlaylist --name Bruh
+1699872169672:adminLogout
+1699872178959:login --email 123 --password 123
+1699872188255:addPlaylist --name Bruh

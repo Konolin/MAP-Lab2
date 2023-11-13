@@ -27,7 +27,11 @@ public class NormalUserCLICommands {
 
     @ShellMethod(key = "listUsers", value = "List all users")
     public String listUsers() {
-        return normalUserService.findAll().toString();
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+            return normalUserService.findAll().toString();
+        } else {
+            throw new RuntimeException("Only admin can list all users");
+        }
     }
 
     @ShellMethod(key = "addUser", value = "Add a user")
@@ -36,36 +40,44 @@ public class NormalUserCLICommands {
                           @ShellOption(value = {"password"}, help = "Password of the user") final String password,
                           @ShellOption(value = {"birthdate"}, help = "Birthdate of the user (yyyy-MM-dd)") final String birthdateString,
                           @ShellOption(value = {"isPremium"}, help = "Is the user premium (boolean)") final String isPremiumStr) {
-        NormalUser user = new NormalUser();
-        user.setName(name);
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+            NormalUser user = new NormalUser();
+            user.setName(name);
 
-        LoginCredentials loginCredentials = new LoginCredentials();
-        loginCredentials.setEmail(email);  // TODO - email unic sau cauta logincredential daca mai exista si thorw exception
-        loginCredentials.setPassword(password);
+            LoginCredentials loginCredentials = new LoginCredentials();
+            loginCredentials.setEmail(email);  // TODO - email unic sau cauta logincredential daca mai exista si thorw exception
+            loginCredentials.setPassword(password);
 
-        user.setLoginCredentials(loginCredentials);
-        loginCredentials.setUser(user);
+            user.setLoginCredentials(loginCredentials);
+            loginCredentials.setUser(user);
 
-        try {
-            boolean isPremium = Boolean.parseBoolean(isPremiumStr);
-            user.setPremium(isPremium);
-        } catch (NumberFormatException e) {
-            return "Error: Invalid boolean string";
+            try {
+                boolean isPremium = Boolean.parseBoolean(isPremiumStr);
+                user.setPremium(isPremium);
+            } catch (NumberFormatException e) {
+                return "Error: Invalid boolean string";
+            }
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date birthdate = dateFormat.parse(birthdateString);
+                user.setBirthdate(birthdate);
+            } catch (ParseException e) {
+                return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
+            }
+            return normalUserService.save(user).toString();
+        } else {
+            throw new RuntimeException("Only admin can add users");  //again, depinde de cum vrem sa modelam logica
         }
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date birthdate = dateFormat.parse(birthdateString);
-            user.setBirthdate(birthdate);
-        } catch (ParseException e) {
-            return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
-        }
-        return normalUserService.save(user).toString();
     }
 
     @ShellMethod(key = "findUser", value = "Find a user by name")
     public String findUser(@ShellOption(value = {"name"}, help = "Name of the user") final String name) {
-        return normalUserService.findByName(name).toString();
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+            return normalUserService.findByName(name).toString();
+        } else {
+            throw new RuntimeException("Only admin can search for users");
+        }
     }
 
     @ShellMethod(key = "login", value = "Log in as a NormalUser")
@@ -95,7 +107,7 @@ public class NormalUserCLICommands {
     @ShellMethod(key = "currentUser", value = "Get the current user that is logged in")
     public String getCurrentUser() {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin)
-            return ((Admin) this.userSession.getCurrentUser()).toString();
+            return (this.userSession.getCurrentUser()).toString();
         else if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser){
             return this.userSession.getCurrentUser().toString();
         } else {

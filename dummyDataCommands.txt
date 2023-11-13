@@ -15,3 +15,5 @@ addAlbum --name idk --songIds 1,2
 addPlaylist --name Bruh
 addSongToPlaylist --songId 1 --playListId 1
 playSong --songId 1
+
+adminLogin --email admin --password admin
