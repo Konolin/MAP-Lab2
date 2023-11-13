@@ -1,18 +1,13 @@
 package map.project.musiclibrary.cli;
 
-import map.project.musiclibrary.data.model.HostUser;
 import map.project.musiclibrary.data.model.Podcast;
 import map.project.musiclibrary.service.HostUserService;
+import map.project.musiclibrary.service.PodcastBuilder;
 import map.project.musiclibrary.service.PodcastService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Optional;
 
 @ShellComponent
 public class PodcastCLICommands {
@@ -36,42 +31,19 @@ public class PodcastCLICommands {
                              @ShellOption(value = {"topic"}, help = "The topic of the podcast") final String topic,
                              @ShellOption(value = {"releaseDate"}, help = "The release date of the podcast") final String releaseDateStr,
                              @ShellOption(value = {"hostId"}, help = "The id of the host") final String hostIdStr) {
-        Podcast podcast = new Podcast();
-
-        podcast.setName(name);
-        podcast.setTopic(topic);
-
         try {
-            int length = Integer.parseInt(lengthStr);
-            podcast.setLength(length);
-        } catch (NumberFormatException e) {
-            return "Error: Invalid integer format. Please provide a valid number.";
-        }
+            Podcast podcast = new PodcastBuilder()
+                    .setName(name)
+                    .setLength(lengthStr)
+                    .setTopic(topic)
+                    .setReleaseDate(releaseDateStr)
+                    .setHostId(hostIdStr)
+                    .build(hostUserService);
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date releaseDate = dateFormat.parse(releaseDateStr);
-            podcast.setReleaseDate(releaseDate);
-        } catch (ParseException e) {
-            return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
+            return podcastService.save(podcast).toString();
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
         }
-
-        try {
-            // search host by id
-            Long hostId = Long.parseLong(hostIdStr);
-            Optional<HostUser> hostUserOptional = hostUserService.findById(hostId);
-            if (hostUserOptional.isPresent()) {
-                // add host to podcast and add podcast to hosts list
-                podcast.setHost(hostUserOptional.get());
-                hostUserOptional.get().addPodcast(podcast);
-            } else {
-                return "Error: A host with that id does not exist";
-            }
-        } catch (NumberFormatException e) {
-            return "Error: Invalid integer format. Please provide a valid number.";
-        }
-
-        return podcastService.save(podcast).toString();
     }
 
     @ShellMethod(key = "findPodcast", value = "Find a podcast by name")

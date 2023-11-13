@@ -322,3 +322,25 @@
 1699289863778:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
 1699289876097:login --email 123 --password 123
 1699289882508:currentUser
+1699883361854:addHost --birthdate 2000-10-10 --name Dani
+1699883367276:listHosts
+1699883372736:addPodcast --hostId 1 --name theG --releaseDate 2010-10-10 --topic money --length 2000
+1699883379534:listHosts
+1699883384173:listPodcasts
+1699883392507:addAd --type gambling --name Superbet --length 200 --releaseDate 2010-01-01
+1699883397160:addAddToPodcast --adId 1 --podcastId 1
+1699883405746:addAdToPodcast --adId 1 --podcastId 1
+1699883409458:listPodcasts
+1699883431115:addArtist --name ifk --birthdate 1111-11-11
+1699883443127:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699883449699:listArtists
+1699883460676:addAlbum --name idk --songIds 1,2
+1699883572087:addArtist --name ifk --birthdate 1111-11-11
+1699883577147:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699883581240:addAlbum --name idk --songIds 1,2
+1699883698009:addArtist --name ifk --birthdate 1111-11-11
+1699883702473:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699883707071:addAlbum --name idk --songIds 1,2
+1699883714201:listArtists
+1699883719841:listAlbums
+1699883726937:listSongs
