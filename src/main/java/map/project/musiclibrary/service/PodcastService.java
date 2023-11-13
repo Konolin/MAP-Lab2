@@ -1,6 +1,7 @@
 package map.project.musiclibrary.service;
 
 import map.project.musiclibrary.data.model.Advertisement;
+import map.project.musiclibrary.data.model.NormalUser;
 import map.project.musiclibrary.data.model.Podcast;
 import map.project.musiclibrary.data.repository.AdvertisementRepository;
 import map.project.musiclibrary.data.repository.PodcastRepository;
@@ -14,11 +15,13 @@ import java.util.Optional;
 public class PodcastService {
     private final PodcastRepository podcastRepository;
     private final AdvertisementRepository advertisementRepository;
+    private final NormalUserService normalUserService;
 
     @Autowired
-    public PodcastService(PodcastRepository podcastRepository, AdvertisementRepository advertisementRepository) {
+    public PodcastService(PodcastRepository podcastRepository, AdvertisementRepository advertisementRepository, NormalUserService normalUserService) {
         this.podcastRepository = podcastRepository;
         this.advertisementRepository = advertisementRepository;
+        this.normalUserService = normalUserService;
     }
 
     public Podcast save(Podcast podcast) {
@@ -49,5 +52,16 @@ public class PodcastService {
         }
 
         throw new RuntimeException("PodcastService::Advertisement or podcast with specified id doesn't exist");
+    }
+
+    public void playPodcast(Long podcastId, NormalUser currentUser) {
+        Optional<Podcast> podcastOptional = podcastRepository.findById(podcastId);
+
+        if (podcastOptional.isPresent()) {
+            Podcast podcast = podcastOptional.get();
+            normalUserService.playAudio(podcast, currentUser.isPremium());
+        } else {
+            throw new RuntimeException("Podcast not found");
+        }
     }
 }

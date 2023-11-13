@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
@@ -56,4 +57,33 @@ public class ArtistUser extends User {
         }
         return artistsString;
     }
+
+    @ManyToMany(mappedBy = "followedArtists", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<NormalUser> followers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "artist")
+    private List<Album> albums = new ArrayList<>();
+
+    public void releaseAlbum(Album album){
+        albums.add(album);
+        notifyFollowers(album);
+    }
+
+    private void notifyFollowers(Album album) {
+        for (NormalUser follower : followers) {
+            follower.update("New album released: " + album.getName() + " by " + getName());
+        }
+    }
+
+    public void addFollower(NormalUser follower) {
+        if (!followers.contains(follower)) {
+            followers.add(follower);
+            follower.getFollowedArtists().add(this);
+        }
+    }
+
+    public void removeFollower(NormalUser follower) {
+        followers.remove(follower);
+    }
+
 }

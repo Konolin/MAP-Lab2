@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "songs")
 @Data
-public class Song extends Audio {
+public class Song extends Audio implements Playable{
     @Column(name = "genre")
     private String genre;
 
@@ -21,6 +21,10 @@ public class Song extends Audio {
     @ManyToOne
     @JoinColumn(name = "artist_id")
     private ArtistUser artist;
+
+    @ManyToOne
+    @JoinColumn(name = "playlist_id")
+    private Playlist playlist;
 
     @Override
     public String toString() {
@@ -58,5 +62,10 @@ public class Song extends Audio {
             songsString = sb.toString();
         }
         return songsString;
+    }
+
+    @Override
+    public void play(){
+        System.out.printf("Playing song %s by %s", name, artist.getName());
     }
 }

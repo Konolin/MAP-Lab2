@@ -25,7 +25,15 @@ public class Playlist {
     )
     private List<Song> songs;
 
+    public boolean addSong(Song song){
+        return songs.add(song);
+    }
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private NormalUser normalUser;
+
+    public void setUser(NormalUser normalUser) {
+        this.normalUser = normalUser;
+    }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "podcasts")
 @Data
-public class Podcast extends Audio {
+public class Podcast extends Audio implements Playable{
     @Column(name = "topic")
     private String topic;
 
@@ -80,5 +80,10 @@ public class Podcast extends Audio {
             podcastsString = sb.toString();
         }
         return podcastsString;
+    }
+
+    @Override
+    public void play(){
+        System.out.printf("Playing podcast %s by %s", name, host.getName());
     }
 }

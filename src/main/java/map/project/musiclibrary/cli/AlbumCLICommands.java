@@ -1,9 +1,8 @@
 package map.project.musiclibrary.cli;
 
-import map.project.musiclibrary.data.model.Album;
-import map.project.musiclibrary.data.model.Song;
-import map.project.musiclibrary.service.AlbumBuilder;
+import map.project.musiclibrary.data.model.*;
 import map.project.musiclibrary.service.AlbumService;
+import map.project.musiclibrary.service.ArtistUserService;
 import map.project.musiclibrary.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -20,36 +19,49 @@ import java.util.stream.Collectors;
 public class AlbumCLICommands {
     private final AlbumService albumService;
     private final SongService songService;
+    private final UserSession userSession;
+    private final ArtistUserService artistUserService;
 
     @Autowired
-    public AlbumCLICommands(AlbumService albumService, SongService songService) {
+    public AlbumCLICommands(AlbumService albumService, SongService songService, UserSession userSession, ArtistUserService artistUserService) {
         this.albumService = albumService;
         this.songService = songService;
+        this.userSession = userSession;
+        this.artistUserService = artistUserService;
     }
 
     @ShellMethod(key = "listAlbums", value = "List all albums")
     public String listAlbums() {
-        return albumService.findAll().toString();
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+            return albumService.findAll().toString();
+        } else {
+            throw new RuntimeException("Only admin can list all albums");  //tbh asta e discutabil, depinde de preferinte
+        }
     }
 
     @ShellMethod(key = "addAlbum", value = "Add an album")
     public String addAlbum(@ShellOption(value = {"name"}, help = "Name of the album") final String name,
+                           @ShellOption(value = {"artistId"}, help = "ID of the artist") final String artistIdStr,
                            @ShellOption(value = {"songIds"}, help = "List of song ids (format: 1,2,3)") final String songIdsStr) {
-        try {
-            List<Long> songIds = Arrays.stream(songIdsStr.split(","))
-                    .map(Long::parseLong)
-                    .collect(Collectors.toList());
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+           try {
+              List<Long> songIds = Arrays.stream(songIdsStr.split(","))
+                      .map(Long::parseLong)
+                      .collect(Collectors.toList());
 
-            Album album = new AlbumBuilder()
-                    .setName(name)
-                    .setSongIds(songIds)
-                    .build(songService, albumService);
+              Album album = new AlbumBuilder()
+                      .setName(name)
+                      .setSongIds(songIds)
+                      .build(songService, albumService);
 
-            return albumService.save(album).toString();
-        } catch (NumberFormatException e) {
-            return "Error: Invalid integer format. Please provide valid numbers for song IDs.";
-        } catch (IllegalArgumentException e) {
-            return e.getMessage();
+              return albumService.save(album).toString();
+          } catch (NumberFormatException e) {
+              return "Error: Invalid integer format. Please provide valid numbers for song IDs.";
+          } catch (IllegalArgumentException e) {
+              return e.getMessage();
+          }
+        } else {
+            throw return "Only admin can add an album";
         }
     }
 
