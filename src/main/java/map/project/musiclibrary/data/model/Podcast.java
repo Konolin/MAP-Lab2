@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "podcasts")
 @Data
-public class Podcast extends Audio implements Playable{
+public class Podcast extends Audio implements Playable {
     @Column(name = "topic")
     private String topic;
 
@@ -25,6 +25,23 @@ public class Podcast extends Audio implements Playable{
             inverseJoinColumns = @JoinColumn(name = "advertisement_id")
     )
     private List<Advertisement> advertisements;
+
+    public static String listToString(List<Podcast> podcasts) {
+        String podcastsString = "[]";
+        if (podcasts != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("[");
+            for (Podcast podcast : podcasts) {
+                sb.append(podcast.toShortString()).append(", ");
+            }
+            if (!podcasts.isEmpty()) {
+                sb.delete(sb.length() - 2, sb.length());
+            }
+            sb.append("])");
+            podcastsString = sb.toString();
+        }
+        return podcastsString;
+    }
 
     @Override
     public String toString() {
@@ -65,25 +82,8 @@ public class Podcast extends Audio implements Playable{
                 ")";
     }
 
-    public static String listToString(List<Podcast> podcasts) {
-        String podcastsString = "[]";
-        if (podcasts != null) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("[");
-            for (Podcast podcast : podcasts) {
-                sb.append(podcast.toShortString()).append(", ");
-            }
-            if (!podcasts.isEmpty()) {
-                sb.delete(sb.length() - 2, sb.length());
-            }
-            sb.append("])");
-            podcastsString = sb.toString();
-        }
-        return podcastsString;
-    }
-
     @Override
-    public void play(){
+    public void play() {
         System.out.printf("Playing podcast %s by %s", name, host.getName());
     }
 }

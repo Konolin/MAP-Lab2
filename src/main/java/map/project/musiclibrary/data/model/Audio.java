@@ -23,7 +23,7 @@ public abstract class Audio {
     protected Date releaseDate;
 
     public void setReleaseDate(Date releaseDate) {
-        if (releaseDate == null){
+        if (releaseDate == null) {
             throw new IllegalArgumentException();
         }
         this.releaseDate = releaseDate;

@@ -20,6 +20,10 @@ public class Album {
     @OneToMany(mappedBy = "album", fetch = FetchType.EAGER)
     private List<Song> songs;
 
+    @ManyToOne
+    @JoinColumn(name = "artist_id")
+    private ArtistUser artist;
+
     public String toShortString() {
         return "Song(" +
                 "id=" + id +
@@ -35,8 +39,4 @@ public class Album {
                 ", songs=" + Song.listToString(songs) +
                 ')';
     }
-
-    @ManyToOne
-    @JoinColumn(name = "artist_id")
-    private ArtistUser artist;
 }

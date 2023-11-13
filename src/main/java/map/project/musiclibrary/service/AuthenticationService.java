@@ -11,24 +11,24 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
- public class AuthenticationService {
+public class AuthenticationService {
 
-        @Autowired
-        private LoginCredentialsRepository loginCredentialsRepository;
+    @Autowired
+    private LoginCredentialsRepository loginCredentialsRepository;
 
-        public User login(String email, String password) {
-            List<LoginCredentials> loginCredentialsList = loginCredentialsRepository.findByEmailAndPassword(email, password);
+    public User login(String email, String password) {
+        List<LoginCredentials> loginCredentialsList = loginCredentialsRepository.findByEmailAndPassword(email, password);
 
-            if (!loginCredentialsList.isEmpty() && loginCredentialsList.get(0).getUser() instanceof NormalUser) {
-                return loginCredentialsList.get(0).getUser();
-            }
-            if (isAdminCredentials(email, password)){
-                return Admin.getInstance();
-            }
-            return null;
+        if (!loginCredentialsList.isEmpty() && loginCredentialsList.get(0).getUser() instanceof NormalUser) {
+            return loginCredentialsList.get(0).getUser();
         }
-
-        private boolean isAdminCredentials(String email, String password){
-            return "admin".equals(email) && "admin".equals(password);
+        if (isAdminCredentials(email, password)) {
+            return Admin.getInstance();
         }
- }
+        return null;
+    }
+
+    private boolean isAdminCredentials(String email, String password) {
+        return "admin".equals(email) && "admin".equals(password);
+    }
+}

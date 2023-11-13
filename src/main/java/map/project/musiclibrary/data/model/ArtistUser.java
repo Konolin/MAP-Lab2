@@ -18,6 +18,27 @@ public class ArtistUser extends User {
 
     @OneToMany(mappedBy = "artist", fetch = FetchType.EAGER)
     private List<Song> songs;
+    @ManyToMany(mappedBy = "followedArtists", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<NormalUser> followers = new ArrayList<>();
+    @OneToMany(mappedBy = "artist")
+    private List<Album> albums = new ArrayList<>();
+
+    public static String listToString(List<ArtistUser> artists) {
+        String artistsString = "[]";
+        if (artists != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("[");
+            for (ArtistUser artist : artists) {
+                sb.append(artist.toShortString()).append(", ");
+            }
+            if (!artists.isEmpty()) {
+                sb.delete(sb.length() - 2, sb.length());
+            }
+            sb.append("])");
+            artistsString = sb.toString();
+        }
+        return artistsString;
+    }
 
     public boolean addSong(Song song) {
         return songs.add(song);
@@ -41,30 +62,7 @@ public class ArtistUser extends User {
                 ")";
     }
 
-    public static String listToString(List<ArtistUser> artists) {
-        String artistsString = "[]";
-        if (artists != null) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("[");
-            for (ArtistUser artist : artists) {
-                sb.append(artist.toShortString()).append(", ");
-            }
-            if (!artists.isEmpty()) {
-                sb.delete(sb.length() - 2, sb.length());
-            }
-            sb.append("])");
-            artistsString = sb.toString();
-        }
-        return artistsString;
-    }
-
-    @ManyToMany(mappedBy = "followedArtists", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<NormalUser> followers = new ArrayList<>();
-
-    @OneToMany(mappedBy = "artist")
-    private List<Album> albums = new ArrayList<>();
-
-    public void releaseAlbum(Album album){
+    public void releaseAlbum(Album album) {
         albums.add(album);
         notifyFollowers(album);
     }

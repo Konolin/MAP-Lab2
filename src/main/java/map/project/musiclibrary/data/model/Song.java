@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "songs")
 @Data
-public class Song extends Audio implements Playable{
+public class Song extends Audio implements Playable {
     @Column(name = "genre")
     private String genre;
 
@@ -25,6 +25,23 @@ public class Song extends Audio implements Playable{
     @ManyToOne
     @JoinColumn(name = "playlist_id")
     private Playlist playlist;
+
+    public static String listToString(List<Song> songs) {
+        String songsString = "[]";
+        if (songs != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("[");
+            for (Song song : songs) {
+                sb.append(song.toShortString()).append(", ");
+            }
+            if (!songs.isEmpty()) {
+                sb.delete(sb.length() - 2, sb.length());
+            }
+            sb.append("]");
+            songsString = sb.toString();
+        }
+        return songsString;
+    }
 
     @Override
     public String toString() {
@@ -47,25 +64,8 @@ public class Song extends Audio implements Playable{
                 ')';
     }
 
-    public static String listToString(List<Song> songs) {
-        String songsString = "[]";
-        if (songs != null) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("[");
-            for (Song song : songs) {
-                sb.append(song.toShortString()).append(", ");
-            }
-            if (!songs.isEmpty()) {
-                sb.delete(sb.length() - 2, sb.length());
-            }
-            sb.append("]");
-            songsString = sb.toString();
-        }
-        return songsString;
-    }
-
     @Override
-    public void play(){
+    public void play() {
         System.out.printf("Playing song %s by %s", name, artist.getName());
     }
 }

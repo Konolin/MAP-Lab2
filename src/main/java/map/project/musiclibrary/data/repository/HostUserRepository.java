@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface HostUserRepository extends JpaRepository<HostUser, Long> {
     List<HostUser> findByName(String name);
+
     Optional<HostUser> findById(Long id);
 }

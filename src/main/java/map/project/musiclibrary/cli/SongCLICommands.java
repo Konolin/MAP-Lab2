@@ -88,8 +88,8 @@ public class SongCLICommands {
         return songService.findByName(name).toString();
     }
 
-    //TODO - de structurat mai bine metodele (de ex sa fie clar ce am nevoie in service/CLI ca sa mentin encapsularea)
-    //TODO - cand apare un Ad, nu se poate identifica ce nume are pentru ca e null for now
+    // TODO - de structurat mai bine metodele (de ex sa fie clar ce am nevoie in service/CLI ca sa mentin encapsularea)
+    // TODO - strategy pattern: playSong -> alege intre playSongWithoutAd si playSongWithAd
     @ShellMethod(key = "playSong", value = "Play a song by ID")
     public void playSong(@ShellOption(value = {"songId"}, help = "ID of the song") final String songIdstr) {
         if (!userSession.isLoggedIn()) {

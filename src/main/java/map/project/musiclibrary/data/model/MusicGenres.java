@@ -1,6 +1,6 @@
 package map.project.musiclibrary.data.model;
 
-public enum MusicGenres {
+public enum MusicGenres { // TODO - implementarea lor
     POP,
     HIP_HOP,
     PUNK,
