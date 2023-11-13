@@ -769,3 +769,139 @@
 1699872169672:adminLogout
 1699872178959:login --email 123 --password 123
 1699872188255:addPlaylist --name Bruh
+1699879731109:addArtist --name ifk --birthdate 1111-11-11
+1699879736703:adminLogin --email admin --password admin
+1699879742495:addArtist --name ifk --birthdate 1111-11-11
+1699879754588:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699879763950:help followArtist
+1699879783637:followArtist --artistId 1
+1699879789164:adminLogout
+1699879796985:login --email 123 --password 123
+1699879803849:followArtist --artistId 1
+1699879973457:adminLogin --email admin --password admin
+1699879977745:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699879983386:adminLOgout
+1699879987620:adminLogout
+1699879994351:login --email 123 --password 12
+1699880001139:login --email 123 --password 123
+1699880022296:adminLogin --email admin --password admin
+1699880028880:addArtist --name ifk --birthdate 1111-11-11
+1699880032076:adminLogout
+1699880041784:login --email 123 --passowrd 123
+1699880053379:login --email 123 --password 123
+1699880062185:followArtist --artistId 1
+1699880115046:adminLogin --email admin --password admin
+1699880123263:addArtist --name ifk --birthdate 1111-11-11
+1699880127283:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699880130201:adminLogout
+1699880136835:login --email 123 --password 123
+1699880147221:followArtsit --artistId 1
+1699880156555:followArtist --artistId 1
+1699881418498:adminLogin --email admin --password admin
+1699881426263:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699881430781:addArtist --name ifk --birthdate 1111-11-11
+1699881434691:adminLogout
+1699881444741:login --email 123 --password 123
+1699881454432:followArtist --artistId 1
+1699881585254:adminLogin --email admin --password admin
+1699881589279:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699881593580:addArtist --name ifk --birthdate 1111-11-11
+1699881597298:adminLogout
+1699881607879:login --email 123 --password 123
+1699881615909:followArtist --artistId 1
+1699881631548:unfollowArtist --artistId 1
+1699881650127:followArtist --artistId 1
+1699881661293:logout
+1699881674719:adminLogin --email admin --password admin
+1699881698692:help addAlbum
+1699882205762:adminLogin --email admin --password admin
+1699882210164:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699882214695:addArtist --name ifk --birthdate 1111-11-11
+1699882223215:adminLogout
+1699882234025:login --email 123 --password 123
+1699882244967:followArtist --artistId 1
+1699882255483:listFollowers
+1699882266302:listFollowers --artistId 1
+1699882321129:followArtist --artistId 1
+1699883028744:adminLogin --email admin --password admin
+1699883033239:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699883037611:addArtist --name ifk --birthdate 1111-11-11
+1699883043125:adminLogout
+1699883052113:login --email 123 --password 123
+1699883060010:followArtist --artistId 1
+1699883094469:listFollowers
+1699883104449:listFollowers --artistId 1
+1699883263601:unfollowArtist --artistId 1
+1699883806801:adminLogin --email admin --password admin
+1699883811457:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699883814842:addArtist --name ifk --birthdate 1111-11-11
+1699883825964:adminLogout
+1699883835779:login --email 123 --password 123
+1699883843049:followArtist --artistId 1
+1699883850554:listFollowers
+1699883859874:listPollowers --artistId 1
+1699883871997:listFollowers --artistId 1
+1699883889848:unfollowArtist --artistId 1
+1699884640495:adminLogin --email admin --password admin
+1699884645441:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699884649202:addArtist --name ifk --birthdate 1111-11-11
+1699884663619:adminLogout
+1699884671599:login --email 123 --password 123
+1699884680338:followArtist --artistId 1
+1699884687872:logout
+1699884702489:adminLogin --email admin --password admin
+1699884715094:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699884723963:addAlbum --name idk --songIds 1,2
+1699884745797:addAlbum --name idk --artistId 1 --songIds 1
+1699884766224:adminLogout
+1699884783757:login --email 123 --password 123
+1699884843703:followArtist --artistId 1
+1699885134628:adminLogin --email admin --password admin
+1699885147714:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699885153322:addArtist --name ifk --birthdate 1111-11-11
+1699885158426:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699885169268:adminLogout
+1699885178317:login --email 123 --password 123
+1699885195037:followArtist --artistId 1
+1699885216132:unfollowArtist --artistId 1
+1699886184892:adminLogin --email admin --password admin
+1699886189459:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699886207984:addArtist --name ifk --birthdate 1111-11-11
+1699886220585:adminLogout
+1699886235338:login --email 123 --password 123
+1699886248469:followArtist --artistId 1
+1699886259584:listFollowers
+1699886268001:listFollowers --artistId 1
+1699886299337:unfollowArtist --artistId 1
+1699886316532:listFollowers --artistId 1
+1699886328400:unfollowArtist --artistId 1
+1699886337296:listFollowers --artistId 1
+1699886348436:followArtist --artistId 1
+1699886356129:listFollowers --artistId 1
+1699886379529:unfollowArtist --artistId 1
+1699886591538:adminLogin --email admin --password admin
+1699886595301:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699886599815:addArtist --name ifk --birthdate 1111-11-11
+1699886609022:adminLogout
+1699886616500:login --email 123 --password 123
+1699886633897:followArtist --artistId 1
+1699886639141:listFollowers
+1699886648727:listFollowers --artistId 1
+1699887440307:adminLogin --email admin --password admin
+1699887452034:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699887455478:addArtist --name ifk --birthdate 1111-11-11
+1699887462237:adminLogout
+1699887470432:login --email 123 --password 123
+1699887481064:followArtist --artistId 1
+1699887489177:listFollowers
+1699887496967:listFollowers --artistId 1
+1699887541999:followArtist --artistId 1
+1699887552885:listFollowers --artistId 1
+1699888189340:adminLogin --email admin --password admin
+1699888192872:addArtist --name ifk --birthdate 1111-11-11
+1699888197220:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699888201032:adminLogout
+1699888204425:login --email 123
+1699888221996:login --email 123 --password 123
+1699888231087:followArtist --artistId 1
+1699888238631:listFollowers --artistId 1

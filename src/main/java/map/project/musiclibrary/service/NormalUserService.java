@@ -1,23 +1,28 @@
 package map.project.musiclibrary.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.*;
 import map.project.musiclibrary.data.repository.LoginCredentialsRepository;
 import map.project.musiclibrary.data.repository.NormalUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
 public class NormalUserService {
     private final NormalUserRepository normalUserRepository;
     private final LoginCredentialsRepository loginCredentialsRepository;
+    private final ArtistUserService artistUserService;
 
     @Autowired
-    public NormalUserService(NormalUserRepository normalUserRepository, LoginCredentialsRepository loginCredentialsRepository) {
+    public NormalUserService(NormalUserRepository normalUserRepository, LoginCredentialsRepository loginCredentialsRepository, ArtistUserService artistUserService) {
         this.normalUserRepository = normalUserRepository;
         this.loginCredentialsRepository = loginCredentialsRepository;
+        this.artistUserService = artistUserService;
     }
 
     public NormalUser save(NormalUser user) {
@@ -55,4 +60,45 @@ public class NormalUserService {
         System.out.println("Now playing " + ((Audio) playable).getName());
         playable.play();
     }
+
+    @Transactional
+    public void followArtist(NormalUser user, Long artistId) {
+        Optional<ArtistUser> artistUserOptional = artistUserService.findById(artistId);
+        NormalUser currentUser = normalUserRepository.findById(user.getId())
+                .orElseThrow(() -> new RuntimeException("User not found."));
+
+        if (artistUserOptional.isPresent()) {
+            ArtistUser artist = artistUserOptional.get();
+
+            artist.addFollower(currentUser);
+            currentUser.followArtist(artist);
+
+            artistUserService.save(artist);
+        } else {
+            throw new RuntimeException("Artist with ID " + artistId + " not found.");
+        }
+    }
+
+
+
+    @Transactional
+    public void unfollowArtist(NormalUser user, Long artistId) {
+        Optional<ArtistUser> artistUserOptional = artistUserService.findById(artistId);
+        Optional<NormalUser> userOptional = normalUserRepository.findById(user.getId());
+
+        if (artistUserOptional.isPresent() && userOptional.isPresent()) {
+            ArtistUser artist = artistUserOptional.get();
+            NormalUser currentUser = userOptional.get();
+
+            artist.removeFollower(currentUser);
+            currentUser.unfollowArtist(artist);
+
+            artistUserService.save(artist);
+            normalUserRepository.save(currentUser);
+        } else {
+            throw new EntityNotFoundException("Artist or user not found.");
+        }
+    }
+
+
 }

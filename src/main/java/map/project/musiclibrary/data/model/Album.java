@@ -35,4 +35,8 @@ public class Album {
                 ", songs=" + Song.listToString(songs) +
                 ')';
     }
+
+    @ManyToOne
+    @JoinColumn(name = "artist_id")
+    private ArtistUser artist;
 }

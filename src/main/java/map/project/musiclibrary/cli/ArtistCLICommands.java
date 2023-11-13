@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 
 @ShellComponent
 public class ArtistCLICommands {
@@ -61,4 +62,23 @@ public class ArtistCLICommands {
     public String findArtist(@ShellOption(value = {"name"}, help = "Name of the artist") final String name) {
         return artistUserService.findByName(name).toString();
     }
+
+    //TODO - only admin can see all followers of an artist
+    //TODO - de ce apare acelasi user de mai multe ori cand dau follow la un artist :((
+    @ShellMethod(key = "listFollowers", value = "List the followers of an artist")
+    public String getFollowers(@ShellOption(value = {"artistId"}, help = "ID of the artist") final String artistIdStr) {
+        try {
+            Long artistId = Long.parseLong(artistIdStr);
+            Optional<ArtistUser> artistUserOptional = artistUserService.findById(artistId);
+            if (artistUserOptional.isPresent()) {
+                ArtistUser artist = artistUserOptional.get();
+                return artist.getFollowers().toString();
+            } else {
+                return "Error: Artist with ID " + artistId + " not found.";
+            }
+        } catch (NumberFormatException e) {
+            return "Error: Invalid integer format. Please provide a valid number.";
+        }
+    }
+
 }

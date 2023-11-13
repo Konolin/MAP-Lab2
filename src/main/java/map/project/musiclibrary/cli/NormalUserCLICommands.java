@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -112,6 +113,38 @@ public class NormalUserCLICommands {
             return this.userSession.getCurrentUser().toString();
         } else {
             return "No user is currently logged in.";
+        }
+    }
+
+    @Transactional
+    @ShellMethod(key = "followArtist", value = "Follow an artist")
+    public String followArtist(@ShellOption(value = {"artistId"}, help = "ID of the artist") final String artistIdStr) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+            try {
+                Long artistId = Long.parseLong(artistIdStr);
+                normalUserService.followArtist((NormalUser) userSession.getCurrentUser(), artistId);
+                return "You are now following the artist with ID " + artistId;
+            } catch (NumberFormatException e) {
+                return "Error: Invalid integer format. Please provide a valid number.";
+            }
+        } else {
+            throw new RuntimeException("Only normal users can follow artists");
+        }
+    }
+
+    @Transactional
+    @ShellMethod(key = "unfollowArtist", value = "Unfollow an artist")
+    public String unfollowArtist(@ShellOption(value = {"artistId"}, help = "ID of the artist") final String artistIdStr) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+            try {
+                Long artistId = Long.parseLong(artistIdStr);
+                normalUserService.unfollowArtist((NormalUser) userSession.getCurrentUser(), artistId);
+                return "You have unfollowed the artist with ID " + artistId;
+            } catch (NumberFormatException e) {
+                return "Error: Invalid integer format. Please provide a valid number.";
+            }
+        } else {
+            throw new RuntimeException("Only normal users can unfollow artists");
         }
     }
 }

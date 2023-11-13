@@ -1,10 +1,8 @@
 package map.project.musiclibrary.cli;
 
-import map.project.musiclibrary.data.model.Admin;
-import map.project.musiclibrary.data.model.Album;
-import map.project.musiclibrary.data.model.Song;
-import map.project.musiclibrary.data.model.UserSession;
+import map.project.musiclibrary.data.model.*;
 import map.project.musiclibrary.service.AlbumService;
+import map.project.musiclibrary.service.ArtistUserService;
 import map.project.musiclibrary.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -20,12 +18,14 @@ public class AlbumCLICommands {
     private final AlbumService albumService;
     private final SongService songService;
     private final UserSession userSession;
+    private final ArtistUserService artistUserService;
 
     @Autowired
-    public AlbumCLICommands(AlbumService albumService, SongService songService, UserSession userSession) {
+    public AlbumCLICommands(AlbumService albumService, SongService songService, UserSession userSession, ArtistUserService artistUserService) {
         this.albumService = albumService;
         this.songService = songService;
         this.userSession = userSession;
+        this.artistUserService = artistUserService;
     }
 
     @ShellMethod(key = "listAlbums", value = "List all albums")
@@ -39,6 +39,7 @@ public class AlbumCLICommands {
 
     @ShellMethod(key = "addAlbum", value = "Add an album")
     public String addAlbum(@ShellOption(value = {"name"}, help = "Name of the album") final String name,
+                           @ShellOption(value = {"artistId"}, help = "ID of the artist") final String artistIdStr,
                            @ShellOption(value = {"songIds"}, help = "List of song ids (format: 1,2,3)") final String songIdsStr) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
             Album album = new Album();
@@ -69,6 +70,15 @@ public class AlbumCLICommands {
                 }
             }
             album.setSongs(albumSongs);
+            if (album.getArtist() != null) {
+                try {
+                    Long artistId = Long.parseLong(artistIdStr);
+                    artistUserService.releaseAlbum(artistId, album);
+                    artistUserService.save(album.getArtist()); // save changes to the artist
+                } catch(NumberFormatException e){
+                    return "Error: Invalid integer format. Please provide a valid number.";
+            }
+        }
 
             return albumService.save(album).toString();
         } else {
