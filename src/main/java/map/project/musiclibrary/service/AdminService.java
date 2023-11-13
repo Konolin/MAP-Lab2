@@ -12,7 +12,7 @@ public class AdminService {
         this.loginCredentialsRepository = loginCredentialsRepository;
     }
 
-    public Admin login (String email, String password){
+    public Admin login(String email, String password) {
         if ("admin".equals(email) && "admin".equals(password)) {
             return Admin.getInstance();
         }

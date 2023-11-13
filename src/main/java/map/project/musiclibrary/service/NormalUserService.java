@@ -45,15 +45,15 @@ public class NormalUserService {
         return loginCredentialsList.get(0).getUser();
     }
 
-    public void playAudio(Playable playable, boolean isPremium){
+    public void playAudio(Playable playable, boolean isPremium) {
         Random randomChance = new Random();
-        if(!isPremium && randomChance.nextInt(100) <= 33){  //33 represents the chance of an ad pop-up (33%)
-            Advertisement ad = new Advertisement();
+        if (!isPremium && randomChance.nextInt(100) <= 33) {  //33 represents the chance of an ad pop-up (33%)
+            Advertisement ad = new Advertisement(); // TODO - get random ad from database
             ad.play();
 
-            try{
+            try {
                 Thread.sleep(ad.getLength());
-            } catch (InterruptedException e){
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -78,7 +78,6 @@ public class NormalUserService {
             throw new RuntimeException("Artist with ID " + artistId + " not found.");
         }
     }
-
 
 
     @Transactional

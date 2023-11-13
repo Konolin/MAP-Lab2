@@ -11,13 +11,20 @@ import java.util.List;
 @Entity
 @Table(name = "Users")
 @Data
-public class NormalUser extends User implements Observer{
+public class NormalUser extends User implements Observer {
     @Column(name = "isPremium")
     private boolean isPremium;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "credentials_id", referencedColumnName = "id")
     private LoginCredentials loginCredentials;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_followed_artists",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "artist_id"))
+    private List<ArtistUser> followedArtists = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -31,13 +38,6 @@ public class NormalUser extends User implements Observer{
                 ", password=" + loginCredentials.getPassword() +
                 ')';
     }
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_followed_artists",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "artist_id"))
-    private List<ArtistUser> followedArtists = new ArrayList<>();
 
     public void followArtist(ArtistUser artist) {
         this.followedArtists.add(artist);

@@ -21,7 +21,7 @@ public class AlbumBuilder {
         return this;
     }
 
-    public Album build(SongService songService,AlbumService albumService) {
+    public Album build(SongService songService, AlbumService albumService) {
         Album album = new Album();
         album.setName(name);
         albumService.save(album);
