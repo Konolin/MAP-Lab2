@@ -905,3 +905,50 @@
 1699888221996:login --email 123 --password 123
 1699888231087:followArtist --artistId 1
 1699888238631:listFollowers --artistId 1
+1699961807448:addArtist --name ifk --birthdate 1111-11-11
+1699961813847:loginAdmin
+1699961816576:help
+1699961826935:adminLogin
+1699961840632:adminLogin --email admin --password admin
+1699961844752:addArtist --name ifk --birthdate 1111-11-11
+1699961851498:addAd --type gambling --name Superbet --length 200 --releaseDate 2010-01-01
+1699961859462:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699961863888:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699961868884:adminLogout
+1699961876201:userLogin
+1699961879744:login
+1699961892477:login --email 123 --password 123
+1699961901672:playSong
+1699961910513:playSong --songId 1
+1699961922271:logout
+1699961927504:adminLogin
+1699961935544:adminLogin --email admin --password admin
+1699961959393:addUser --email 122 --password 122 --name 122 --birthdate 1111-11-11 --isPremium false
+1699961963816:adminLogout
+1699961976070:loginlogin --email 123 --password 123
+1699961983548:login --email 122 --password 122
+1699961994105:playSong --songId 1
+1699962305797:adminLogin --email 1 --password 1
+1699962317921:adminLogin --email admin --password admin
+1699962331707:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium false
+1699962338238:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699962341921:adminLogout
+1699962350685:login --email 123 --password 123
+1699962358032:playSong 1
+1699962369171:logout
+1699962378900:adminLogin --email admin --password admin
+1699962387505:addArtist --name ifk --birthdate 1111-11-11
+1699962394772:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699962398322:adminLogout
+1699962405424:login --email 123 --password 123
+1699962411430:playSong 1
+1699963738299:adminLogin --email admin --password admin
+1699963745816:addHost --birthdate 2000-10-10 --name Dani
+1699963751667:addAd --type gambling --name Superbet --length 200 --releaseDate 2010-01-01
+1699963758242:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1699963762967:addAdToPodcast --adId 1 --podcastId 1
+1699963785938:addAdToPodcast --adId 2 --podcastId 1
+1699963809713:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699963817114:adminLogout
+1699963836018:login --email 123 --password 123
+1699963840954:playPodcast 1

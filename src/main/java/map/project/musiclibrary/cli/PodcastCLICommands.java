@@ -25,6 +25,7 @@ public class PodcastCLICommands {
         this.userSession = userSession;
     }
 
+    // TODO - useri sa vada podcasturile
     @ShellMethod(key = "listPodcasts", value = "List all podcasts")
     public String listPodcasts() {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
@@ -82,18 +83,15 @@ public class PodcastCLICommands {
         }
     }
 
-    //TODO - de structurat mai bine metodele (de ex sa fie clar ce am nevoie in service/CLI ca sa mentin encapsularea)
-    //TODO - cand apare un Ad, nu se poate identifica ce nume are pentru ca e null for now
+    // TODO - play podcast by name not id
     @ShellMethod(key = "playPodcast", value = "Play a podcast by ID")
-    public void playPodcast(@ShellOption(value = {"podcastId"}, help = "ID of the podcast") final String podcastIdstr) {
+    public String playPodcast(@ShellOption(value = {"podcastId"}, help = "ID of the podcast") final String podcastIdStr) {
         if (!userSession.isLoggedIn()) {
-            throw new RuntimeException("You must log in to play a podcast.");
+            return "You must log in to play a podcast.";
         }
-        Long podcastId = Long.parseLong(podcastIdstr);
         if (userSession.getCurrentUser() instanceof NormalUser) {
-            podcastService.playPodcast(podcastId, (NormalUser) userSession.getCurrentUser());
-        } else {
-            throw new RuntimeException("Only normal users can play podcasts");
+            return podcastService.playPodcast(podcastIdStr);
         }
+        return "Only normal users can play podcasts";
     }
 }
