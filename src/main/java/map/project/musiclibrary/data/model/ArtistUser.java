@@ -67,7 +67,7 @@ public class ArtistUser extends User {
         notifyFollowers(album);
     }
 
-    private void notifyFollowers(Album album) {
+    public void notifyFollowers(Album album) {
         for (NormalUser follower : followers) {
             follower.update("New album released: " + album.getName() + " by " + getName());
         }

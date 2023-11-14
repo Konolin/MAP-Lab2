@@ -64,7 +64,6 @@ public class ArtistCLICommands {
     }
 
     //TODO - only admin can see all followers of an artist
-    //TODO - de ce apare acelasi user de mai multe ori cand dau follow la un artist :((
     @ShellMethod(key = "listFollowers", value = "List the followers of an artist")
     public String getFollowers(@ShellOption(value = {"artistId"}, help = "ID of the artist") final String artistIdStr) {
         try {

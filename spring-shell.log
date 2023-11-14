@@ -1140,3 +1140,26 @@
 1699967226220:addAlbum --name idk --artistId 1 --songIds 1
 1699967256671:adminLogout
 1699967267963:login --email 123 --password 123
+1699967503253:adminLogin --email admin --password admin
+1699967509273:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699967512722:addArtist --name ifk --birthdate 1111-11-11
+1699967516702:adminLogout
+1699967526029:login --email 123 --password 123
+1699967529665:followArtist --artistId 1
+1699967534645:listFollowers --artistId 1
+1699967539674:followArtist --artistId 1
+1699967557835:unfollowArtist --artistId 1
+1699967563692:listFollowers --artistId 1
+1699967571199:unfollowArtist --artistId 1
+1699969342968:adminLogin --email admin --password admin
+1699969348130:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699969352309:addArtist --name ifk --birthdate 1111-11-11
+1699969355136:adminLogout
+1699969363906:login --email 123 --password 123
+1699969366588:followArtist --artistId 1
+1699969371093:listFollowers --artistId 1
+1699969375862:logout
+1699969381512:adminLogin --email admin --password admin
+1699969389814:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1699969406849:addAlbum --name idk --songIds 1,2
+1699969423408:addAlbum --name idk --artistId 1 --songIds 1,2
