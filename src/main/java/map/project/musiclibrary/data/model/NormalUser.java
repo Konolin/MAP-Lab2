@@ -40,13 +40,16 @@ public class NormalUser extends User implements Observer {
     }
 
     public void followArtist(ArtistUser artist) {
-        this.followedArtists.add(artist);
-        artist.getFollowers().add(this);
+        if (!followedArtists.contains(artist)) {
+            this.followedArtists.add(artist);
+            //artist.addFollower(this);
+        }
     }
+
 
     public void unfollowArtist(ArtistUser artist) {
         this.followedArtists.remove(artist);
-        artist.getFollowers().remove(this);
+        //artist.removeFollower(this);
     }
 
     @Override

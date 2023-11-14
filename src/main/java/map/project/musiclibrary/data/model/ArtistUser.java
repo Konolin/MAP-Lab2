@@ -76,12 +76,16 @@ public class ArtistUser extends User {
     public void addFollower(NormalUser follower) {
         if (!followers.contains(follower)) {
             followers.add(follower);
-            follower.getFollowedArtists().add(this);
+            follower.followArtist(this);
+        } else {
+            throw new RuntimeException("Already following artist with ID " + getId());
         }
     }
 
+
     public void removeFollower(NormalUser follower) {
         followers.remove(follower);
+        follower.unfollowArtist(this);
     }
 
 }

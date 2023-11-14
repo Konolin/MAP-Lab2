@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -116,7 +115,6 @@ public class NormalUserCLICommands {
         }
     }
 
-    @Transactional
     @ShellMethod(key = "followArtist", value = "Follow an artist")
     public String followArtist(@ShellOption(value = {"artistId"}, help = "ID of the artist") final String artistIdStr) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
@@ -132,7 +130,6 @@ public class NormalUserCLICommands {
         }
     }
 
-    @Transactional
     @ShellMethod(key = "unfollowArtist", value = "Unfollow an artist")
     public String unfollowArtist(@ShellOption(value = {"artistId"}, help = "ID of the artist") final String artistIdStr) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
