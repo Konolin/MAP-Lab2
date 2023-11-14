@@ -36,14 +36,14 @@ public class SongService {
         return songRepository.findById(id);
     }
 
-    public void playSong(Long songId, NormalUser currentUser) {
-        Optional<Song> songOptional = songRepository.findById(songId);
-
-        if (songOptional.isPresent()) {
-            Song song = songOptional.get();
-            normalUserService.playAudio(song, currentUser.isPremium());
-        } else {
-            throw new RuntimeException("Song not found");
-        }
-    }
+//    public void playSong(Long songId, NormalUser currentUser) {
+//        Optional<Song> songOptional = songRepository.findById(songId);
+//
+//        if (songOptional.isPresent()) {
+//            Song song = songOptional.get();
+//            normalUserService.playAudio(song, currentUser.isPremium());
+//        } else {
+//            throw new RuntimeException("Song not found");
+//        }
+//    }
 }

@@ -45,21 +45,21 @@ public class NormalUserService {
         return loginCredentialsList.get(0).getUser();
     }
 
-    public void playAudio(Playable playable, boolean isPremium) {
-        Random randomChance = new Random();
-        if (!isPremium && randomChance.nextInt(100) <= 33) {  //33 represents the chance of an ad pop-up (33%)
-            Advertisement ad = new Advertisement(); // TODO - get random ad from database
-            ad.play();
-
-            try {
-                Thread.sleep(ad.getLength());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        System.out.println("Now playing " + ((Audio) playable).getName());
-        playable.play();
-    }
+//    public void playAudio(Playable playable, boolean isPremium) {
+//        Random randomChance = new Random();
+//        if (!isPremium && randomChance.nextInt(100) <= 33) {  //33 represents the chance of an ad pop-up (33%)
+//            Advertisement ad = new Advertisement(); // TODO - get random ad from database
+//            ad.play();
+//
+//            try {
+//                Thread.sleep(ad.getLength());
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        System.out.println("Now playing " + ((Audio) playable).getName());
+//        playable.play();
+//    }
 
     @Transactional
     public void followArtist(NormalUser user, Long artistId) {

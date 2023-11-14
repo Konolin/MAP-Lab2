@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "advertisments")
-public class Advertisement extends Audio implements Playable {
+public class Advertisement extends Audio {
     @Column(name = "type")
     private String advertisementType;
 
@@ -38,10 +38,10 @@ public class Advertisement extends Audio implements Playable {
                 ")";
     }
 
-    @Override
-    public void play() {
-        System.out.printf("Playing ad " + name);
-    }
+//    @Override
+//    public void play() {
+//        System.out.printf("Playing ad " + name);
+//    }
 
     // TODO - ad type enum
 }
