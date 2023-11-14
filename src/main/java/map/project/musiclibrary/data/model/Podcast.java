@@ -81,4 +81,9 @@ public class Podcast extends Audio {
                 ", Topic: " + topic +
                 ")";
     }
+
+    public String play() {
+        return "Playing \"" + name + "\" by " + host.getName() + "\n" +
+                "Sponsors: " + Advertisement.listToString(advertisements);
+    }
 }

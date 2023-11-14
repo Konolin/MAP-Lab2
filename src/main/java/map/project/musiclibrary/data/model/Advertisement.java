@@ -17,6 +17,23 @@ public class Advertisement extends Audio {
     @ManyToMany(mappedBy = "advertisements", fetch = FetchType.EAGER)
     private List<Podcast> podcasts;
 
+    public static String listToString(List<Advertisement> advertisements) {
+        String adsString = "[]";
+        if (advertisements != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("[");
+            for (Advertisement advertisement : advertisements) {
+                sb.append(advertisement.toShortString()).append(", ");
+            }
+            if (!advertisements.isEmpty()) {
+                sb.delete(sb.length() - 2, sb.length());
+            }
+            sb.append("]");
+            adsString = sb.toString();
+        }
+        return adsString;
+    }
+
     @Override
     public String toString() {
         // special string format for podcast list to stop unnecessary data

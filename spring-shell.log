@@ -942,3 +942,13 @@
 1699962398322:adminLogout
 1699962405424:login --email 123 --password 123
 1699962411430:playSong 1
+1699963738299:adminLogin --email admin --password admin
+1699963745816:addHost --birthdate 2000-10-10 --name Dani
+1699963751667:addAd --type gambling --name Superbet --length 200 --releaseDate 2010-01-01
+1699963758242:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1699963762967:addAdToPodcast --adId 1 --podcastId 1
+1699963785938:addAdToPodcast --adId 2 --podcastId 1
+1699963809713:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1699963817114:adminLogout
+1699963836018:login --email 123 --password 123
+1699963840954:playPodcast 1

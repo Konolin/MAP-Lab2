@@ -26,6 +26,7 @@ public class SongCLICommands {
         this.userSession = userSession;
     }
 
+    // TODO - useri sa vada podcasturile
     @ShellMethod(key = "listSongs", value = "List all songs")
     public String listSongs() {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
@@ -35,7 +36,6 @@ public class SongCLICommands {
         }
     }
 
-    //TODO - check for a user before attempting to add a song
     @ShellMethod(key = "addSong", value = "Add a song")
     public String addSong(@ShellOption(value = {"name"}, help = "Name of the song") final String name,
                           @ShellOption(value = {"genre"}, help = "Genre of the song") final String genre,

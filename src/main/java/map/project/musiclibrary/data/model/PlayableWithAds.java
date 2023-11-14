@@ -15,6 +15,6 @@ public class PlayableWithAds implements Playable {
         // TODO - 40% sansa sa pice o reclama
         return //"Playing ad \"" + advertisement.getName() + "\n" +
                 "Playing ad \n" +
-                "Playing \"" + name + "\" by " + creatorUserName;
+                        "Playing \"" + name + "\" by " + creatorUserName;
     }
 }
