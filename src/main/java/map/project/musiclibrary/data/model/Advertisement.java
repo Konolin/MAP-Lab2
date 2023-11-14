@@ -38,10 +38,5 @@ public class Advertisement extends Audio {
                 ")";
     }
 
-//    @Override
-//    public void play() {
-//        System.out.printf("Playing ad " + name);
-//    }
-
     // TODO - ad type enum
 }

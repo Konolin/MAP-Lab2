@@ -81,9 +81,4 @@ public class Podcast extends Audio {
                 ", Topic: " + topic +
                 ")";
     }
-
-//    @Override
-//    public void play() {
-//        System.out.printf("Playing podcast %s by %s", name, host.getName());
-//    }
 }

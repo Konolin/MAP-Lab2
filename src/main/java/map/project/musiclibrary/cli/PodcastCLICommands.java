@@ -82,18 +82,19 @@ public class PodcastCLICommands {
         }
     }
 
+    // TODO - play podcast
     //TODO - de structurat mai bine metodele (de ex sa fie clar ce am nevoie in service/CLI ca sa mentin encapsularea)
     //TODO - cand apare un Ad, nu se poate identifica ce nume are pentru ca e null for now
-    @ShellMethod(key = "playPodcast", value = "Play a podcast by ID")
-    public void playPodcast(@ShellOption(value = {"podcastId"}, help = "ID of the podcast") final String podcastIdstr) {
-        if (!userSession.isLoggedIn()) {
-            throw new RuntimeException("You must log in to play a podcast.");
-        }
-        Long podcastId = Long.parseLong(podcastIdstr);
-        if (userSession.getCurrentUser() instanceof NormalUser) {
-            podcastService.playPodcast(podcastId, (NormalUser) userSession.getCurrentUser());
-        } else {
-            throw new RuntimeException("Only normal users can play podcasts");
-        }
-    }
+//    @ShellMethod(key = "playPodcast", value = "Play a podcast by ID")
+//    public void playPodcast(@ShellOption(value = {"podcastId"}, help = "ID of the podcast") final String podcastIdstr) {
+//        if (!userSession.isLoggedIn()) {
+//            throw new RuntimeException("You must log in to play a podcast.");
+//        }
+//        Long podcastId = Long.parseLong(podcastIdstr);
+//        if (userSession.getCurrentUser() instanceof NormalUser) {
+//            podcastService.playPodcast(podcastId, (NormalUser) userSession.getCurrentUser());
+//        } else {
+//            throw new RuntimeException("Only normal users can play podcasts");
+//        }
+//    }
 }

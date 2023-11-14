@@ -1,21 +1,20 @@
 package map.project.musiclibrary.data.model;
 
 import map.project.musiclibrary.data.repository.AdvertisementRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
+// TODO - add random ad
 public class PlayableWithAds implements Playable {
-    private final Advertisement advertisement;
+    // private final Advertisement advertisement;
 
-    @Autowired
     public PlayableWithAds(AdvertisementRepository advertisementRepository) {
-        this.advertisement = advertisementRepository.findRandomEntity();
+        // this.advertisement = advertisementRepository.findRandomEntity();
     }
 
     @Override
     public String play(String name, String creatorUserName) {
-        return "Playing ad \"" + advertisement.getName() + "\n" +
+        // TODO - 40% sansa sa pice o reclama
+        return //"Playing ad \"" + advertisement.getName() + "\n" +
+                "Playing ad \n" +
                 "Playing \"" + name + "\" by " + creatorUserName;
     }
 }

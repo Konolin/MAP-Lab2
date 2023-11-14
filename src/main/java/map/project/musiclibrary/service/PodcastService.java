@@ -54,14 +54,15 @@ public class PodcastService {
         throw new RuntimeException("PodcastService::Advertisement or podcast with specified id doesn't exist");
     }
 
-    public void playPodcast(Long podcastId, NormalUser currentUser) {
-        Optional<Podcast> podcastOptional = podcastRepository.findById(podcastId);
-
-        if (podcastOptional.isPresent()) {
-            Podcast podcast = podcastOptional.get();
-            normalUserService.playAudio(podcast, currentUser.isPremium());
-        } else {
-            throw new RuntimeException("Podcast not found");
-        }
-    }
+    // TODO - play podcast
+//    public void playPodcast(Long podcastId, NormalUser currentUser) {
+//        Optional<Podcast> podcastOptional = podcastRepository.findById(podcastId);
+//
+//        if (podcastOptional.isPresent()) {
+//            Podcast podcast = podcastOptional.get();
+//            normalUserService.playAudio(podcast, currentUser.isPremium());
+//        } else {
+//            throw new RuntimeException("Podcast not found");
+//        }
+//    }
 }

@@ -88,18 +88,15 @@ public class SongCLICommands {
         return songService.findByName(name).toString();
     }
 
-    // TODO - de structurat mai bine metodele (de ex sa fie clar ce am nevoie in service/CLI ca sa mentin encapsularea)
-    // TODO - strategy pattern: playSong -> alege intre playSongWithoutAd si playSongWithAd
-//    @ShellMethod(key = "playSong", value = "Play a song by ID")
-//    public void playSong(@ShellOption(value = {"songId"}, help = "ID of the song") final String songIdstr) {
-//        if (!userSession.isLoggedIn()) {
-//            throw new RuntimeException("You must log in to play a song.");
-//        }
-//        Long songId = Long.parseLong(songIdstr);
-//        if (userSession.getCurrentUser() instanceof NormalUser) {
-//            songService.playSong(songId, (NormalUser) userSession.getCurrentUser());
-//        } else {
-//            throw new RuntimeException("Only normal users can play songs");
-//        }
-//    }
+    // TODO - play song by name ca nu are sens cu id
+    @ShellMethod(key = "playSong", value = "Play a song by ID")
+    public String playSong(@ShellOption(value = {"songId"}, help = "ID of the song") final String songIdStr) {
+        if (!userSession.isLoggedIn()) {
+            return "You must log in to play a song.";
+        }
+        if (userSession.getCurrentUser() instanceof NormalUser) {
+            return songService.playSong(songIdStr, (NormalUser) userSession.getCurrentUser());
+        }
+        return "Only normal users can play songs";
+    }
 }

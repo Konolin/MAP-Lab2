@@ -1,7 +1,10 @@
 package map.project.musiclibrary.service;
 
 import map.project.musiclibrary.data.model.NormalUser;
+import map.project.musiclibrary.data.model.PlayableWithAds;
+import map.project.musiclibrary.data.model.PlayableWithoutAds;
 import map.project.musiclibrary.data.model.Song;
+import map.project.musiclibrary.data.repository.AdvertisementRepository;
 import map.project.musiclibrary.data.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,12 +15,12 @@ import java.util.Optional;
 @Service
 public class SongService {
     private final SongRepository songRepository;
-    private final NormalUserService normalUserService;
+    private final AdvertisementRepository advertisementRepository;
 
     @Autowired
-    public SongService(SongRepository songRepository, NormalUserService normalUserService) {
+    public SongService(SongRepository songRepository, AdvertisementRepository advertisementRepository) {
         this.songRepository = songRepository;
-        this.normalUserService = normalUserService;
+        this.advertisementRepository = advertisementRepository;
     }
 
     public Song save(Song song) {
@@ -36,14 +39,17 @@ public class SongService {
         return songRepository.findById(id);
     }
 
-//    public void playSong(Long songId, NormalUser currentUser) {
-//        Optional<Song> songOptional = songRepository.findById(songId);
-//
-//        if (songOptional.isPresent()) {
-//            Song song = songOptional.get();
-//            normalUserService.playAudio(song, currentUser.isPremium());
-//        } else {
-//            throw new RuntimeException("Song not found");
-//        }
-//    }
+    public String playSong(String songIdStr, NormalUser currentUser) {
+        try {
+            Long songId = Long.parseLong(songIdStr);
+            Optional<Song> songOptional = songRepository.findById(songId);
+            if (songOptional.isPresent()) {
+                Song song = songOptional.get();
+                return song.play(currentUser.isPremium() ? new PlayableWithoutAds() : new PlayableWithAds(advertisementRepository));
+            }
+            return "Song not found";
+        } catch (NumberFormatException e) {
+            return "Invalid id";
+        }
+    }
 }
