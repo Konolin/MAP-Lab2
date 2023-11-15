@@ -11,6 +11,7 @@ addArtistToLabel --artistId 1 --labelId 1
 addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
 addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
 addAlbum --name idk --songIds 1,2
+addAlbum --name BRUH --artistId 1 --songIds 1
 
 addPlaylist --name Bruh
 addSongToPlaylist --songId 1 --playListId 1

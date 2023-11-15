@@ -62,16 +62,19 @@ public class ArtistUser extends User {
                 ")";
     }
 
-    public void releaseAlbum(Album album) {
-        albums.add(album);
-        notifyFollowers(album);
-    }
-
     public void notifyFollowers(Album album) {
         for (NormalUser follower : followers) {
-            follower.update("New album released: " + album.getName() + " by " + getName());
+            String message = "New album released: " + album.getName() + " by " + getName();
+            Notification notification = new Notification();
+            notification.setMessage(message);
+            notification.setUser(follower);
+            notification.setAlbum(album);
+            follower.update(message);
+            follower.addNotification(notification);
         }
     }
+
+
 
     public void addFollower(NormalUser follower) {
         if (!followers.contains(follower)) {

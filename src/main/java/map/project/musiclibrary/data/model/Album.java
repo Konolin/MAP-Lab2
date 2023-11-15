@@ -20,7 +20,7 @@ public class Album {
     @OneToMany(mappedBy = "album", fetch = FetchType.EAGER)
     private List<Song> songs;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "artist_id")
     private ArtistUser artist;
 

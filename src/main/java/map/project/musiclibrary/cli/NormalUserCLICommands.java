@@ -144,4 +144,17 @@ public class NormalUserCLICommands {
             throw new RuntimeException("Only normal users can unfollow artists");
         }
     }
+
+    @ShellMethod(key = "seeNewNotifications", value = "See new notifications")
+    public String seeNewNotifications() {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser currentUser) {
+            return currentUser.seeNewNotifications();
+        } else {
+            return "Only logged-in normal users can see notifications.";
+        }
+    }
+
+
+
+
 }

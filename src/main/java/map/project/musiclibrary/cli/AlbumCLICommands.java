@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,6 +43,7 @@ public class AlbumCLICommands {
         }
     }
 
+    @Transactional
     @ShellMethod(key = "addAlbum", value = "Add an album")
     public String addAlbum(@ShellOption(value = {"name"}, help = "Name of the album") final String name,
                            @ShellOption(value = {"artistId"}, help = "ID of the artist") final String artistIdStr,
@@ -58,6 +60,7 @@ public class AlbumCLICommands {
                         .orElseThrow(() -> new EntityNotFoundException("Artist with ID " + artistId + " not found."));
                 Album album = new AlbumBuilder()
                         .setName(name)
+                        .setArtist(artist)
                         .setSongIds(songIds)
                         .build(songService, albumService);
 
