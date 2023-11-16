@@ -13,8 +13,9 @@ public class PlayableWithAds implements Playable {
     @Override
     public String play(String name, String creatorUserName) {
         // TODO - 40% sansa sa pice o reclama
+        // TODO - update test cand adaugam reclama random
         return //"Playing ad \"" + advertisement.getName() + "\n" +
                 "Playing ad \n" +
-                        "Playing \"" + name + "\" by " + creatorUserName;
+                "Playing \"" + name + "\" by " + creatorUserName;
     }
 }
