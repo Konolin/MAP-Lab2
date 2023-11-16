@@ -10,12 +10,29 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "advertisments")
-public class Advertisement extends Audio implements Playable {
+public class Advertisement extends Audio {
     @Column(name = "type")
     private String advertisementType;
 
     @ManyToMany(mappedBy = "advertisements", fetch = FetchType.EAGER)
     private List<Podcast> podcasts;
+
+    public static String listToString(List<Advertisement> advertisements) {
+        String adsString = "[]";
+        if (advertisements != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("[");
+            for (Advertisement advertisement : advertisements) {
+                sb.append(advertisement.toShortString()).append(", ");
+            }
+            if (!advertisements.isEmpty()) {
+                sb.delete(sb.length() - 2, sb.length());
+            }
+            sb.append("]");
+            adsString = sb.toString();
+        }
+        return adsString;
+    }
 
     @Override
     public String toString() {
@@ -36,11 +53,6 @@ public class Advertisement extends Audio implements Playable {
                 ", Name: " + name +
                 ", Type: " + advertisementType +
                 ")";
-    }
-
-    @Override
-    public void play() {
-        System.out.printf("Playing ad " + name);
     }
 
     // TODO - ad type enum
