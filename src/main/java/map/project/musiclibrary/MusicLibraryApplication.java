@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class MusicLibraryApplication {
-
+    // TODO - get artist name from song, remove circular dependency album-artist-song
     public static void main(String[] args) {
         SpringApplication.run(MusicLibraryApplication.class, args);
     }
