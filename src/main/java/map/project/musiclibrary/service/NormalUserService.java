@@ -69,12 +69,8 @@ public class NormalUserService {
         if (artistUserOptional.isPresent() && userOptional.isPresent()) {
             ArtistUser artist = artistUserOptional.get();
             NormalUser currentUser = userOptional.get();
-
             artist.addFollower(currentUser);
-            //currentUser.followArtist(artist);
-
             artistUserService.save(artist);
-            //save(currentUser);
         } else {
             throw new EntityNotFoundException("Artist or user not found.");
         }
@@ -88,12 +84,8 @@ public class NormalUserService {
         if (artistUserOptional.isPresent() && userOptional.isPresent()) {
             ArtistUser artist = artistUserOptional.get();
             NormalUser currentUser = userOptional.get();
-
             artist.removeFollower(currentUser);
-            //currentUser.unfollowArtist(artist);
-
             artistUserService.save(artist);
-            //save(currentUser);
         } else {
             throw new EntityNotFoundException("Artist or user not found.");
         }

@@ -12,4 +12,4 @@ public class MusicLibraryApplication {
 
 }
 
-//TODO - implement o clasa Notification ca sa pot stoca mesajele ce trebuie sa le trimit userilor odata ce se logheaza cand se lanseaza un nou album
+//TODO - notificarea se afiseaza inca odata daca userul se delogheaza si se logheaza inapoi
