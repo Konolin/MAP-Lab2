@@ -60,7 +60,6 @@ public class AlbumCLICommands {
                         .orElseThrow(() -> new EntityNotFoundException("Artist with ID " + artistId + " not found."));
                 Album album = new AlbumBuilder()
                         .setName(name)
-                        .setArtist(artist)
                         .setSongIds(songIds)
                         .build(songService, albumService);
 

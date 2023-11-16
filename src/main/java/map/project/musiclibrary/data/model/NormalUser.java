@@ -81,7 +81,8 @@ public class NormalUser extends User implements Observer {
                 Notification notification = iterator.next();
                 if (!notification.isSeen()) {
                     result.append(notification);
-                    result.append('\n');
+                    if (iterator.hasNext())
+                        result.append('\n');
                     notification.setSeen(true);
                     iterator.remove();
                 }
