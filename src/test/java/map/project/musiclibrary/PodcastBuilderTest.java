@@ -6,6 +6,7 @@ import map.project.musiclibrary.service.PodcastBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@ComponentScan(basePackages = "map.project.musiclibrary.service")
 public class PodcastBuilderTest {
     @Autowired
     HostUserService hostUserService;
