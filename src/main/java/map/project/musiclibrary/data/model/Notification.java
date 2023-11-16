@@ -23,7 +23,7 @@ public class Notification {
 
     private boolean seen = false;
 
-    public void setSeen(boolean seen){
+    public void setSeen(boolean seen) {
         this.seen = seen;
     }
 
