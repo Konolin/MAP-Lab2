@@ -11,3 +11,5 @@ public class MusicLibraryApplication {
     }
 
 }
+
+//TODO - implement o clasa Notification ca sa pot stoca mesajele ce trebuie sa le trimit userilor odata ce se logheaza cand se lanseaza un nou album

@@ -49,21 +49,21 @@ public class NormalUserService {
     @Transactional
     public void followArtist(NormalUser user, Long artistId) {
         Optional<ArtistUser> artistUserOptional = artistUserService.findById(artistId);
-        NormalUser currentUser = normalUserRepository.findById(user.getId())
-                .orElseThrow(() -> new RuntimeException("User not found."));
+        Optional<NormalUser> userOptional = normalUserRepository.findById(user.getId());
 
-        if (artistUserOptional.isPresent()) {
+        if (artistUserOptional.isPresent() && userOptional.isPresent()) {
             ArtistUser artist = artistUserOptional.get();
+            NormalUser currentUser = userOptional.get();
 
             artist.addFollower(currentUser);
-            currentUser.followArtist(artist);
+            //currentUser.followArtist(artist);
 
             artistUserService.save(artist);
+            //save(currentUser);
         } else {
-            throw new RuntimeException("Artist with ID " + artistId + " not found.");
+            throw new EntityNotFoundException("Artist or user not found.");
         }
     }
-
 
     @Transactional
     public void unfollowArtist(NormalUser user, Long artistId) {
@@ -75,14 +75,15 @@ public class NormalUserService {
             NormalUser currentUser = userOptional.get();
 
             artist.removeFollower(currentUser);
-            currentUser.unfollowArtist(artist);
+            //currentUser.unfollowArtist(artist);
 
             artistUserService.save(artist);
-            normalUserRepository.save(currentUser);
+            //save(currentUser);
         } else {
             throw new EntityNotFoundException("Artist or user not found.");
         }
     }
+
 
 
 }

@@ -1,9 +1,11 @@
 package map.project.musiclibrary.service;
 
 import map.project.musiclibrary.data.model.Album;
+import map.project.musiclibrary.data.model.ArtistUser;
 import map.project.musiclibrary.data.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,5 +28,10 @@ public class AlbumService {
 
     public List<Album> findAll() {
         return albumRepository.findAll();
+    }
+
+    @Transactional
+    public void releaseAlbum(ArtistUser artist, Album album) {
+        artist.notifyFollowers(album);
     }
 }

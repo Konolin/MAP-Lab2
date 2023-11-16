@@ -1,6 +1,7 @@
 package map.project.musiclibrary.service;
 
 import map.project.musiclibrary.data.model.Album;
+import map.project.musiclibrary.data.model.ArtistUser;
 import map.project.musiclibrary.data.model.Song;
 
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ import java.util.Optional;
 public class AlbumBuilder {
     private String name;
     private List<Long> songIds;
+
+    private ArtistUser artist;
 
     public AlbumBuilder setName(String name) {
         this.name = name;
@@ -21,9 +24,15 @@ public class AlbumBuilder {
         return this;
     }
 
+    public AlbumBuilder setArtist(ArtistUser artist) {
+        this.artist = artist;
+        return this;
+    }
+
     public Album build(SongService songService, AlbumService albumService) {
         Album album = new Album();
         album.setName(name);
+        album.setArtist(artist);
         albumService.save(album);
 
         // Fetch songs based on the provided IDs

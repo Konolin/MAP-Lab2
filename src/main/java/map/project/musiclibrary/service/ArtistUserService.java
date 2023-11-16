@@ -1,6 +1,5 @@
 package map.project.musiclibrary.service;
 
-import map.project.musiclibrary.data.model.Album;
 import map.project.musiclibrary.data.model.ArtistUser;
 import map.project.musiclibrary.data.repository.ArtistUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +33,4 @@ public class ArtistUserService {
         return artistUserRepository.findById(id);
     }
 
-    public void releaseAlbum(Long artistId, Album album) {
-        ArtistUser artist = artistUserRepository.findById(artistId).orElseThrow(() -> new RuntimeException("Artist not found"));
-        artist.releaseAlbum(album);
-    }
 }

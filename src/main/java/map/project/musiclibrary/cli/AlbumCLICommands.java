@@ -1,7 +1,9 @@
 package map.project.musiclibrary.cli;
 
+import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.Admin;
 import map.project.musiclibrary.data.model.Album;
+import map.project.musiclibrary.data.model.ArtistUser;
 import map.project.musiclibrary.data.model.UserSession;
 import map.project.musiclibrary.service.AlbumBuilder;
 import map.project.musiclibrary.service.AlbumService;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,6 +43,7 @@ public class AlbumCLICommands {
         }
     }
 
+    @Transactional
     @ShellMethod(key = "addAlbum", value = "Add an album")
     public String addAlbum(@ShellOption(value = {"name"}, help = "Name of the album") final String name,
                            @ShellOption(value = {"artistId"}, help = "ID of the artist") final String artistIdStr,
@@ -50,10 +54,17 @@ public class AlbumCLICommands {
                         .map(Long::parseLong)
                         .collect(Collectors.toList());
 
+                //retrieve artist and release album
+                Long artistId = Long.parseLong(artistIdStr);
+                ArtistUser artist = artistUserService.findById(artistId)
+                        .orElseThrow(() -> new EntityNotFoundException("Artist with ID " + artistId + " not found."));
                 Album album = new AlbumBuilder()
                         .setName(name)
+                        .setArtist(artist)
                         .setSongIds(songIds)
                         .build(songService, albumService);
+
+                albumService.releaseAlbum(artist, album);
 
                 return albumService.save(album).toString();
             } catch (NumberFormatException e) {
@@ -65,6 +76,7 @@ public class AlbumCLICommands {
             return "Only admin can add an album";
         }
     }
+
 
     @ShellMethod(key = "findAlbum", value = "Find an album by name")
     public String findAlbum(@ShellOption(value = {"name"}, help = "Name of the album") final String name) {

@@ -62,26 +62,37 @@ public class ArtistUser extends User {
                 ")";
     }
 
-    public void releaseAlbum(Album album) {
-        albums.add(album);
-        notifyFollowers(album);
-    }
-
-    private void notifyFollowers(Album album) {
+    public void notifyFollowers(Album album) {
         for (NormalUser follower : followers) {
-            follower.update("New album released: " + album.getName() + " by " + getName());
+            String message = "New album released: " + album.getName() + " by " + getName();
+            Notification notification = new Notification();
+            notification.setMessage(message);
+            notification.setUser(follower);
+            notification.setAlbum(album);
+            follower.update(message);
+            follower.addNotification(notification);
         }
     }
+
+
 
     public void addFollower(NormalUser follower) {
         if (!followers.contains(follower)) {
             followers.add(follower);
-            follower.getFollowedArtists().add(this);
+            follower.followArtist(this);
+        } else {
+            throw new RuntimeException("Already following artist with ID " + getId());
         }
     }
 
+
     public void removeFollower(NormalUser follower) {
-        followers.remove(follower);
+        if (followers.contains(follower)) {
+            followers.remove(follower);
+            follower.unfollowArtist(this);
+        } else {
+            throw new RuntimeException("Already not following artist with ID " + getId());
+        }
     }
 
 }
