@@ -77,3 +77,4 @@ public class NormalUserServiceTest {
         assertEquals(2, allUsers.size());
     }
 }
+

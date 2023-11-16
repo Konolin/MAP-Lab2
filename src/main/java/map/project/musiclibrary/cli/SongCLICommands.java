@@ -26,6 +26,7 @@ public class SongCLICommands {
         this.userSession = userSession;
     }
 
+    // TODO - useri sa vada podcasturile
     @ShellMethod(key = "listSongs", value = "List all songs")
     public String listSongs() {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
@@ -35,7 +36,6 @@ public class SongCLICommands {
         }
     }
 
-    //TODO - check for a user before attempting to add a song
     @ShellMethod(key = "addSong", value = "Add a song")
     public String addSong(@ShellOption(value = {"name"}, help = "Name of the song") final String name,
                           @ShellOption(value = {"genre"}, help = "Genre of the song") final String genre,
@@ -88,18 +88,15 @@ public class SongCLICommands {
         return songService.findByName(name).toString();
     }
 
-    // TODO - de structurat mai bine metodele (de ex sa fie clar ce am nevoie in service/CLI ca sa mentin encapsularea)
-    // TODO - strategy pattern: playSong -> alege intre playSongWithoutAd si playSongWithAd
+    // TODO - play song by name ca nu are sens cu id
     @ShellMethod(key = "playSong", value = "Play a song by ID")
-    public void playSong(@ShellOption(value = {"songId"}, help = "ID of the song") final String songIdstr) {
+    public String playSong(@ShellOption(value = {"songId"}, help = "ID of the song") final String songIdStr) {
         if (!userSession.isLoggedIn()) {
-            throw new RuntimeException("You must log in to play a song.");
+            return "You must log in to play a song.";
         }
-        Long songId = Long.parseLong(songIdstr);
         if (userSession.getCurrentUser() instanceof NormalUser) {
-            songService.playSong(songId, (NormalUser) userSession.getCurrentUser());
-        } else {
-            throw new RuntimeException("Only normal users can play songs");
+            return songService.playSong(songIdStr, (NormalUser) userSession.getCurrentUser());
         }
+        return "Only normal users can play songs";
     }
 }

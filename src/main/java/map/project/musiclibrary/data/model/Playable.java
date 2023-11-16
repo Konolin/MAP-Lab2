@@ -1,5 +1,5 @@
 package map.project.musiclibrary.data.model;
 
 public interface Playable {
-    void play();
+    String play(String name, String creatorUserName);
 }

@@ -28,9 +28,5 @@ public abstract class Audio {
         }
         this.releaseDate = releaseDate;
     }
-
-    public void play() {
-        System.out.println(name + " is now playing...");
-    }
 }
 
