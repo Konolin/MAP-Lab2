@@ -22,7 +22,12 @@ public class PodcastBuilder {
 
     public PodcastBuilder setLength(String lengthStr) {
         try {
-            this.length = Integer.parseInt(lengthStr);
+            int tempLength = Integer.parseInt(lengthStr);
+            if (tempLength > 0) {
+                this.length = tempLength;
+            } else {
+                throw new IllegalArgumentException("Invalid value. Please provide a positive value.");
+            }
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid integer format. Please provide a valid number.");
         }
