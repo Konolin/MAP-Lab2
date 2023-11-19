@@ -26,7 +26,7 @@ public class AlbumBuilder {
     public Album build(SongService songService, AlbumService albumService) {
         Album album = new Album();
         album.setName(name);
-        albumService.getAlbumRepository().save(album);
+        albumService.save(album);
 
         // Fetch songs based on the provided IDs
         List<Song> albumSongs = new ArrayList<>();

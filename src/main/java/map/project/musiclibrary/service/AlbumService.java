@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class AlbumService {
-    @Getter
     private final AlbumRepository albumRepository;
     private final ArtistUserService artistUserService;
     private final SongService songService;
@@ -44,6 +43,10 @@ public class AlbumService {
                 .build(songService, this);
 
         releaseAlbum(artist, album);
+        return albumRepository.save(album);
+    }
+
+    public Album save(Album album) {
         return albumRepository.save(album);
     }
 
