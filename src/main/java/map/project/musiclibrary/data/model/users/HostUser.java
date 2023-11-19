@@ -1,4 +1,4 @@
-package map.project.musiclibrary.data.model;
+package map.project.musiclibrary.data.model.users;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -6,6 +6,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import map.project.musiclibrary.data.model.audios.Podcast;
 
 import java.util.List;
 

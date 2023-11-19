@@ -1,9 +1,9 @@
 package map.project.musiclibrary.cli;
 
-import map.project.musiclibrary.data.model.NormalUser;
-import map.project.musiclibrary.data.model.Playlist;
-import map.project.musiclibrary.data.model.User;
-import map.project.musiclibrary.data.model.UserSession;
+import map.project.musiclibrary.data.model.users.NormalUser;
+import map.project.musiclibrary.data.model.audios.Playlist;
+import map.project.musiclibrary.data.model.users.User;
+import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;

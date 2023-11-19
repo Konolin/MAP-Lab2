@@ -1,8 +1,9 @@
-package map.project.musiclibrary.data.model;
+package map.project.musiclibrary.data.model.audios;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import map.project.musiclibrary.data.model.users.HostUser;
 
 import java.util.List;
 

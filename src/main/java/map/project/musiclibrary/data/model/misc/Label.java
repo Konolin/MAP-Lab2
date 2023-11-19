@@ -1,7 +1,8 @@
-package map.project.musiclibrary.data.model;
+package map.project.musiclibrary.data.model.misc;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import map.project.musiclibrary.data.model.users.ArtistUser;
 
 import java.util.List;
 
