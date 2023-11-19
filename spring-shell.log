@@ -1754,3 +1754,7 @@
 1700422834679:adminLogin --email admin --password admin
 1700422842948:addArtist --name ifk --birthdate 1111-11-11
 1700422847866:listArtists
+1700423279259:adminLogin --email admin --password admin
+1700423286902:addHost --birthdate 2000-10-10 --name Dani
+1700423289536:listJOsts
+1700423292108:listHosts

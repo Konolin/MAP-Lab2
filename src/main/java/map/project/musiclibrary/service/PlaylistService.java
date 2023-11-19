@@ -4,13 +4,13 @@ import map.project.musiclibrary.data.model.audios.Playlist;
 import map.project.musiclibrary.data.model.audios.Song;
 import map.project.musiclibrary.data.model.users.NormalUser;
 import map.project.musiclibrary.data.model.users.User;
-import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.data.repository.PlaylistRepository;
 import map.project.musiclibrary.data.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,13 +18,19 @@ import java.util.Optional;
 public class PlaylistService {
     private final PlaylistRepository playlistRepository;
     private final SongRepository songRepository;
-    private final UserSession userSession;
 
     @Autowired
-    public PlaylistService(PlaylistRepository playlistRepository, SongRepository songRepository, UserSession userSession) {
+    public PlaylistService(PlaylistRepository playlistRepository, SongRepository songRepository) {
         this.playlistRepository = playlistRepository;
         this.songRepository = songRepository;
-        this.userSession = userSession;
+    }
+
+    public Playlist addPlaylist(String name, NormalUser currentUser) {
+        Playlist playlist = new Playlist();
+        playlist.setName(name);
+        playlist.setUser(currentUser);
+        playlist.setSongs(new ArrayList<>());
+        return playlistRepository.save(playlist);
     }
 
     public Playlist save(Playlist playlist) {
@@ -46,13 +52,10 @@ public class PlaylistService {
         return playlists;
     }
 
-
     @Transactional
-    public Playlist addSong(Long songId, Long playListId) {
-        //check if a user is logged in
-        if (!userSession.isLoggedIn()) {
-            throw new RuntimeException("You must log in to add a song to a playlist.");
-        }
+    public Playlist addSong(String songIdStr, String playListIdStr, NormalUser currentUser) throws NumberFormatException {
+        Long songId = Long.parseLong(songIdStr);
+        Long playListId = Long.parseLong(playListIdStr);
 
         Optional<Song> songOptional = songRepository.findById(songId);
         Optional<Playlist> playlistOptional = playlistRepository.findById(playListId);
@@ -62,14 +65,7 @@ public class PlaylistService {
             Playlist playlist = playlistOptional.get();
 
             //associate the playlist with the logged-in user
-            User currentUser = userSession.getCurrentUser();
-            if (currentUser instanceof NormalUser) {
-                playlist.setUser((NormalUser) currentUser);
-            } else {
-                //handle the case where the current user is not a NormalUser (de ex admin)
-                throw new RuntimeException("Only normal users can add songs to playlists.");
-            }
-
+            playlist.setUser(currentUser);
             playlist.addSong(song);
             song.setPlaylist(playlist);
             songRepository.save(song);
@@ -88,5 +84,4 @@ public class PlaylistService {
 
         return playlists;
     }
-
 }
