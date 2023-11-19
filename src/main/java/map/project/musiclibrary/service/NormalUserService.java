@@ -1,9 +1,9 @@
 package map.project.musiclibrary.service;
 
 import jakarta.persistence.EntityNotFoundException;
-import map.project.musiclibrary.data.model.ArtistUser;
-import map.project.musiclibrary.data.model.LoginCredentials;
-import map.project.musiclibrary.data.model.NormalUser;
+import map.project.musiclibrary.data.model.users.ArtistUser;
+import map.project.musiclibrary.data.model.users.LoginCredentials;
+import map.project.musiclibrary.data.model.users.NormalUser;
 import map.project.musiclibrary.data.repository.LoginCredentialsRepository;
 import map.project.musiclibrary.data.repository.NormalUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

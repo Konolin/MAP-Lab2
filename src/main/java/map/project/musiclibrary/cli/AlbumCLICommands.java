@@ -1,11 +1,11 @@
 package map.project.musiclibrary.cli;
 
 import jakarta.persistence.EntityNotFoundException;
-import map.project.musiclibrary.data.model.Admin;
-import map.project.musiclibrary.data.model.Album;
-import map.project.musiclibrary.data.model.ArtistUser;
-import map.project.musiclibrary.data.model.UserSession;
-import map.project.musiclibrary.service.AlbumBuilder;
+import map.project.musiclibrary.data.model.users.Admin;
+import map.project.musiclibrary.data.model.audios.Album;
+import map.project.musiclibrary.data.model.users.ArtistUser;
+import map.project.musiclibrary.data.model.users.UserSession;
+import map.project.musiclibrary.service.builders.AlbumBuilder;
 import map.project.musiclibrary.service.AlbumService;
 import map.project.musiclibrary.service.ArtistUserService;
 import map.project.musiclibrary.service.SongService;

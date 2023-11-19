@@ -1,6 +1,10 @@
 package map.project.musiclibrary.service;
 
-import map.project.musiclibrary.data.model.*;
+import map.project.musiclibrary.data.model.audios.Playlist;
+import map.project.musiclibrary.data.model.audios.Song;
+import map.project.musiclibrary.data.model.users.NormalUser;
+import map.project.musiclibrary.data.model.users.User;
+import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.data.repository.PlaylistRepository;
 import map.project.musiclibrary.data.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,10 @@
 package map.project.musiclibrary.cli;
 
-import map.project.musiclibrary.data.model.*;
+import map.project.musiclibrary.data.model.audios.Song;
+import map.project.musiclibrary.data.model.users.Admin;
+import map.project.musiclibrary.data.model.users.ArtistUser;
+import map.project.musiclibrary.data.model.users.NormalUser;
+import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.ArtistUserService;
 import map.project.musiclibrary.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;

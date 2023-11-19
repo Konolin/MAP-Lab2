@@ -1,9 +1,9 @@
 package map.project.musiclibrary.cli;
 
-import map.project.musiclibrary.data.model.Admin;
-import map.project.musiclibrary.data.model.LoginCredentials;
-import map.project.musiclibrary.data.model.NormalUser;
-import map.project.musiclibrary.data.model.UserSession;
+import map.project.musiclibrary.data.model.users.Admin;
+import map.project.musiclibrary.data.model.users.LoginCredentials;
+import map.project.musiclibrary.data.model.users.NormalUser;
+import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.NormalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;

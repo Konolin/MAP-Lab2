@@ -1,11 +1,11 @@
 package map.project.musiclibrary.cli;
 
-import map.project.musiclibrary.data.model.Admin;
-import map.project.musiclibrary.data.model.NormalUser;
-import map.project.musiclibrary.data.model.Podcast;
-import map.project.musiclibrary.data.model.UserSession;
+import map.project.musiclibrary.data.model.users.Admin;
+import map.project.musiclibrary.data.model.users.NormalUser;
+import map.project.musiclibrary.data.model.audios.Podcast;
+import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.HostUserService;
-import map.project.musiclibrary.service.PodcastBuilder;
+import map.project.musiclibrary.service.builders.PodcastBuilder;
 import map.project.musiclibrary.service.PodcastService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;

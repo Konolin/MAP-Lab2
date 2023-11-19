@@ -1,9 +1,9 @@
 package map.project.musiclibrary.service;
 
-import map.project.musiclibrary.data.model.NormalUser;
-import map.project.musiclibrary.data.model.PlayableWithAds;
-import map.project.musiclibrary.data.model.PlayableWithoutAds;
-import map.project.musiclibrary.data.model.Song;
+import map.project.musiclibrary.data.model.users.NormalUser;
+import map.project.musiclibrary.data.model.strategies.PlayableWithAds;
+import map.project.musiclibrary.data.model.strategies.PlayableWithoutAds;
+import map.project.musiclibrary.data.model.audios.Song;
 import map.project.musiclibrary.data.repository.AdvertisementRepository;
 import map.project.musiclibrary.data.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;

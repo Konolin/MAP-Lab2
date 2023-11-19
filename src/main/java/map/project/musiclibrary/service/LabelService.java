@@ -1,7 +1,7 @@
 package map.project.musiclibrary.service;
 
-import map.project.musiclibrary.data.model.ArtistUser;
-import map.project.musiclibrary.data.model.Label;
+import map.project.musiclibrary.data.model.users.ArtistUser;
+import map.project.musiclibrary.data.model.misc.Label;
 import map.project.musiclibrary.data.repository.ArtistUserRepository;
 import map.project.musiclibrary.data.repository.LabelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
