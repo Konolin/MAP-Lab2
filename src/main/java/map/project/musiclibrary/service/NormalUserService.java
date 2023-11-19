@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +27,27 @@ public class NormalUserService {
         this.normalUserRepository = normalUserRepository;
         this.loginCredentialsRepository = loginCredentialsRepository;
         this.artistUserService = artistUserService;
+    }
+
+    public NormalUser addNormalUser(String name, String email, String password, String isPremiumStr, String birthdateStr) throws ParseException {
+        NormalUser user = new NormalUser();
+        user.setName(name);
+
+        LoginCredentials loginCredentials = new LoginCredentials();
+        loginCredentials.setEmail(email);  // TODO - email unic sau cauta logincredential daca mai exista si thorw exception
+        loginCredentials.setPassword(password);
+
+        user.setLoginCredentials(loginCredentials);
+        loginCredentials.setUser(user);
+
+        boolean isPremium = Boolean.parseBoolean(isPremiumStr);
+        user.setPremium(isPremium);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date birthdate = dateFormat.parse(birthdateStr);
+        user.setBirthdate(birthdate);
+
+        return normalUserRepository.save(user);
     }
 
     public NormalUser save(NormalUser user) {
@@ -62,7 +86,9 @@ public class NormalUserService {
     }
 
     @Transactional
-    public void unfollowArtist(NormalUser user, Long artistId) {
+    public void unfollowArtist(NormalUser user, String artistIdStr) throws NumberFormatException {
+        Long artistId = Long.parseLong(artistIdStr);
+
         Optional<ArtistUser> artistUserOptional = artistUserService.findById(artistId);
         Optional<NormalUser> userOptional = normalUserRepository.findById(user.getId());
 
@@ -75,7 +101,6 @@ public class NormalUserService {
             throw new EntityNotFoundException("Artist or user not found.");
         }
     }
-
 
 
 }
