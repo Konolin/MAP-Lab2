@@ -25,10 +25,10 @@ public class PodcastCLICommands {
 
     @ShellMethod(key = "listPodcasts", value = "List all podcasts")
     public String listPodcasts() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn()) {
             return podcastService.findAll().toString();
         } else {
-            return "Only admin can list all podcasts";
+            return "You must be logged in to see all podcasts";
         }
     }
 
