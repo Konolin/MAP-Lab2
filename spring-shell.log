@@ -1729,3 +1729,7 @@
 1700160998935:logout
 1700161002093:login --email 123 --password 123
 1700161006318:seeNewNotifications
+1700420755560:help
+1700420777588:adminLogin --email admin --password admin
+1700420795714:addAd --type gambling --name Superbet --length 200 --releaseDate 2010-01-01
+1700420799175:listAds
