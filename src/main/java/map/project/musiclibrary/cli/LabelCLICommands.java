@@ -1,15 +1,12 @@
 package map.project.musiclibrary.cli;
 
-import map.project.musiclibrary.data.model.Admin;
-import map.project.musiclibrary.data.model.Label;
-import map.project.musiclibrary.data.model.UserSession;
+import map.project.musiclibrary.data.model.users.Admin;
+import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-
-import java.util.ArrayList;
 
 @ShellComponent
 public class LabelCLICommands {
@@ -27,17 +24,14 @@ public class LabelCLICommands {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
             return labelService.findAll().toString();
         } else {
-            throw new RuntimeException("Only admin can list all labels");
+            return "Only admin can list all labels";
         }
     }
 
     @ShellMethod(key = "addLabel", value = "Add a label")
     public String addLabel(@ShellOption(value = {"name"}, help = "Name of the label") final String name) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
-            Label label = new Label();
-            label.setName(name);
-            label.setArtists(new ArrayList<>());
-            return labelService.save(label).toString();
+            return labelService.addLabel(name).toString();
         } else {
             return "Only admin can add a label";
         }
@@ -53,9 +47,7 @@ public class LabelCLICommands {
                                    @ShellOption(value = {"labelId"}, help = "Id of the label") final String labelIdStr) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
             try {
-                Long artistId = Long.parseLong(artistIdStr);
-                Long labelId = Long.parseLong(labelIdStr);
-                return labelService.addArtist(artistId, labelId).toString();
+                return labelService.addArtist(artistIdStr, labelIdStr).toString();
             } catch (NumberFormatException e) {
                 return "Error: Invalid integer format. Please provide a valid number.";
             }

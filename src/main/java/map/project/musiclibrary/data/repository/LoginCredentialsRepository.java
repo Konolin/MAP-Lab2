@@ -1,6 +1,6 @@
 package map.project.musiclibrary.data.repository;
 
-import map.project.musiclibrary.data.model.LoginCredentials;
+import map.project.musiclibrary.data.model.users.LoginCredentials;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

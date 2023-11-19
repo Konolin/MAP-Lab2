@@ -1,6 +1,10 @@
 package map.project.musiclibrary.cli;
 
-import map.project.musiclibrary.data.model.*;
+import map.project.musiclibrary.data.model.audios.Song;
+import map.project.musiclibrary.data.model.users.Admin;
+import map.project.musiclibrary.data.model.users.ArtistUser;
+import map.project.musiclibrary.data.model.users.NormalUser;
+import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.ArtistUserService;
 import map.project.musiclibrary.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +20,20 @@ import java.util.Optional;
 @ShellComponent
 public class SongCLICommands {
     private final SongService songService;
-    private final ArtistUserService artistUserService;
     private final UserSession userSession;
 
     @Autowired
-    public SongCLICommands(SongService songService, ArtistUserService artistUserService, UserSession userSession) {
+    public SongCLICommands(SongService songService, UserSession userSession) {
         this.songService = songService;
-        this.artistUserService = artistUserService;
         this.userSession = userSession;
     }
 
-    // TODO - useri sa vada podcasturile
     @ShellMethod(key = "listSongs", value = "List all songs")
     public String listSongs() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn()) {
             return songService.findAll().toString();
         } else {
-            throw new RuntimeException("Only admin can list all songs");
+            return "You must be logged in to se all songs";
         }
     }
 
@@ -43,41 +44,13 @@ public class SongCLICommands {
                           @ShellOption(value = {"releaseDate"}, help = "The release date of the song") final String releaseDateStr,
                           @ShellOption(value = {"artistId"}, help = "The id of the artist of the song") final String artistIdStr) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
-            Song song = new Song();
-
-            song.setName(name);
-            song.setGenre(genre);
             try {
-                int length = Integer.parseInt(lengthStr);
-                song.setLength(length);
-            } catch (NumberFormatException e) {
-                return "Error: Invalid integer format. Please provide a valid number.";
-            }
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                Date releaseDate = dateFormat.parse(releaseDateStr);
-                song.setReleaseDate(releaseDate);
+                return songService.addSong(name, genre, lengthStr, releaseDateStr, artistIdStr).toString();
+            } catch (IllegalArgumentException e) {
+                return e.getMessage();
             } catch (ParseException e) {
-                return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
+                return "Invalid birthdate format. Please use yyyy-MM-dd.";
             }
-
-            try {
-                // search artist by id
-                Long artistId = Long.parseLong(artistIdStr);
-                Optional<ArtistUser> artistUserOptional = artistUserService.findById(artistId);
-                if (artistUserOptional.isPresent()) {
-                    // add artist to song and add song to artists list
-                    song.setArtist(artistUserOptional.get());
-                    artistUserOptional.get().addSong(song);
-                } else {
-                    return "Error: An artist with that id does not exist";
-                }
-            } catch (NumberFormatException e) {
-                return "Error: Invalid integer format. Please provide a valid number.";
-            }
-
-            return songService.save(song).toString();
         } else {
             return "Only admin can add songs";
         }
@@ -91,10 +64,7 @@ public class SongCLICommands {
     // TODO - play song by name ca nu are sens cu id
     @ShellMethod(key = "playSong", value = "Play a song by ID")
     public String playSong(@ShellOption(value = {"songId"}, help = "ID of the song") final String songIdStr) {
-        if (!userSession.isLoggedIn()) {
-            return "You must log in to play a song.";
-        }
-        if (userSession.getCurrentUser() instanceof NormalUser) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
             return songService.playSong(songIdStr, (NormalUser) userSession.getCurrentUser());
         }
         return "Only normal users can play songs";

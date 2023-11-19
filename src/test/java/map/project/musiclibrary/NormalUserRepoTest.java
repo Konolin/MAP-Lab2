@@ -1,7 +1,7 @@
 //package map.project.musiclibrary;
 //
 //import map.project.musiclibrary.data.repository.NormalUserRepository;
-//import map.project.musiclibrary.data.model.NormalUser;
+//import map.project.musiclibrary.data.model.users.NormalUser;
 //import org.junit.jupiter.api.Test;
 //import org.junit.jupiter.api.extension.ExtendWith;
 //import org.springframework.beans.factory.annotation.Autowired;

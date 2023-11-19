@@ -1,6 +1,6 @@
 package map.project.musiclibrary.service;
 
-import map.project.musiclibrary.data.model.Admin;
+import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.repository.LoginCredentialsRepository;
 import org.springframework.stereotype.Component;
 

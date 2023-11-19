@@ -1,4 +1,4 @@
-package map.project.musiclibrary.data.model;
+package map.project.musiclibrary.data.model.users;
 
 import org.springframework.stereotype.Component;
 

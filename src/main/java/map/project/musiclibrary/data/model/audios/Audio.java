@@ -1,4 +1,4 @@
-package map.project.musiclibrary.data.model;
+package map.project.musiclibrary.data.model.audios;
 
 import jakarta.persistence.*;
 import lombok.Data;

@@ -1,8 +1,7 @@
 package map.project.musiclibrary.cli;
 
-import map.project.musiclibrary.data.model.Admin;
-import map.project.musiclibrary.data.model.Advertisement;
-import map.project.musiclibrary.data.model.UserSession;
+import map.project.musiclibrary.data.model.users.Admin;
+import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.AdvertisementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -10,8 +9,6 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @ShellComponent
 public class AdvertisementCLICommands {
@@ -37,23 +34,13 @@ public class AdvertisementCLICommands {
     public String addAdvertisement(@ShellOption(value = {"name"}, help = "Name of the advertisement") final String name,
                                    @ShellOption(value = {"length"}, help = "Length of the advertisement") final String length,
                                    @ShellOption(value = {"type"}, help = "The type of the advertisement") final String type,
-                                   @ShellOption(value = {"releaseDate"}, help = "The release date of the ad (yyyy-MM-dd)") final String releaseDateStr) {
+                                   @ShellOption(value = {"releaseDate"}, help = "The release date of the ad (yyyy-MM-dd)") final String releaseDate) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
-            Advertisement advertisement = new Advertisement();
-
-            advertisement.setName(name);
-            advertisement.setLength(Integer.parseInt(length));
-            advertisement.setAdvertisementType(type);
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             try {
-                Date releaseDate = dateFormat.parse(releaseDateStr);
-                advertisement.setReleaseDate(releaseDate);
+                return advertisementService.addAdvertisement(name, length, type, releaseDate).toString();
             } catch (ParseException e) {
                 return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
             }
-
-            return advertisementService.save(advertisement).toString();
         } else {
             return "Only admin can add ads";
         }
@@ -64,7 +51,7 @@ public class AdvertisementCLICommands {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
             return advertisementService.findByName(name).toString();
         } else {
-            throw new RuntimeException("Only admin can search for ads");
+            return "Only admin can search for ads";
         }
     }
 }
