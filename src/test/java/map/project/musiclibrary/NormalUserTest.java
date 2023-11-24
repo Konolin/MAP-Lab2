@@ -23,20 +23,17 @@ class NormalUserTest {
         //test getters + setters
         normalUser.setId(1L);  //L in this case represents a cast to Long
         normalUser.setName("John Doe");
-        //normalUser.setEmail("test@example.com");
         normalUser.setBirthdate(new Date());
         normalUser.setPremium(true);
 
         Long id = normalUser.getId();
         String name = normalUser.getName();
-        //String email = normalUser.getEmail();
         Date birthdate = normalUser.getBirthdate();
         boolean isPremium = normalUser.isPremium();
 
         //assert that the retrieved values match the expected values
         assertEquals(1L, id);
         assertEquals("John Doe", name);
-        //assertEquals("test@example.com", email);
         assertNotNull(birthdate);
         assertTrue(isPremium);
     }
