@@ -1729,3 +1729,32 @@
 1700160998935:logout
 1700161002093:login --email 123 --password 123
 1700161006318:seeNewNotifications
+1700420755560:help
+1700420777588:adminLogin --email admin --password admin
+1700420795714:addAd --type gambling --name Superbet --length 200 --releaseDate 2010-01-01
+1700420799175:listAds
+1700421514429:adminLogin --email admin --password admin
+1700421522137:addArtist --name ifk --birthdate 1111-11-11
+1700421529137:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1700421535349:addAlbum --name idk --songIds 1,2
+1700421556528:addAlbum --artistId 1 --name idk --songIds 1,2
+1700421576489:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1700421581276:adminLogout
+1700421595982:login --password 123 --email 123
+1700421609087:followArtist --artistId 1
+1700421616903:help
+1700421645953:seeNewNotifications
+1700421650577:logout
+1700421657848:adminLogin --email admin --password admin
+1700421673108:addAlbum --artistId 1 --name idk --songIds 1,2
+1700421685461:logoutAdmin
+1700421691834:adminLogout
+1700421701172:login --email 123 --password 123
+1700421711502:seeNewNotifications
+1700422834679:adminLogin --email admin --password admin
+1700422842948:addArtist --name ifk --birthdate 1111-11-11
+1700422847866:listArtists
+1700423279259:adminLogin --email admin --password admin
+1700423286902:addHost --birthdate 2000-10-10 --name Dani
+1700423289536:listJOsts
+1700423292108:listHosts

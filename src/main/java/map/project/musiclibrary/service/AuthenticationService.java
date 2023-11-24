@@ -1,9 +1,9 @@
 package map.project.musiclibrary.service;
 
-import map.project.musiclibrary.data.model.Admin;
-import map.project.musiclibrary.data.model.LoginCredentials;
-import map.project.musiclibrary.data.model.NormalUser;
-import map.project.musiclibrary.data.model.User;
+import map.project.musiclibrary.data.model.users.Admin;
+import map.project.musiclibrary.data.model.users.LoginCredentials;
+import map.project.musiclibrary.data.model.users.NormalUser;
+import map.project.musiclibrary.data.model.users.User;
 import map.project.musiclibrary.data.repository.LoginCredentialsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

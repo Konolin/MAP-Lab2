@@ -1,7 +1,8 @@
-package map.project.musiclibrary.service;
+package map.project.musiclibrary.service.builders;
 
-import map.project.musiclibrary.data.model.HostUser;
-import map.project.musiclibrary.data.model.Podcast;
+import map.project.musiclibrary.data.model.users.HostUser;
+import map.project.musiclibrary.data.model.audios.Podcast;
+import map.project.musiclibrary.service.HostUserService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

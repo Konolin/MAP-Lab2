@@ -1,8 +1,8 @@
 package map.project.musiclibrary.cli;
 
-import map.project.musiclibrary.data.model.Admin;
-import map.project.musiclibrary.data.model.ArtistUser;
-import map.project.musiclibrary.data.model.UserSession;
+import map.project.musiclibrary.data.model.users.Admin;
+import map.project.musiclibrary.data.model.users.ArtistUser;
+import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.ArtistUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -10,9 +10,6 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.Optional;
 
 @ShellComponent
@@ -31,7 +28,7 @@ public class ArtistCLICommands {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
             return artistUserService.findAll().toString();
         } else {
-            throw new RuntimeException("Only admin can list all artists");
+            return "Only admin can list all artists";
         }
     }
 
@@ -39,20 +36,11 @@ public class ArtistCLICommands {
     public String addArtist(@ShellOption(value = {"name"}, help = "Name of the artist") final String name,
                             @ShellOption(value = {"birthdate"}, help = "Birthdate of the artist") final String birthdateStr) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
-            ArtistUser artist = new ArtistUser();
-
-            artist.setName(name);
-            artist.setSongs(new ArrayList<>());
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             try {
-                Date birthdate = dateFormat.parse(birthdateStr);
-                artist.setBirthdate(birthdate);
+                return artistUserService.addArtist(name, birthdateStr).toString();
             } catch (ParseException e) {
                 return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
             }
-
-            return artistUserService.save(artist).toString();
         } else {
             return "Only admin can add an artist";
         }

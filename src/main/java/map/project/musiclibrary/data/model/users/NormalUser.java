@@ -1,8 +1,10 @@
-package map.project.musiclibrary.data.model;
+package map.project.musiclibrary.data.model.users;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import map.project.musiclibrary.data.model.misc.Notification;
+import map.project.musiclibrary.data.model.observer.Observer;
 
 import java.util.ArrayList;
 import java.util.Iterator;

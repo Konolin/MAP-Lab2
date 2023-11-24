@@ -1,8 +1,8 @@
 package map.project.musiclibrary;
 
-import map.project.musiclibrary.data.model.Podcast;
+import map.project.musiclibrary.data.model.audios.Podcast;
 import map.project.musiclibrary.service.HostUserService;
-import map.project.musiclibrary.service.PodcastBuilder;
+import map.project.musiclibrary.service.builders.PodcastBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

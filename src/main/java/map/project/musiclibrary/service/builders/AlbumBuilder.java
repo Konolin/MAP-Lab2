@@ -1,7 +1,9 @@
-package map.project.musiclibrary.service;
+package map.project.musiclibrary.service.builders;
 
-import map.project.musiclibrary.data.model.Album;
-import map.project.musiclibrary.data.model.Song;
+import map.project.musiclibrary.data.model.audios.Album;
+import map.project.musiclibrary.data.model.audios.Song;
+import map.project.musiclibrary.service.AlbumService;
+import map.project.musiclibrary.service.SongService;
 
 import java.util.ArrayList;
 import java.util.List;

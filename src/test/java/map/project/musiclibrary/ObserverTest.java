@@ -1,9 +1,9 @@
 package map.project.musiclibrary;
 
-import map.project.musiclibrary.data.model.Album;
-import map.project.musiclibrary.data.model.ArtistUser;
-import map.project.musiclibrary.data.model.NormalUser;
-import map.project.musiclibrary.data.model.Notification;
+import map.project.musiclibrary.data.model.audios.Album;
+import map.project.musiclibrary.data.model.users.ArtistUser;
+import map.project.musiclibrary.data.model.users.NormalUser;
+import map.project.musiclibrary.data.model.misc.Notification;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

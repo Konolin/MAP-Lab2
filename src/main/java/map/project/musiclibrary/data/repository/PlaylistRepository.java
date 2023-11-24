@@ -1,7 +1,7 @@
 package map.project.musiclibrary.data.repository;
 
-import map.project.musiclibrary.data.model.NormalUser;
-import map.project.musiclibrary.data.model.Playlist;
+import map.project.musiclibrary.data.model.users.NormalUser;
+import map.project.musiclibrary.data.model.audios.Playlist;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

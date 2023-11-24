@@ -1,5 +1,6 @@
-package map.project.musiclibrary.data.model;
+package map.project.musiclibrary.data.model.strategies;
 
+import map.project.musiclibrary.data.model.strategies.Playable;
 import map.project.musiclibrary.data.repository.AdvertisementRepository;
 
 // TODO - add random ad

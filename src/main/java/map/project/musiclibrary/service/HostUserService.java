@@ -1,11 +1,14 @@
 package map.project.musiclibrary.service;
 
-import map.project.musiclibrary.data.model.HostUser;
-import map.project.musiclibrary.data.model.Podcast;
+import map.project.musiclibrary.data.model.audios.Podcast;
+import map.project.musiclibrary.data.model.users.HostUser;
 import map.project.musiclibrary.data.repository.HostUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +19,17 @@ public class HostUserService {
     @Autowired
     public HostUserService(HostUserRepository hostUserRepository) {
         this.hostUserRepository = hostUserRepository;
+    }
+
+    public HostUser addHost(String name, String birthdateStr) throws ParseException {
+        HostUser host = new HostUser();
+        host.setName(name);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date birthdate = dateFormat.parse(birthdateStr);
+        host.setBirthdate(birthdate);
+
+        return hostUserRepository.save(host);
     }
 
     public HostUser save(HostUser hostUser) {
@@ -34,7 +48,8 @@ public class HostUserService {
         return hostUserRepository.findById(id);
     }
 
-    public List<Podcast> listHostsPodcasts(Long id) {
+    public List<Podcast> listHostsPodcasts(String idStr) throws NumberFormatException {
+        Long id = Long.parseLong(idStr);
         Optional<HostUser> hostUserOptional = hostUserRepository.findById(id);
         if (hostUserOptional.isPresent()) {
             return hostUserOptional.get().getPodcasts();
