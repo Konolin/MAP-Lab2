@@ -1758,3 +1758,13 @@
 1700423286902:addHost --birthdate 2000-10-10 --name Dani
 1700423289536:listJOsts
 1700423292108:listHosts
+1700834851429:adminLogin --email admin --password admin
+1700834863113:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1700834927129:adminLogin --email admin --password admin
+1700834934933:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1700835005913:adminLogin --email admin --password admin
+1700835010720:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1700835013919:shell:>
+1700835020873:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1700835027702:addUser --email 123 --password 1231 --name 123 --birthdate 1111-11-11 --isPremium true
+1700835031149:addUser --email 1231 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true

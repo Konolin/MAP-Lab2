@@ -1,5 +1,6 @@
 package map.project.musiclibrary.service;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.users.ArtistUser;
 import map.project.musiclibrary.data.model.users.LoginCredentials;
@@ -34,8 +35,13 @@ public class NormalUserService {
         user.setName(name);
 
         LoginCredentials loginCredentials = new LoginCredentials();
-        loginCredentials.setEmail(email);  // TODO - email unic sau cauta logincredential daca mai exista si thorw exception
-        loginCredentials.setPassword(password);
+
+        if (loginCredentialsRepository.findByEmail(email).isEmpty()) {
+            loginCredentials.setEmail(email);
+            loginCredentials.setPassword(password);
+        } else {
+            throw new EntityExistsException("Email already in use!");
+        }
 
         user.setLoginCredentials(loginCredentials);
         loginCredentials.setUser(user);

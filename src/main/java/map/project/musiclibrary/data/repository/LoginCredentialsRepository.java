@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface LoginCredentialsRepository extends JpaRepository<LoginCredentials, Long> {
     List<LoginCredentials> findByEmailAndPassword(String email, String password);
+
+    List<LoginCredentials> findByEmail(String email);
 }

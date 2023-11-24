@@ -1,5 +1,6 @@
 package map.project.musiclibrary.cli;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.model.users.NormalUser;
@@ -40,9 +41,11 @@ public class NormalUserCLICommands {
                           @ShellOption(value = {"isPremium"}, help = "Is the user premium (boolean)") final String isPremiumStr) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
             try {
-                return normalUserService.addNormalUser(name, email, password, birthdateStr, isPremiumStr).toString();
+                return normalUserService.addNormalUser(name, email, password, isPremiumStr, birthdateStr).toString();
             } catch (ParseException e) {
                 return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
+            } catch (EntityExistsException e) {
+                return "Error: Email already in use";
             }
         } else {
             return "Only admin can add users";
