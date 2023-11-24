@@ -2,10 +2,7 @@ package map.project.musiclibrary.cli;
 
 import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.model.users.NormalUser;
-import map.project.musiclibrary.data.model.audios.Podcast;
 import map.project.musiclibrary.data.model.users.UserSession;
-import map.project.musiclibrary.service.HostUserService;
-import map.project.musiclibrary.service.builders.PodcastBuilder;
 import map.project.musiclibrary.service.PodcastService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -71,11 +68,10 @@ public class PodcastCLICommands {
         }
     }
 
-    // TODO - play podcast by name not id
-    @ShellMethod(key = "playPodcast", value = "Play a podcast by ID")
-    public String playPodcast(@ShellOption(value = {"podcastId"}, help = "ID of the podcast") final String podcastIdStr) {
+    @ShellMethod(key = "playPodcast", value = "Play a podcast by name")
+    public String playPodcast(@ShellOption(value = {"name"}, help = "Name of the podcast") final String podcastName) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
-            return podcastService.playPodcast(podcastIdStr);
+            return podcastService.playPodcast(podcastName);
         }
         return "You must log into a normal user account to play a podcast.";
     }
