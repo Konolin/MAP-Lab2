@@ -1,6 +1,8 @@
 package map.project.musiclibrary.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.users.ArtistUser;
+import map.project.musiclibrary.data.model.users.NormalUser;
 import map.project.musiclibrary.data.repository.ArtistUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,5 +49,16 @@ public class ArtistUserService {
 
     public Optional<ArtistUser> findById(Long id) {
         return artistUserRepository.findById(id);
+    }
+
+    public List<NormalUser> getFollowers(String artistIdStr) throws NumberFormatException {
+        Long artistId = Long.parseLong(artistIdStr);
+        Optional<ArtistUser> artistUserOptional = findById(artistId);
+        if (artistUserOptional.isPresent()) {
+            ArtistUser artist = artistUserOptional.get();
+            return artist.getFollowers();
+        } else {
+            throw new EntityNotFoundException("User with specified id not found");
+        }
     }
 }

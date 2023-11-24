@@ -1,7 +1,7 @@
 package map.project.musiclibrary.cli;
 
+import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.users.Admin;
-import map.project.musiclibrary.data.model.users.ArtistUser;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.ArtistUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 import java.text.ParseException;
-import java.util.Optional;
 
 @ShellComponent
 public class ArtistCLICommands {
@@ -51,21 +50,18 @@ public class ArtistCLICommands {
         return artistUserService.findByName(name).toString();
     }
 
-    //TODO - only admin can see all followers of an artist
     @ShellMethod(key = "listFollowers", value = "List the followers of an artist")
     public String getFollowers(@ShellOption(value = {"artistId"}, help = "ID of the artist") final String artistIdStr) {
-        try {
-            Long artistId = Long.parseLong(artistIdStr);
-            Optional<ArtistUser> artistUserOptional = artistUserService.findById(artistId);
-            if (artistUserOptional.isPresent()) {
-                ArtistUser artist = artistUserOptional.get();
-                return artist.getFollowers().toString();
-            } else {
-                return "Error: Artist with ID " + artistId + " not found.";
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+            try {
+                return artistUserService.getFollowers(artistIdStr).toString();
+            } catch (NumberFormatException e) {
+                return "Error: Invalid integer format. Please provide a valid number.";
+            } catch (EntityNotFoundException e) {
+                return "User with specified id not found";
             }
-        } catch (NumberFormatException e) {
-            return "Error: Invalid integer format. Please provide a valid number.";
+        } else {
+            return "Only admin can list all the followers of an artist";
         }
     }
-
 }
