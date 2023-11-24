@@ -1,6 +1,8 @@
 package map.project.musiclibrary.service;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import map.project.musiclibrary.data.model.misc.Notification;
 import map.project.musiclibrary.data.model.users.ArtistUser;
 import map.project.musiclibrary.data.model.users.LoginCredentials;
 import map.project.musiclibrary.data.model.users.NormalUser;
@@ -12,9 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class NormalUserService {
@@ -34,8 +34,15 @@ public class NormalUserService {
         user.setName(name);
 
         LoginCredentials loginCredentials = new LoginCredentials();
-        loginCredentials.setEmail(email);  // TODO - email unic sau cauta logincredential daca mai exista si thorw exception
-        loginCredentials.setPassword(password);
+
+        if (Objects.equals(email, "admin")) {
+            throw new IllegalArgumentException("Email can not be set to admin");
+        } else if (loginCredentialsRepository.findByEmail(email).isEmpty()) {
+            loginCredentials.setEmail(email);
+            loginCredentials.setPassword(password);
+        } else {
+            throw new EntityExistsException("Email already in use!");
+        }
 
         user.setLoginCredentials(loginCredentials);
         loginCredentials.setUser(user);
@@ -102,5 +109,9 @@ public class NormalUserService {
         }
     }
 
-
+    public List<Notification> getNotifications(NormalUser normalUser) {
+        List<Notification> notifications = normalUser.getNotifications();
+        normalUser.setNotifications(new ArrayList<>());
+        return notifications;
+    }
 }

@@ -1758,3 +1758,84 @@
 1700423286902:addHost --birthdate 2000-10-10 --name Dani
 1700423289536:listJOsts
 1700423292108:listHosts
+1700834851429:adminLogin --email admin --password admin
+1700834863113:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1700834927129:adminLogin --email admin --password admin
+1700834934933:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1700835005913:adminLogin --email admin --password admin
+1700835010720:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1700835013919:shell:>
+1700835020873:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1700835027702:addUser --email 123 --password 1231 --name 123 --birthdate 1111-11-11 --isPremium true
+1700835031149:addUser --email 1231 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1700836464468:adminLogin --email admin --password admin
+1700836472739:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1700836480570:addArtist --name ifk --birthdate 1111-11-11
+1700836491011:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1700836495430:addAlbum --artistId 1 --name idk --songIds 1,2
+1700836503873:adminLogout
+1700836509074:login --email 123 --password 123
+1700836516851:followArtist --artistId 1
+1700836524000:help
+1700836535399:seeNewNotifications
+1700836538835:logout
+1700836542946:adminLogin
+1700836554989:adminLogin --email admin --password admin
+1700836561793:addAlbum --artistId 1 --name idk --songIds 1,2
+1700836569006:adminLogout
+1700836575691:login --email 123 --password 123
+1700836583712:seeNotifications
+1700836592464:seeNewNotifications
+1700836631035:adminLogin --email admin --password admin
+1700836635389:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1700836639267:addArtist --name ifk --birthdate 1111-11-11
+1700836646357:adminLogout
+1700836649330:login --email 123 --password 123
+1700836652530:followArtist --artistId 1
+1700836656604:logout
+1700836660978:adminLogin --email admin --password admin
+1700836667826:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1700836671657:addAlbum --artistId 1 --name idk --songIds 1,2
+1700836677156:adminLogout
+1700836685584:login --email 123 --password 123
+1700836695157:seeNewNotifications
+1700836701615:logout
+1700836709343:login --email 123 --password 123
+1700836712363:seeNewNotifications
+1700837608916:adminLogin --email admin --password admin
+1700837613015:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1700837617372:adminLogout
+1700837620827:login --email 123 --password 123
+1700837626136:seeNewNotifications
+1700837662321:adminLogin --email admin --password admin
+1700837666395:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1700837670723:adminLogout
+1700837674262:login --email 123 --password 123
+1700837680765:seeNewNotifications
+1700837790602:adminLogin --email admin --password admin
+1700837797199:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1700837804864:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1700837812608:addArtist --name ifk --birthdate 1111-11-11
+1700837815912:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1700837821504:adminLogout
+1700837827809:login --email 123 --password 123
+1700837831193:followArtist --artistId 1
+1700837834974:logout
+1700837838175:adminLogin --email admin --password admin
+1700837842494:addAlbum --artistId 1 --name idk --songIds 1,2
+1700837850620:adminLogout
+1700837856118:login --email 123 --password 123
+1700837862644:seeNewNotifications
+1700838031543:adminLogin --email admin --password admin
+1700838037554:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1700838042337:addArtist --name ifk --birthdate 1111-11-11
+1700838047001:addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
+1700838051805:adminLogout
+1700838056394:login --email 123 --password 123
+1700838059607:followArtist --artistId 1
+1700838061773:logout
+1700838068044:adminLogin --email admin --password admin
+1700838072766:addAlbum --artistId 1 --name idk --songIds 1,2
+1700838076482:adminLogout
+1700838080887:login --email 123 --password 123
+1700838087129:seeNewNotifications

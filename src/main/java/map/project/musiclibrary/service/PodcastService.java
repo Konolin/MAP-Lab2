@@ -68,17 +68,11 @@ public class PodcastService {
         throw new RuntimeException("PodcastService::Advertisement or podcast with specified id doesn't exist");
     }
 
-    public String playPodcast(String podcastIdStr) {
-        try {
-            Long podcastId = Long.parseLong(podcastIdStr);
-            Optional<Podcast> podcastOptional = podcastRepository.findById(podcastId);
-
-            if (podcastOptional.isPresent()) {
-                return podcastOptional.get().play();
-            }
-            return "Podcast not found";
-        } catch (NumberFormatException e) {
-            return "Invalid id";
+    public String playPodcast(String podcastName) {
+        List<Podcast> foundPodcasts = podcastRepository.findByName(podcastName);
+        if (!foundPodcasts.isEmpty()) {
+            return foundPodcasts.getFirst().play();
         }
+        return "Podcast not found";
     }
 }
