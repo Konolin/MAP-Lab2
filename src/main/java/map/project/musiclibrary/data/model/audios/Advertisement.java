@@ -1,5 +1,6 @@
 package map.project.musiclibrary.data.model.audios;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,6 +16,7 @@ public class Advertisement extends Audio {
     private String advertisementType;
 
     @ManyToMany(mappedBy = "advertisements", fetch = FetchType.EAGER)
+    @JsonBackReference
     private List<Podcast> podcasts;
 
     public static String listToString(List<Advertisement> advertisements) {

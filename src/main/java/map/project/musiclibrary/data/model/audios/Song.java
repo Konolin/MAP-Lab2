@@ -1,5 +1,6 @@
 package map.project.musiclibrary.data.model.audios;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,6 +27,7 @@ public class Song extends Audio {
 
     @ManyToOne
     @JoinColumn(name = "playlist_id")
+    @JsonManagedReference
     private Playlist playlist;
 
     public static String listToString(List<Song> songs) {

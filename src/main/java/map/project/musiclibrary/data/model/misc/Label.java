@@ -1,5 +1,6 @@
 package map.project.musiclibrary.data.model.misc;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import map.project.musiclibrary.data.model.users.ArtistUser;
@@ -19,6 +20,7 @@ public class Label {
     private String name;
 
     @OneToMany(mappedBy = "label", fetch = FetchType.EAGER)
+    @JsonBackReference
     private List<ArtistUser> artists;
 
     public boolean addArtist(ArtistUser artistUser) {
