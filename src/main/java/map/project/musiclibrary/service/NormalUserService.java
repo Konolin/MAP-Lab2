@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -36,7 +37,9 @@ public class NormalUserService {
 
         LoginCredentials loginCredentials = new LoginCredentials();
 
-        if (loginCredentialsRepository.findByEmail(email).isEmpty()) {
+        if (Objects.equals(email, "admin")) {
+            throw new IllegalArgumentException("Email can not be set to admin");
+        } else if (loginCredentialsRepository.findByEmail(email).isEmpty()) {
             loginCredentials.setEmail(email);
             loginCredentials.setPassword(password);
         } else {

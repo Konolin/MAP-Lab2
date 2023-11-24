@@ -46,6 +46,8 @@ public class NormalUserCLICommands {
                 return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
             } catch (EntityExistsException e) {
                 return "Error: Email already in use";
+            } catch (IllegalArgumentException e) {
+                return "Error: Email can not be set to admin";
             }
         } else {
             return "Only admin can add users";
