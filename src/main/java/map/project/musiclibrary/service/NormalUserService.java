@@ -2,6 +2,7 @@ package map.project.musiclibrary.service;
 
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import map.project.musiclibrary.data.model.misc.Notification;
 import map.project.musiclibrary.data.model.users.ArtistUser;
 import map.project.musiclibrary.data.model.users.LoginCredentials;
 import map.project.musiclibrary.data.model.users.NormalUser;
@@ -13,10 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class NormalUserService {
@@ -111,5 +109,9 @@ public class NormalUserService {
         }
     }
 
-
+    public List<Notification> getNotifications(NormalUser normalUser) {
+        List<Notification> notifications = normalUser.getNotifications();
+        normalUser.setNotifications(new ArrayList<>());
+        return notifications;
+    }
 }

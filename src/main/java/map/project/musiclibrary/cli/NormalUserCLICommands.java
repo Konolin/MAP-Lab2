@@ -2,6 +2,7 @@ package map.project.musiclibrary.cli;
 
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import map.project.musiclibrary.data.model.misc.Notification;
 import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.model.users.NormalUser;
 import map.project.musiclibrary.data.model.users.UserSession;
@@ -12,6 +13,7 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 import java.text.ParseException;
+import java.util.List;
 
 @ShellComponent
 public class NormalUserCLICommands {
@@ -132,7 +134,8 @@ public class NormalUserCLICommands {
     @ShellMethod(key = "seeNewNotifications", value = "See new notifications")
     public String seeNewNotifications() {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser currentUser) {
-            return currentUser.seeNewNotifications();
+            List<Notification> notifications = normalUserService.getNotifications(currentUser);
+            return (!notifications.isEmpty()) ? notifications.toString() : "No new notifications";
         } else {
             return "Only logged-in normal users can see notifications.";
         }

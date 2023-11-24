@@ -58,7 +58,6 @@ public class AlbumService {
         return albumRepository.findAll();
     }
 
-    @Transactional // TODO dupa refactor verificat daca mai ii necesar tagul asta
     public void releaseAlbum(ArtistUser artist, Album album) {
         artist.notifyFollowers(album);
     }

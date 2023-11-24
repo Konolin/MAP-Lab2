@@ -79,6 +79,7 @@ public class ArtistUser extends User {
     }
 
 
+
     public void addFollower(NormalUser follower) {
         if (!followers.contains(follower)) {
             followers.add(follower);
