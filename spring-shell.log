@@ -1839,3 +1839,33 @@
 1700838076482:adminLogout
 1700838080887:login --email 123 --password 123
 1700838087129:seeNewNotifications
+1700928475520:adminLogin --email admin --password admin
+1700928482305:addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
+1700928498110:adminLogin --email admin --password admin
+1700928502373:listUsers
+1700928977039:adminLogin
+1700928987450:adminLogin --email admin --password admin\\
+1700928990041:listUsers
+1700929065528:adminLogin --email admin --password admin
+1700929070787:listUsers
+1700929133560:adminLogin --email admin --password admin
+1700929138354:listUsers
+1700929160213:adminLogin --email admin --password admin
+1700929163027:listUsers
+1700929374427:adminLogin --email admin --password admin
+1700929381393:addHost --birthdate 2000-10-10 --name Dani
+1700929388061:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1700929395852:addAd --type gambling --name Superbet --length 200 --releaseDate 2010-01-01
+1700929399350:addAdToPodcast --adId 1 --podcastId 1
+1700929432697:addArtist --name Smiley --birthdate 1985-11-11
+1700929456400:addLabel --name HaHa Production
+1700929464704:addArtistToLabel --artistId 1 --labelId 1
+1700929509027:addUser --email bob@gmail.com --password bob123 --name bob --birthdate 2000-5-5 --isPremium true
+1700929537121:addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
+1700929559377:addSong --length 200 --name acasa --releaseDate 2010-11-11 --artistId 1 --genre pop
+1700929576136:addSong --length 200 --name bruh --releaseDate 2010-11-11 --artistId 1 --genre pop
+1700929591955:addAlbum --artistId 1 --name Acasa albumul --songIds 1,2
+1700929612379:quit
+1700929620408:adminLogin --email admin --password admin
+1700929627618:listUsers
+1700929638653:listArtists
