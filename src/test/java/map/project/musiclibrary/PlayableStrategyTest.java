@@ -1,14 +1,15 @@
 package map.project.musiclibrary;
 
-import map.project.musiclibrary.data.model.audios.Song;
+import map.project.musiclibrary.data.model.users.ArtistUser;
 import map.project.musiclibrary.data.model.strategies.PlayableWithAds;
 import map.project.musiclibrary.data.model.strategies.PlayableWithoutAds;
-import map.project.musiclibrary.data.model.users.ArtistUser;
+import map.project.musiclibrary.data.model.audios.Song;
 import map.project.musiclibrary.data.repository.AdvertisementRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
