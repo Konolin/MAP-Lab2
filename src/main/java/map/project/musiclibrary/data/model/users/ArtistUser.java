@@ -53,7 +53,7 @@ public class ArtistUser extends User {
         String labelStr = label == null ? "null" : label.toString();
         return "ArtistUser(" +
                 "id=" + id +
-                ", label=" + labelStr +
+                ", label=" + labelStr + // TODO lable short string
                 ", songs=" + Song.listToString(songs) +
                 ", name='" + name + '\'' +
                 ", birthdate=" + birthdate +
