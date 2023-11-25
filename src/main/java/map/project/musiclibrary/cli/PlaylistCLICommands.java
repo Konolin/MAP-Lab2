@@ -37,6 +37,24 @@ public class PlaylistCLICommands {
         }
     }
 
+    @ShellMethod(key = "deletePlaylist", value = "Delete a playlist")
+    public String deletePlaylist(@ShellOption(value = {"playlistId"}, help = "ID of the playlist to be deleted") final String playlistIdStr) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+            try {
+                Long playlistId = Long.parseLong(playlistIdStr);
+                NormalUser currentUser = (NormalUser) userSession.getCurrentUser();
+                if (playlistService.deletePlaylist(playlistId, currentUser))
+                    return "Playlist with ID " + playlistId + " has been deleted.";
+                else
+                    return "Playlist with ID " + playlistId + " doesn't exist or you don't have permission to delete it.";
+            } catch (IllegalArgumentException e) {
+                return "Error: Invalid integer format. Please provide a valid number.";
+            }
+        } else {
+            return "Only normal users can delete a playlist.";
+        }
+    }
+
     @ShellMethod(key = "addSongToPlaylist", value = "Add a song to a playlist")
     public String addSongToPlaylist(@ShellOption(value = {"songId"}, help = "Id of the song") final String songIdStr,
                                     @ShellOption(value = {"playListId"}, help = "Id of the playlist") final String playListIdStr) {

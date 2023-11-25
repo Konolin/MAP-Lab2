@@ -7,8 +7,8 @@ import map.project.musiclibrary.data.model.misc.Notification;
 import map.project.musiclibrary.data.model.observer.Observer;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -64,4 +64,19 @@ public class NormalUser extends User implements Observer {
     public void addNotification(Notification notification) {
         notifications.add(notification);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NormalUser normalUser = (NormalUser) o;
+        return isPremium() == normalUser.isPremium() &&
+                Objects.equals(getLoginCredentials().getId(), normalUser.getLoginCredentials().getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isPremium(), getLoginCredentials().getId());
+    }
+
 }

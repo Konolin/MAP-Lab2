@@ -31,7 +31,7 @@ public class NormalUserCLICommands {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
             return normalUserService.findAll().toString();
         } else {
-            return "Only admin can list all users";
+            return "Only admin can list all users.";
         }
     }
 
@@ -47,27 +47,27 @@ public class NormalUserCLICommands {
             } catch (ParseException e) {
                 return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
             } catch (EntityExistsException e) {
-                return "Error: Email already in use";
+                return "Error: Email already in use.";
             } catch (IllegalArgumentException e) {
-                return "Error: Email can not be set to admin";
+                return "Error: Email can not be set to admin.";
             }
         } else {
-            return "Only admin can add users";
+            return "Only admin can add users.";
         }
     }
 
     @ShellMethod(key = "deleteUser", value = "Delete a user")
-    public String deleteUser(@ShellOption(value = "userId", help = "Id of the user to be deleted") final String userIdstr){
+    public String deleteUser(@ShellOption(value = {"userId"}, help = "Id of the user to be deleted") final String userIdstr){
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin){
             try{
                 Long userId = Long.parseLong(userIdstr);
                 normalUserService.deleteNormalUser(userId);
-                return "User with ID " + userId + " has been deleted";
+                return "User with ID " + userId + " has been deleted.";
             } catch (IllegalArgumentException e){
                 return "Error: Invalid integer format. Please provide a valid number.";
             }
         } else {
-            return "Only admin can delete a user";
+            return "Only admin can delete a user.";
         }
     }
 
@@ -76,7 +76,7 @@ public class NormalUserCLICommands {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
             return normalUserService.findByName(name).toString();
         } else {
-            return "Only admin can search for users";
+            return "Only admin can search for users.";
         }
     }
 
@@ -126,7 +126,7 @@ public class NormalUserCLICommands {
                 return "Error: Invalid integer format. Please provide a valid number.";
             }
         } else {
-            return "Only normal users can follow artists";
+            return "Only normal users can follow artists.";
         }
     }
 
@@ -142,7 +142,7 @@ public class NormalUserCLICommands {
                 return "Artist or user not found.";
             }
         } else {
-            return "Only normal users can unfollow artists";
+            return "Only normal users can unfollow artists.";
         }
     }
 

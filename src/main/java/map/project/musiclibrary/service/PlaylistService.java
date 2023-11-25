@@ -33,6 +33,28 @@ public class PlaylistService {
         return playlistRepository.save(playlist);
     }
 
+    @Transactional
+    public boolean deletePlaylist(Long id, NormalUser currentUser) {
+        Optional<Playlist> playlistOptional = playlistRepository.findById(id);
+
+        if (playlistOptional.isPresent()) {
+            Playlist playlist = playlistOptional.get();
+
+            if (currentUser.equals(playlist.getNormalUser())) {  //checking if the playlist to be deleted belongs to the user that created it
+                for (Song song : playlistRepository.getReferenceById(id).getSongs()) {
+                    song.setPlaylist(null);
+                    songRepository.save(song);
+                }
+
+                //clear the list of songs from the playlist
+                playlist.getSongs().clear();
+                playlistRepository.deleteById(id);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Playlist save(Playlist playlist) {
         return playlistRepository.save(playlist);
     }

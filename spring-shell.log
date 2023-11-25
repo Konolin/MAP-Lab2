@@ -1917,3 +1917,38 @@
 1700944873459:deleteUser --userId 54
 1700945017185:addUser --email cob@gmail.com --password cobcob --name cob --birthdate 2002-1-5 --isPremium false
 1700945027347:deleteUser --userId 55
+1700948716202:addPlaylist --name Bruh
+1700948747976:login --email bob@gmail.com --password bob123
+1700948764739:addPlaylist --name Bruh
+1700948798546:deletePlaylist --playlistId 1
+1700949008406:listPlaylists
+1700949096169:deletePlaylist --playlistId 1
+1700949506113:login --email bob@gmail.com --password bob123
+1700949516732:listPlaylists
+1700949531921:logout
+1700949536719:addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
+1700949542214:adminLogin --email admin --password admin
+1700949550094:addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
+1700949570278:listPlaylists
+1700949593811:login --email zob@gmail.com --password zobzob
+1700949599580:listPlaylists
+1700949604870:logout
+1700949619376:login --email bob@gmail.com --password bob123
+1700949628023:deletePlaylist --playlistId 1
+1700949910201:login --email bob@gmail.com --password bob123
+1700949921237:deletePlaylist --playlistId 1
+1700950027497:login --email bob@gmail.com --password bob123
+1700950037613:deletePlaylist --playlistId 1
+1700950047362:listPlaylists
+1700950088466:addPlaylist --name Bruh
+1700950110722:deletePlaylist --playlistId 52
+1700950116402:listPlaylists
+1700950126599:addPlaylist --name Bruh
+1700950132352:listPlaylists
+1700950156662:logout
+1700950172099:login --email zob@gmai.com --password zobzob
+1700950180039:login --email zob@gmail.com --password zobzob
+1700950195129:deletePlaylist --playlistId 53
+1700950206581:logout
+1700950222217:adminLogin --email admin --password admin
+1700950227791:deletePlaylist --playlistId 53
