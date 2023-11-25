@@ -1869,3 +1869,51 @@
 1700929620408:adminLogin --email admin --password admin
 1700929627618:listUsers
 1700929638653:listArtists
+1700935458544:help
+1700935476464:addUser --email bob@gmail.com --password bob123 --name bob --birthdate 2000-5-5 --isPremium true
+1700935481446:adminLogin --email admin --password admin
+1700935485660:addUser --email bob@gmail.com --password bob123 --name bob --birthdate 2000-5-5 --isPremium true
+1700935552596:addPlaylist --name Bruh
+1700935567257:login --email 123 --password 123
+1700935584722:login --bob@gmail.com -password bob123
+1700935597801:login --email bob@gmail.com -password bob123
+1700935607844:login --email bob@gmail.com --password bob123
+1700935615509:addPlaylist --name Bruh
+1700935645918:logout
+1700935650066:adminLogin --email admin --password admin
+1700935658056:addArtist --name Smiley --birthdate 1985-11-11
+1700935666662:addSong --length 200 --name acasa --releaseDate 2010-11-11 --artistId 1 --genre pop
+1700935904753:adminLogin --email admin --password admin
+1700935909963:addUser --email bob@gmail.com --password bob123 --name bob --birthdate 2000-5-5 --isPremium true
+1700935931866:addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
+1700936243810:help
+1700936254270:findUser --name zob
+1700936261872:adminLogin --email admin --password admin
+1700936267727:findUser --name zob
+1700943187495:adminLogin --email admin --password admin
+1700943197040:findUser --name bob
+1700943208180:findUser --name zob
+1700943218070:findUser --name cob
+1700943230932:findUser --name zob
+1700944551001:help
+1700944569686:deleteUser --userId 1
+1700944574964:adminLogin --email admin --password admin
+1700944595340:deleteUser --userId 2
+1700944628063:findUser --userId 2
+1700944638500:findUser --name zob
+1700944645987:findUser --name bob
+1700944658093:addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
+1700944683579:deleteUser --userId 2
+1700944696256:findUser --name bob
+1700944703569:listUsers
+1700944728367:deleteUser --userId 52
+1700944735409:listUsers
+1700944750485:deleteUser --userId 5
+1700944766036:findUser --name zob
+1700944769705:addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
+1700944785399:deleteUser --userId 53
+1700944790053:listUsers
+1700944851687:addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
+1700944873459:deleteUser --userId 54
+1700945017185:addUser --email cob@gmail.com --password cobcob --name cob --birthdate 2002-1-5 --isPremium false
+1700945027347:deleteUser --userId 55

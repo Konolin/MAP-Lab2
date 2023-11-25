@@ -57,6 +57,10 @@ public class NormalUserService {
         return normalUserRepository.save(user);
     }
 
+    public void deleteNormalUser(Long id){
+        normalUserRepository.deleteById(id);
+    }
+
     public NormalUser save(NormalUser user) {
         return normalUserRepository.save(user);
     }

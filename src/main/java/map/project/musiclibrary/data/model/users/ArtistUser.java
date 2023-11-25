@@ -1,6 +1,5 @@
 package map.project.musiclibrary.data.model.users;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,7 +18,7 @@ import java.util.List;
 public class ArtistUser extends User {
     @ManyToOne
     @JoinColumn(name = "label_id")
-    @JsonManagedReference
+
     private Label label;
 
     @OneToMany(mappedBy = "artist", fetch = FetchType.EAGER)

@@ -56,6 +56,21 @@ public class NormalUserCLICommands {
         }
     }
 
+    @ShellMethod(key = "deleteUser", value = "Delete a user")
+    public String deleteUser(@ShellOption(value = "userId", help = "Id of the user to be deleted") final String userIdstr){
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin){
+            try{
+                Long userId = Long.parseLong(userIdstr);
+                normalUserService.deleteNormalUser(userId);
+                return "User with ID " + userId + " has been deleted";
+            } catch (IllegalArgumentException e){
+                return "Error: Invalid integer format. Please provide a valid number.";
+            }
+        } else {
+            return "Only admin can delete a user";
+        }
+    }
+
     @ShellMethod(key = "findUser", value = "Find a user by name")
     public String findUser(@ShellOption(value = {"name"}, help = "Name of the user") final String name) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {

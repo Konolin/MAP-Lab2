@@ -1,6 +1,5 @@
 package map.project.musiclibrary.data.model.audios;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import map.project.musiclibrary.data.model.users.NormalUser;
@@ -25,7 +24,7 @@ public class Playlist {
             joinColumns = @JoinColumn(name = "playlist_id"),
             inverseJoinColumns = @JoinColumn(name = "song_id")
     )
-    @JsonBackReference
+
     private List<Song> songs;
     @ManyToOne
     @JoinColumn(name = "user_id")
