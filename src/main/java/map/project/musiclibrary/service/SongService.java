@@ -1,10 +1,10 @@
 package map.project.musiclibrary.service;
 
-import map.project.musiclibrary.data.model.users.ArtistUser;
-import map.project.musiclibrary.data.model.users.NormalUser;
+import map.project.musiclibrary.data.model.audios.Song;
 import map.project.musiclibrary.data.model.strategies.PlayableWithAds;
 import map.project.musiclibrary.data.model.strategies.PlayableWithoutAds;
-import map.project.musiclibrary.data.model.audios.Song;
+import map.project.musiclibrary.data.model.users.ArtistUser;
+import map.project.musiclibrary.data.model.users.NormalUser;
 import map.project.musiclibrary.data.repository.AdvertisementRepository;
 import map.project.musiclibrary.data.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class SongService {
         Song song = new Song();
         song.setName(name);
         song.setGenre(genre);
-        
+
         try {
             int length = Integer.parseInt(lengthStr);
             song.setLength(length);
@@ -78,17 +78,11 @@ public class SongService {
         return songRepository.findById(id);
     }
 
-    public String playSong(String songIdStr, NormalUser currentUser) {
-        try {
-            Long songId = Long.parseLong(songIdStr);
-            Optional<Song> songOptional = songRepository.findById(songId);
-            if (songOptional.isPresent()) {
-                Song song = songOptional.get();
-                return song.play(currentUser.isPremium() ? new PlayableWithoutAds() : new PlayableWithAds(advertisementRepository));
-            }
-            return "Song not found";
-        } catch (NumberFormatException e) {
-            return "Invalid id";
+    public String playSong(String songName, NormalUser currentUser) {
+        List<Song> foundSongs = songRepository.findByName(songName);
+        if (!foundSongs.isEmpty()) {
+            return foundSongs.getFirst().play(currentUser.isPremium() ? new PlayableWithoutAds() : new PlayableWithAds(advertisementRepository));
         }
+        return "Song not found";
     }
 }

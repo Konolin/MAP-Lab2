@@ -17,17 +17,12 @@ public class Notification {
     @JoinColumn(name = "user_id")
     private NormalUser user;
 
+    @Column(name = "message")
     private String message;
 
     @ManyToOne
     @JoinColumn(name = "album_id")
     private Album album;
-
-    private boolean seen = false;
-
-    public void setSeen(boolean seen) {
-        this.seen = seen;
-    }
 
     @Override
     public String toString() {

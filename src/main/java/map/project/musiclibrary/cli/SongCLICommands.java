@@ -61,11 +61,10 @@ public class SongCLICommands {
         return songService.findByName(name).toString();
     }
 
-    // TODO - play song by name ca nu are sens cu id
-    @ShellMethod(key = "playSong", value = "Play a song by ID")
-    public String playSong(@ShellOption(value = {"songId"}, help = "ID of the song") final String songIdStr) {
+    @ShellMethod(key = "playSong", value = "Play a song by name")
+    public String playSong(@ShellOption(value = {"name"}, help = "Name of the song") final String songName) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
-            return songService.playSong(songIdStr, (NormalUser) userSession.getCurrentUser());
+            return songService.playSong(songName, (NormalUser) userSession.getCurrentUser());
         }
         return "Only normal users can play songs";
     }

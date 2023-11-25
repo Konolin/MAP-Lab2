@@ -31,7 +31,6 @@ public class NormalUserServiceTest {
     void testSaveNormalUser() {
         NormalUser userToSave = new NormalUser();
         userToSave.setName("John Doe");
-        //userToSave.setEmail("john@example.com");
         userToSave.setBirthdate(new Date());
         userToSave.setPremium(true);
 
@@ -39,7 +38,6 @@ public class NormalUserServiceTest {
 
         assertNotNull(savedUser.getId());
         assertEquals("John Doe", savedUser.getName());
-        //assertEquals("john@example.com", savedUser.getEmail());
     }
 
     @Test

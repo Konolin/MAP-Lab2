@@ -22,8 +22,6 @@ public class NormalUser extends User implements Observer {
     @JoinColumn(name = "credentials_id", referencedColumnName = "id")
     private LoginCredentials loginCredentials;
 
-
-    //TODO - putem folosi lista asta ca sa vedem si ce artisti urmareste un user
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_followed_artists",
@@ -41,9 +39,6 @@ public class NormalUser extends User implements Observer {
                 ", name='" + name + '\'' +
                 ", birthdate=" + birthdate +
                 ", isPremium=" + isPremium +
-                // TODO - temporar
-                ", email=" + loginCredentials.getEmail() +
-                ", password=" + loginCredentials.getPassword() +
                 ')';
     }
 
@@ -52,7 +47,6 @@ public class NormalUser extends User implements Observer {
             this.followedArtists.add(artist);
         }
     }
-
 
     public void unfollowArtist(ArtistUser artist) {
         this.followedArtists.remove(artist);
@@ -70,28 +64,4 @@ public class NormalUser extends User implements Observer {
     public void addNotification(Notification notification) {
         notifications.add(notification);
     }
-
-    public String seeNewNotifications() {
-        StringBuilder result = new StringBuilder();
-        Iterator<Notification> iterator = notifications.iterator();
-
-        if (notifications.isEmpty()) {
-            result.append("No new notifications.");
-        } else {
-            result.append("New Notifications:\n");
-            while (iterator.hasNext()) {
-                Notification notification = iterator.next();
-                if (!notification.isSeen()) {
-                    result.append(notification);
-                    if (iterator.hasNext())
-                        result.append('\n');
-                    notification.setSeen(true);
-                    iterator.remove();
-                }
-            }
-        }
-        return result.toString();
-    }
-
-
 }

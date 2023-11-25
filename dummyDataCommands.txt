@@ -3,13 +3,14 @@ addAd --type gambling --name Superbet --length 200 --releaseDate 2010-01-01
 addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
 addAdToPodcast --adId 1 --podcastId 1
 
-addArtist --name ifk --birthdate 1111-11-11
-addLabel --name idad
+addArtist --name Smiley --birthdate 1985-11-11
+addLabel --name HaHa Production
 addArtistToLabel --artistId 1 --labelId 1
 
-addUser --email 123 --password 123 --name 123 --birthdate 1111-11-11 --isPremium true
-addSong --length 100 --name bruh --releaseDate 1111-11-11 --artistId 1 --genre pop
-addAlbum --artistId 1 --name idk --songIds 1,2
+addUser --email bob@gmail.com --password bob123 --name bob --birthdate 2000-5-5 --isPremium true
+addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
+addSong --length 200 --name acasa --releaseDate 2010-11-11 --artistId 1 --genre pop
+addAlbum --artistId 1 --name Acasa albumul --songIds 1,2
 
 addPlaylist --name Bruh
 addSongToPlaylist --songId 1 --playListId 1

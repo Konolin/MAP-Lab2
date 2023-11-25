@@ -13,10 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+// TODO - fix la asta (no bean found)
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-//@ComponentScan(basePackages = "map.project.musiclibrary.service")
 public class PodcastBuilderTest {
     @Autowired
     HostUserService hostUserService;
