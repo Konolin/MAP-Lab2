@@ -11,4 +11,6 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, Lo
 
     @Query(value = "SELECT * FROM advertisemnts ORDER BY RAND() LIMIT 1", nativeQuery = true)
     Advertisement findRandomEntity();
+
+    // TODO - add delete option
 }

@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface NormalUserRepository extends JpaRepository<NormalUser, Long> {
     List<NormalUser> findByName(String name);
+
+    // TODO - add delete option
 }

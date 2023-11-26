@@ -10,4 +10,6 @@ public interface PodcastRepository extends JpaRepository<Podcast, Long> {
     List<Podcast> findByName(String name);
 
     Optional<Podcast> findById(Long id);
+
+    // TODO - add delete option
 }

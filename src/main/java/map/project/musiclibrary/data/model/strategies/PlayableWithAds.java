@@ -1,6 +1,5 @@
 package map.project.musiclibrary.data.model.strategies;
 
-import map.project.musiclibrary.data.model.strategies.Playable;
 import map.project.musiclibrary.data.repository.AdvertisementRepository;
 
 // TODO - add random ad
@@ -17,6 +16,6 @@ public class PlayableWithAds implements Playable {
         // TODO - update test cand adaugam reclama random
         return //"Playing ad \"" + advertisement.getName() + "\n" +
                 "Playing ad \n" +
-                "Playing \"" + name + "\" by " + creatorUserName;
+                        "Playing \"" + name + "\" by " + creatorUserName;
     }
 }
