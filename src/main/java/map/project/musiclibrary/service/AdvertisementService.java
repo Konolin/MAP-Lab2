@@ -1,6 +1,8 @@
 package map.project.musiclibrary.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.audios.Advertisement;
+import map.project.musiclibrary.data.model.audios.Podcast;
 import map.project.musiclibrary.data.repository.AdvertisementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,15 +10,19 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AdvertisementService {
     private final AdvertisementRepository advertisementRepository;
+    private final PodcastService podcastService;
 
     @Autowired
-    public AdvertisementService(AdvertisementRepository advertisementRepository) {
+    public AdvertisementService(AdvertisementRepository advertisementRepository, PodcastService podcastService) {
         this.advertisementRepository = advertisementRepository;
+        this.podcastService = podcastService;
     }
 
     public Advertisement addAdvertisement(String name, String lengthStr, String type, String releaseDateStr) throws ParseException {
@@ -39,5 +45,27 @@ public class AdvertisementService {
 
     public List<Advertisement> findAll() {
         return advertisementRepository.findAll();
+    }
+
+    public boolean delete(String idStr) throws NumberFormatException {
+        Long id = Long.parseLong(idStr);
+        Optional<Advertisement> optional = advertisementRepository.findById(id);
+        if (optional.isPresent()) {
+            Advertisement advertisement = optional.get();
+
+            // remove the links between the podcasts and ad
+            Iterator<Podcast> iterator = advertisement.getPodcasts().iterator();
+            while (iterator.hasNext()) {
+                Podcast podcast = iterator.next();
+                podcast.getAdvertisements().remove(advertisement);
+                podcastService.save(podcast);
+                iterator.remove();
+            }
+
+            advertisementRepository.deleteById(id);
+            return true;
+        } else {
+            throw new EntityNotFoundException("Ad was not found");
+        }
     }
 }

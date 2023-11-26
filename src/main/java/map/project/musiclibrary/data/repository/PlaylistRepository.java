@@ -10,4 +10,6 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
     List<Playlist> findByName(String name);
 
     List<Playlist> findByNormalUser(NormalUser user);
+
+    // TODO - add delete option
 }

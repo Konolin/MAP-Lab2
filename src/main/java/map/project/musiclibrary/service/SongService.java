@@ -1,5 +1,6 @@
 package map.project.musiclibrary.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.audios.Song;
 import map.project.musiclibrary.data.model.strategies.PlayableWithAds;
 import map.project.musiclibrary.data.model.strategies.PlayableWithoutAds;
@@ -84,5 +85,21 @@ public class SongService {
             return foundSongs.getFirst().play(currentUser.isPremium() ? new PlayableWithoutAds() : new PlayableWithAds(advertisementRepository));
         }
         return "Song not found";
+    }
+
+    public void delete(String idStr) throws NumberFormatException {
+        Long id = Long.parseLong(idStr);
+        Optional<Song> optional = songRepository.findById(id);
+        if (optional.isPresent()) {
+            Song song = optional.get();
+
+            song.setArtist(null);
+            song.setAlbum(null);
+            // TODO - remove from playlists (prima data trebuie facut many to many)
+
+            songRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Song was not found");
+        }
     }
 }

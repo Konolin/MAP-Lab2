@@ -64,4 +64,20 @@ public class ArtistCLICommands {
             return "Only admin can list all the followers of an artist";
         }
     }
+
+    @ShellMethod(key = "deleteArtist", value = "Delete an artist by id (It also deletes their songs!)")
+    public String deleteAlbum(@ShellOption(value = {"id"}, help = "Id of the artist") final String idStr) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+            try {
+                artistUserService.delete(idStr);
+                return "Artist successfully deleted.";
+            } catch (NumberFormatException e) {
+                return "Invalid id format";
+            } catch (EntityNotFoundException e) {
+                return "Artist was not found";
+            }
+        } else {
+            return "Only admin can delete an artist";
+        }
+    }
 }

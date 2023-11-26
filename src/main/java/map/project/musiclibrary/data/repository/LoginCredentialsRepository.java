@@ -9,4 +9,6 @@ public interface LoginCredentialsRepository extends JpaRepository<LoginCredentia
     List<LoginCredentials> findByEmailAndPassword(String email, String password);
 
     List<LoginCredentials> findByEmail(String email);
+
+    // TODO - add delete option
 }

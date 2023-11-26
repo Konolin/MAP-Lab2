@@ -10,4 +10,6 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     List<Song> findByName(String name);
 
     Optional<Song> findById(Long id);
+
+    // TODO - add delete option
 }

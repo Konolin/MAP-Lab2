@@ -10,4 +10,6 @@ public interface ArtistUserRepository extends JpaRepository<ArtistUser, Long> {
     List<ArtistUser> findByName(String name);
 
     Optional<ArtistUser> findById(Long id);
+
+    // TODO - add delete option
 }

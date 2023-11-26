@@ -1869,3 +1869,50 @@
 1700929620408:adminLogin --email admin --password admin
 1700929627618:listUsers
 1700929638653:listArtists
+1700997223724:login --email 123 --password 123
+1700997241983:login --email zob@gmail.com --password zobzob
+1700997252089:listSOngs
+1700997254780:listSongs
+1700997271837:playSong --name acasa
+1700997349963:login --email zob@gmail.com --password zobzob
+1700997353121:playSong --name acasa
+1700997407193:adminLogin --email admin --password admin
+1700997431014:addAd --type food --name McDonalds --length 130 --releaseDate 2014-05-09
+1700997437576:adminLogout
+1700997446153:login --email zob@gmail.com --password zobzob
+1700997452207:playSong --name acasa
+1700998448577:adminLogin --email admin --password admin
+1700998464089:addAd --type temo --name temp --length 200 --releaseDate 2010-01-01
+1700998466662:listAds
+1700998541245:deleteAd --id 52
+1700998544213:listAds
+1700998580256:adminLogin --email admin --password admin
+1700998589718:addAd --type gambling --name temp --length 200 --releaseDate 2010-01-01
+1700998604605:addAdToPodcast --adId 102 --podcastId 1
+1700998608212:listPodcasts
+1700998620530:deleteAd --id 102
+1700998900028:adminLogin --email admin --password admin
+1700998905278:listAds
+1700998924579:deleteAd --id 102
+1700998980799:adminLogin --email admin --password admin
+1700998988190:deleteAd --id 102
+1700999373269:adminLogin --email admin --password admin
+1700999386321:deleteAd --id 102
+1700999392039:listPodcasts
+1700999399779:listAds
+1701000309057:adminLogin --email admin --password admin
+1701000327129:addSong --length 200 --name temp --releaseDate 2010-11-11 --artistId 1 --genre pop
+1701000486128:adminLogin --email admin --password admin
+1701000490370:listAlbums
+1701000501600:addSong --length 200 --name acasa --releaseDate 2010-11-11 --artistId 1 --genre pop
+1701000505723:listSongs
+1701000523899:addAlbum --artistId 1 --name Acasa albumul --songIds 52,102
+1701000528005:listAlbums
+1701000537542:listArtists
+1701000582075:deleteAlbum
+1701000597866:deleteAlbum --id 102
+1701000620533:deleteAlbum --id 2
+1701000827067:adminLogin --email admin --password admin
+1701000832516:deleteAlbum --id 2
+1701000837235:listSongs
+1701000854830:listAlbums

@@ -1,6 +1,8 @@
 package map.project.musiclibrary.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import map.project.musiclibrary.data.model.audios.Album;
+import map.project.musiclibrary.data.model.audios.Song;
 import map.project.musiclibrary.data.model.users.ArtistUser;
 import map.project.musiclibrary.data.model.users.NormalUser;
 import map.project.musiclibrary.data.repository.ArtistUserRepository;
@@ -9,18 +11,19 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ArtistUserService {
-    final ArtistUserRepository artistUserRepository;
+    private final ArtistUserRepository artistUserRepository;
+//    private final SongService songService;
+//    private final AlbumService albumService;
 
     @Autowired
-    public ArtistUserService(ArtistUserRepository artistUserRepository) {
+    public ArtistUserService(ArtistUserRepository artistUserRepository/*, SongService songService, AlbumService albumService*/) {
         this.artistUserRepository = artistUserRepository;
+//        this.songService = songService;
+//        this.albumService = albumService;
     }
 
     public ArtistUser addArtist(String name, String birthdateStr) throws ParseException {
@@ -59,6 +62,32 @@ public class ArtistUserService {
             return artist.getFollowers();
         } else {
             throw new EntityNotFoundException("User with specified id not found");
+        }
+    }
+
+    public void delete(String idStr) throws NumberFormatException {
+        Long id = Long.parseLong(idStr);
+        Optional<ArtistUser> optional = artistUserRepository.findById(id);
+        if (optional.isPresent()) {
+            ArtistUser artist = optional.get();
+
+            // remove the link between the artist and label
+            artist.getLabel().getArtists().remove(artist);
+
+            // remove songs associated with the artist
+            // TODO - dependenta circulara fml
+//            for (Song song : artist.getSongs()) {
+//                songService.delete(song.getId().toString());
+//            }
+
+            // remove albums associated with the artist
+//            for (Album album : artist.getAlbums()) {
+//                albumService.delete(album.getId().toString());
+//            }
+
+            artistUserRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Artist was not found");
         }
     }
 }
