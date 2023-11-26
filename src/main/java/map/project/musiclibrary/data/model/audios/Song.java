@@ -24,10 +24,8 @@ public class Song extends Audio {
     @JoinColumn(name = "artist_id")
     private ArtistUser artist;
 
-    @ManyToOne
-    @JoinColumn(name = "playlist_id")
-
-    private Playlist playlist;
+    @ManyToMany(mappedBy = "songs")
+    private List<Playlist> playlists;
 
     public static String listToString(List<Song> songs) {
         String songsString = "[]";

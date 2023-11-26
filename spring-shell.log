@@ -1952,3 +1952,19 @@
 1700950206581:logout
 1700950222217:adminLogin --email admin --password admin
 1700950227791:deletePlaylist --playlistId 53
+1700996453354:adminLogin --email admin --password admin
+1700996471607:findUser --name bob
+1700996500832:help
+1700996656859:playSong --name acasa
+1700996662898:adminLogout
+1700996671376:login --email bob@gmail.com --password bob123
+1700996676960:playSong --name acasa
+1700996706262:playPodcast --name Keep Gambling
+1700996713330:logout
+1700996723014:adminLogin --email admin --password admin
+1700996726806:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1700996732211:addHost --birthdate 2000-10-10 --name Dani
+1700996737183:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1700996747273:adminLogout
+1700996755990:login --email bob@gmail.com --password bob123
+1700996770344:playPodcast --name Keep Gambling

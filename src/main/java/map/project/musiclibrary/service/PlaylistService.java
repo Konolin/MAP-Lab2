@@ -41,8 +41,8 @@ public class PlaylistService {
             Playlist playlist = playlistOptional.get();
 
             if (currentUser.equals(playlist.getNormalUser())) {  //checking if the playlist to be deleted belongs to the user that created it
-                for (Song song : playlistRepository.getReferenceById(id).getSongs()) {
-                    song.setPlaylist(null);
+                for (Song song : playlist.getSongs()) {
+                    song.getPlaylists().remove(playlist);
                     songRepository.save(song);
                 }
 
@@ -89,7 +89,7 @@ public class PlaylistService {
             //associate the playlist with the logged-in user
             playlist.setUser(currentUser);
             playlist.addSong(song);
-            song.setPlaylist(playlist);
+            song.getPlaylists().add(playlist);
             songRepository.save(song);
             return playlistRepository.save(playlist);
         }
