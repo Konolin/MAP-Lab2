@@ -1900,3 +1900,19 @@
 1700999386321:deleteAd --id 102
 1700999392039:listPodcasts
 1700999399779:listAds
+1701000309057:adminLogin --email admin --password admin
+1701000327129:addSong --length 200 --name temp --releaseDate 2010-11-11 --artistId 1 --genre pop
+1701000486128:adminLogin --email admin --password admin
+1701000490370:listAlbums
+1701000501600:addSong --length 200 --name acasa --releaseDate 2010-11-11 --artistId 1 --genre pop
+1701000505723:listSongs
+1701000523899:addAlbum --artistId 1 --name Acasa albumul --songIds 52,102
+1701000528005:listAlbums
+1701000537542:listArtists
+1701000582075:deleteAlbum
+1701000597866:deleteAlbum --id 102
+1701000620533:deleteAlbum --id 2
+1701000827067:adminLogin --email admin --password admin
+1701000832516:deleteAlbum --id 2
+1701000837235:listSongs
+1701000854830:listAlbums

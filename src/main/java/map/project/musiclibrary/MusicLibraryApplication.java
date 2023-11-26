@@ -8,6 +8,7 @@ public class MusicLibraryApplication {
     public static void main(String[] args) {
         SpringApplication.run(MusicLibraryApplication.class, args);
     }
-
 }
 
+// TODO - toString mai frumoase (cu \n; fara toate paranteztele etc)
+// TODO - adminLogin si login sa fie o singura chestie ex: login --email admin --password admin -> te logheaza ca admin
