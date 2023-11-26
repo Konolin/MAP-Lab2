@@ -1,17 +1,13 @@
 package map.project.musiclibrary.service;
 
 import jakarta.persistence.EntityNotFoundException;
-import lombok.Getter;
-import map.project.musiclibrary.data.model.audios.Advertisement;
 import map.project.musiclibrary.data.model.audios.Album;
-import map.project.musiclibrary.data.model.audios.Podcast;
 import map.project.musiclibrary.data.model.audios.Song;
 import map.project.musiclibrary.data.model.users.ArtistUser;
 import map.project.musiclibrary.data.repository.AlbumRepository;
 import map.project.musiclibrary.service.builders.AlbumBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -81,7 +77,7 @@ public class AlbumService {
                 songService.save(song);
                 iterator.remove();
             }
-            
+
             albumRepository.deleteById(id);
         } else {
             throw new EntityNotFoundException("Album was not found");

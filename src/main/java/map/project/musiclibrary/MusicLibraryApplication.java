@@ -12,3 +12,4 @@ public class MusicLibraryApplication {
 
 // TODO - toString mai frumoase (cu \n; fara toate paranteztele etc)
 // TODO - adminLogin si login sa fie o singura chestie ex: login --email admin --password admin -> te logheaza ca admin
+// TODO - date format (sa nu mai fie si ora)
