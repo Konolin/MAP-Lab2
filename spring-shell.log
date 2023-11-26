@@ -1869,3 +1869,15 @@
 1700929620408:adminLogin --email admin --password admin
 1700929627618:listUsers
 1700929638653:listArtists
+1700997223724:login --email 123 --password 123
+1700997241983:login --email zob@gmail.com --password zobzob
+1700997252089:listSOngs
+1700997254780:listSongs
+1700997271837:playSong --name acasa
+1700997349963:login --email zob@gmail.com --password zobzob
+1700997353121:playSong --name acasa
+1700997407193:adminLogin --email admin --password admin
+1700997431014:addAd --type food --name McDonalds --length 130 --releaseDate 2014-05-09
+1700997437576:adminLogout
+1700997446153:login --email zob@gmail.com --password zobzob
+1700997452207:playSong --name acasa

@@ -14,9 +14,9 @@ addAlbum --artistId 1 --name Acasa albumul --songIds 1,2
 
 addPlaylist --name Bruh
 addSongToPlaylist --songId 1 --playListId 1
-playSong --songId 1
+playSong --name acasa
 
 adminLogin --email admin --password admin
-login --email 123 --password 123
+login --email zob@gmail.com --password zobzob
 followArtist --artistId 1
 listFollowers --artistId 1
