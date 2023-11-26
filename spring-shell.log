@@ -1881,3 +1881,22 @@
 1700997437576:adminLogout
 1700997446153:login --email zob@gmail.com --password zobzob
 1700997452207:playSong --name acasa
+1700998448577:adminLogin --email admin --password admin
+1700998464089:addAd --type temo --name temp --length 200 --releaseDate 2010-01-01
+1700998466662:listAds
+1700998541245:deleteAd --id 52
+1700998544213:listAds
+1700998580256:adminLogin --email admin --password admin
+1700998589718:addAd --type gambling --name temp --length 200 --releaseDate 2010-01-01
+1700998604605:addAdToPodcast --adId 102 --podcastId 1
+1700998608212:listPodcasts
+1700998620530:deleteAd --id 102
+1700998900028:adminLogin --email admin --password admin
+1700998905278:listAds
+1700998924579:deleteAd --id 102
+1700998980799:adminLogin --email admin --password admin
+1700998988190:deleteAd --id 102
+1700999373269:adminLogin --email admin --password admin
+1700999386321:deleteAd --id 102
+1700999392039:listPodcasts
+1700999399779:listAds
