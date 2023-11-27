@@ -24,7 +24,7 @@ public class PodcastService {
         this.hostUserService = hostUserService;
     }
 
-    public Podcast adPodcast(String name, String lengthStr, String topic, String releaseDateStr, String hostIdStr) throws IllegalArgumentException {
+    public Podcast addPodcast(String name, String lengthStr, String topic, String releaseDateStr, String hostIdStr) throws IllegalArgumentException {
         Podcast podcast = new PodcastBuilder()
                 .setName(name)
                 .setLength(lengthStr)
@@ -33,6 +33,10 @@ public class PodcastService {
                 .setHostId(hostIdStr)
                 .build(hostUserService);
         return podcastRepository.save(podcast);
+    }
+
+    public void deletePodcast(Long id){
+        podcastRepository.deleteById(id);
     }
 
     public Podcast save(Podcast podcast) {

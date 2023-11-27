@@ -2052,3 +2052,71 @@
 1701088168377:deleteArtist --id 52
 1701088172429:listArtists
 1701088175617:listSongs
+1701088315906:help
+1701089639332:adminLogin --email admin
+1701089646539:adminLogin --email admin --password admin
+1701089651114:listPodcasts
+1701089668380:deletePodcast --id 1
+1701089678296:deletePOdcast --podcastId 1
+1701089688055:deletePodcast --podcastId 1
+1701089694460:listPodcasts
+1701089705659:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1701089726526:deletePodcast --podcastId 2
+1701089731737:listPodcasts
+1701089743935:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1701089839631:adminLogin --email admin --password admin
+1701089846382:listHostsPodcasts
+1701089854587:listHostsPodcasts --id 1
+1701089867810:deletePodcast --podcastId 3
+1701089873998:listHostsPodcasts --id 1
+1701089881205:listHosts
+1701089894395:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1701089908189:listHostsPodcasts --id 1
+1701089924692:listHosts
+1701090654056:adminLogin --email admin --password admin
+1701090661037:listHosts
+1701090667188:listPodcasts
+1701090677107:deleteHost --hostId 1
+1701090683258:listHosts
+1701090694731:listPodcasts
+1701090868962:adminLogin --email admin --password admin
+1701090877626:listHosts
+1701090881861:listPodcasts
+1701090900693:deletePodcast --podcastId 52
+1701090904830:listHosts
+1701090909116:listPodcasts
+1701090917240:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1701090921771:listHosts
+1701090926086:listPodcasts
+1701090932634:deleteHost --id 1
+1701090941917:deleteHost --hostId
+1701090950992:deleteHost --hostId 1
+1701091446572:adminLogin --email admin --password admin
+1701091455010:deleteHost --hostId 1
+1701092022145:adminLogin --email admin --password admin
+1701092027080:listPodcasts
+1701092042410:deleteHost --hostId 1
+1701092050442:listHosts
+1701092056368:listPodcasts
+1701092066038:addHost --birthdate 2000-10-10 --name Dani
+1701092069526:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1701092077395:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 2
+1701092094138:deletePodcast --podcastId 152
+1701092103263:listPodcasts
+1701092108955:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1701092115874:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 2
+1701092121308:listPodcasts
+1701092146204:deleteHost --hostId 2
+1701092149969:listPodcasts
+1701092153820:listHosts
+1701092745008:adminLogin --email admin --password admin
+1701092751274:listLabels
+1701092759714:listArtists
+1701092766545:addArtist --name Smiley --birthdate 1985-11-11
+1701092774175:addArtistToLabel --artistId 102 --labelId 1
+1701092794066:listArtists
+1701092803469:deleteLabel --labelId 1
+1701092873446:adminLogin --email admin --password admin
+1701092881303:deleteLabel --labelId 1
+1701092893500:listLabels
+1701092897933:listArtists

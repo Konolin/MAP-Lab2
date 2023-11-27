@@ -1,5 +1,6 @@
 package map.project.musiclibrary.cli;
 
+import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.HostUserService;
@@ -41,6 +42,23 @@ public class HostCLICommands {
             }
         } else {
             return "Only admin can add a host";
+        }
+    }
+
+    @ShellMethod(key = "deleteHost", value = "Delete a host (Deletes their podcasts as well!")
+    public String deleteHost(@ShellOption(value = {"hostId"}, help = "ID of the host to be deleted") final String hostIdStr) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+            try {
+                Long hostId = Long.parseLong(hostIdStr);
+                hostUserService.deleteHost(hostId);
+                return "Host with ID " + hostId + " has been deleted successfully!";
+            } catch (IllegalArgumentException e) {
+                return "Invalid id format";
+            } catch (EntityNotFoundException e) {
+                return "Host was not found";
+            }
+        } else {
+            return "Only admin can delete hosts.";
         }
     }
 

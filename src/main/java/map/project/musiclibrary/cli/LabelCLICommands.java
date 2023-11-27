@@ -1,5 +1,6 @@
 package map.project.musiclibrary.cli;
 
+import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.LabelService;
@@ -34,6 +35,23 @@ public class LabelCLICommands {
             return labelService.addLabel(name).toString();
         } else {
             return "Only admin can add a label";
+        }
+    }
+
+    @ShellMethod(key = "deleteLabel", value = "Delete a label by ID")
+    public String deleteLabel(@ShellOption(value = {"labelId"}, help = "ID of the label to be removed") final String labelIdStr) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+            try {
+                Long labelId = Long.parseLong(labelIdStr);
+                labelService.deleteLabel(labelId);
+                return "Label with ID " + labelId + " has been deleted successfully!";
+            } catch (IllegalArgumentException e) {
+                return "Invalid id format";
+            } catch (EntityNotFoundException e) {
+                return "Label was not found";
+            }
+        } else {
+            return "Only admin can delete labels.";
         }
     }
 
