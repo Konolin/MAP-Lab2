@@ -1,5 +1,6 @@
 package map.project.musiclibrary.cli;
 
+import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.audios.Song;
 import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.model.users.ArtistUser;
@@ -67,5 +68,21 @@ public class SongCLICommands {
             return songService.playSong(songName, (NormalUser) userSession.getCurrentUser());
         }
         return "Only normal users can play songs";
+    }
+
+    @ShellMethod(key = "deleteSong", value = "Delete a song by id")
+    public String deleteSong(@ShellOption(value = {"id"}, help = "Id of the song") final String idStr) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+            try {
+                songService.delete(idStr);
+                return "Song successfully deleted.";
+            } catch (NumberFormatException e) {
+                return "Invalid id format";
+            } catch (EntityNotFoundException e) {
+                return "Song was not found";
+            }
+        } else {
+            return "Only admin can delete a song";
+        }
     }
 }

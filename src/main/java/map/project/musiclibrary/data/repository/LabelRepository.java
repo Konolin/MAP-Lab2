@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface LabelRepository extends JpaRepository<Label, Long> {
     List<Label> findByName(String name);
+
+    // TODO - add delete option
 }

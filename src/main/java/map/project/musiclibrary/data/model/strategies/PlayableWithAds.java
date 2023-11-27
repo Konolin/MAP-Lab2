@@ -1,22 +1,22 @@
 package map.project.musiclibrary.data.model.strategies;
 
-import map.project.musiclibrary.data.model.strategies.Playable;
+import map.project.musiclibrary.data.model.audios.Advertisement;
 import map.project.musiclibrary.data.repository.AdvertisementRepository;
 
-// TODO - add random ad
+import java.util.Random;
+
 public class PlayableWithAds implements Playable {
-    // private final Advertisement advertisement;
+    private final double AD_CHANCE = 0.4;
+    private final Advertisement advertisement;
 
     public PlayableWithAds(AdvertisementRepository advertisementRepository) {
-        // this.advertisement = advertisementRepository.findRandomEntity();
+        this.advertisement = advertisementRepository.findRandomEntity();
     }
 
     @Override
     public String play(String name, String creatorUserName) {
-        // TODO - 40% sansa sa pice o reclama
-        // TODO - update test cand adaugam reclama random
-        return //"Playing ad \"" + advertisement.getName() + "\n" +
-                "Playing ad \n" +
-                "Playing \"" + name + "\" by " + creatorUserName;
+        Random random = new Random();
+        String adStr = random.nextDouble() < AD_CHANCE ? "Playing ad " + advertisement.getName() + '\n' : "";
+        return adStr + "Playing \"" + name + "\" by " + creatorUserName;
     }
 }

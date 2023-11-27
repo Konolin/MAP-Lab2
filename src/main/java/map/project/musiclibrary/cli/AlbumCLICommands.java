@@ -1,5 +1,6 @@
 package map.project.musiclibrary.cli;
 
+import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.AlbumService;
@@ -47,9 +48,24 @@ public class AlbumCLICommands {
         }
     }
 
-
     @ShellMethod(key = "findAlbum", value = "Find an album by name")
     public String findAlbum(@ShellOption(value = {"name"}, help = "Name of the album") final String name) {
         return albumService.findByName(name).toString();
+    }
+
+    @ShellMethod(key = "deleteAlbum", value = "Delete an album by id")
+    public String deleteAlbum(@ShellOption(value = {"id"}, help = "Id of the album") final String idStr) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+            try {
+                albumService.delete(idStr);
+                return "Album successfully deleted.";
+            } catch (NumberFormatException e) {
+                return "Invalid id format";
+            } catch (EntityNotFoundException e) {
+                return "Album was not found";
+            }
+        } else {
+            return "Only admin can delete an album";
+        }
     }
 }

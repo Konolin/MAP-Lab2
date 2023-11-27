@@ -26,6 +26,7 @@ public class Playlist {
     )
 
     private List<Song> songs;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private NormalUser normalUser;

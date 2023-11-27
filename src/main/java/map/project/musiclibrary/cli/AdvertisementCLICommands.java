@@ -1,5 +1,6 @@
 package map.project.musiclibrary.cli;
 
+import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.AdvertisementService;
@@ -52,6 +53,22 @@ public class AdvertisementCLICommands {
             return advertisementService.findByName(name).toString();
         } else {
             return "Only admin can search for ads";
+        }
+    }
+
+    @ShellMethod(key = "deleteAd", value = "Delete an ad by id")
+    public String deleteAd(@ShellOption(value = {"id"}, help = "Id of the ad") final String idStr) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+            try {
+                advertisementService.delete(idStr);
+                return "Ad successfully deleted.";
+            } catch (NumberFormatException e) {
+                return "Invalid id format";
+            } catch (EntityNotFoundException e) {
+                return "Ad was not found";
+            }
+        } else {
+            return "Only admin can delete an ad";
         }
     }
 }

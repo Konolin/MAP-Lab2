@@ -23,8 +23,10 @@ public class ArtistUser extends User {
 
     @OneToMany(mappedBy = "artist", fetch = FetchType.EAGER)
     private List<Song> songs;
+
     @ManyToMany(mappedBy = "followedArtists", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<NormalUser> followers = new ArrayList<>();
+
     @OneToMany(mappedBy = "artist")
     private List<Album> albums = new ArrayList<>();
 
@@ -79,8 +81,6 @@ public class ArtistUser extends User {
         }
     }
 
-
-
     public void addFollower(NormalUser follower) {
         if (!followers.contains(follower)) {
             followers.add(follower);
@@ -90,7 +90,6 @@ public class ArtistUser extends User {
         }
     }
 
-
     public void removeFollower(NormalUser follower) {
         if (followers.contains(follower)) {
             followers.remove(follower);
@@ -99,5 +98,4 @@ public class ArtistUser extends User {
             throw new RuntimeException("Already not following artist with ID " + getId());
         }
     }
-
 }
