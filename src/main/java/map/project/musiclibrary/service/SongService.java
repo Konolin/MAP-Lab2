@@ -1,6 +1,7 @@
 package map.project.musiclibrary.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import map.project.musiclibrary.data.model.audios.Playlist;
 import map.project.musiclibrary.data.model.audios.Song;
 import map.project.musiclibrary.data.model.strategies.PlayableWithAds;
 import map.project.musiclibrary.data.model.strategies.PlayableWithoutAds;
@@ -95,7 +96,9 @@ public class SongService {
 
             song.setArtist(null);
             song.setAlbum(null);
-            // TODO - remove from playlists (prima data trebuie facut many to many)
+            for (Playlist playlist : song.getPlaylists()) {
+                playlist.getSongs().remove(song);
+            }
 
             songRepository.deleteById(id);
         } else {

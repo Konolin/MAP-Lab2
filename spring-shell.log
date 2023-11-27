@@ -1968,3 +1968,87 @@
 1700996747273:adminLogout
 1700996755990:login --email bob@gmail.com --password bob123
 1700996770344:playPodcast --name Keep Gambling
+1701079658298:help
+1701079712624:quit
+1701080400967:listArtists
+1701080412749:adminLogin --email admin --password admin
+1701080417153:listArtists
+1701080425459:deleteArtist --artistId 1
+1701080433441:deleteArtist --id 1
+1701080750932:adminLogin --email admin --password admin
+1701080755412:listLabels
+1701080773064:addLabel --name HaHa Production
+1701080784112:addArtistToLabel --artistId 1 --labelId 1
+1701080796827:listSongs
+1701080804602:listAlbums
+1701080813090:addAlbum --name Acasa albumul --songIds 1,2
+1701080832442:addAlbum --name Acasa albumul --artistId 1 --songIds 1
+1701080848020:deleteArtist --id 1
+1701082398081:adminLogin --email admin --password admin
+1701082402609:listSongs
+1701082414974:deleteSong --id 1
+1701082419560:listSongs
+1701082438293:addSong --length 200 --name acasa --releaseDate 2010-11-11 --artistId 1 --genre pop
+1701082450815:listSongs
+1701082457681:listAlbums
+1701082487719:deleteAlbum --id 1
+1701082492516:listAlbums
+1701082496373:listSongs
+1701082528372:deleteArtist --id 1
+1701085629854:adminLogin
+1701085641960:adminLogin --email admin --password admin
+1701085645621:listAlbum
+1701085649081:listAlbums
+1701085660997:listSongs
+1701085665466:listArtist
+1701085670637:listArtists
+1701085687167:addAlbum --name Acasa album --artistId 1 --songIds 1
+1701085697392:addAlbum --name Acasa album --artistId 1 --songIds 2
+1701087096285:listArtists
+1701087105218:deleteArtist --id 1
+1701087273405:adminLogin --email admin --password admin
+1701087280921:deleteArtist --id 1
+1701087386752:adminLogin --email admin --password admin
+1701087396522:deleteArtist --id 1
+1701087406610:listSongs
+1701087413896:listAlbums
+1701087426198:listLabels
+1701087456591:addArtist --name Smiley --birthdate 1985-11-11
+1701087476167:addArtistToLabel --artistId 2 --labelId 1
+1701087484000:listLabels
+1701087490463:addSong --length 200 --name acasa --releaseDate 2010-11-11 --artistId 1 --genre pop
+1701087498876:addSong --length 200 --name acasa --releaseDate 2010-11-11 --artistId 2 --genre pop
+1701087580103:listAlbums
+1701087610124:deleteAlbum --id 3
+1701087613671:listAlbums
+1701087632712:deleteAlbum --id 2
+1701087635985:listAlbums
+1701087662060:addAlbum --name Acasa --artistId 2 albumul --songIds 52
+1701087707315:listArtists
+1701087710717:listSongs
+1701087746883:addAlbum --name Acasa album --artistId 2 albumul --songIds 52
+1701087766991:addAlbum --name Acasa album --artistId 2 --songIds 52
+1701087780884:listLabels
+1701087814483:deleteSong --id 52
+1701087840416:deleteArtist --id 2
+1701087844859:listSongs
+1701087850229:listAlbums
+1701087864318:listLabels
+1701087976507:adminLogin --email admin --password admin
+1701087983569:listAlbums
+1701087991529:deleteAlbum --id 52
+1701087998475:listArtists
+1701088001197:listSongs
+1701088009241:addArtist --name Smiley --birthdate 1985-11-11
+1701088016529:addArtistToLabel --artistId 1 --labelId 1
+1701088024569:listLabels
+1701088035667:addArtistToLabel --artistId 52 --labelId 1
+1701088054156:addSong --length 200 --name acasa --releaseDate 2010-11-11 --artistId 52 --genre pop
+1701088089333:addAlbum --name Acasa album --artistId 52 --songIds 102
+1701088103838:deleteAlbum --id 102
+1701088115702:listAlbums
+1701088120195:listSongs
+1701088157363:deleteSong --id 102
+1701088168377:deleteArtist --id 52
+1701088172429:listArtists
+1701088175617:listSongs
