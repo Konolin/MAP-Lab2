@@ -2120,3 +2120,198 @@
 1701092881303:deleteLabel --labelId 1
 1701092893500:listLabels
 1701092897933:listArtists
+1701167588587:adminLogin --email admin --password admin
+1701167608317:listUsers
+1701167623057:deleteUser --userId 102
+1701167627478:listUsers
+1701167656939:login --email zob@gmail.com --password zobzob
+1701167666094:addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
+1701167673096:login --email zob@gmail.com --password zobzob
+1701167675368:logout
+1701170715540:login --email zob@gmail.com --password zobzob
+1701170732567:help updateUser
+1701170783836:logout
+1701170800752:adminLogin --email admin --password admin
+1701170803845:listUsers
+1701170808351:adminLogou
+1701170810946:adminLogout
+1701170827293:login --email zob@gmail.com --password zobzob
+1701170847566:updateUser --id 152, --password zobzobzob
+1701170869323:updateUser --userId 152, --password zobzobzob
+1701170917942:updateUser --userId 152 --password zobzobzob
+1701170949038:logout
+1701170967332:login --email zob@gmail.com --password zobzob
+1701170977185:login --email zob@gmail.com --password zobzobzob
+1701170999736:updateUser --userId 152 --password
+1701171024059:logout
+1701171039120:login --email zob@gmail.com --password zobzob
+1701171129314:adminLogin --email admin --password admin
+1701171132496:listUsers
+1701171146641:adminLogout
+1701171160568:login --email zob@gmail.com --password zobzob
+1701171190390:updateUser --userId 152 --password --isPremium
+1701171211925:logout
+1701171224344:adminLogin --email admin --password admin
+1701171226974:listUsers
+1701171238671:adminLogout
+1701171253444:login --email zob@gmail.com --password zobzob
+1701171255811:logout
+1701173159035:login --email zob@gmail.com --password zobzob
+1701173194840:updateUser --userId 152 --password
+1701173305807:login --email zob@gmail.com --password zobzob
+1701173320773:updateUser --userId 152 --password
+1701173419218:login --email zob@gmail.com --password zobzob
+1701173431748:updateUser --userId 152 --password
+1701173474075:logout
+1701173487018:adminLogin --email admin --password admin
+1701173489893:listUsers
+1701173538951:login --email zob@gmail.com --password zobzob
+1701173569175:updateUser --userId 152 --password --isPremium
+1701174556528:updateUSer --password
+1701174565322:--updateUser --password
+1701174572400:updateUser --password
+1701174653603:login --email zob@gmail.com --password zobzob
+1701174662677:updateUser --password
+1701174761203:updateUser --isPremium
+1701174787130:logout
+1701174795794:adminLogin --email admin --password admin
+1701174798611:listUsers
+1701175202746:login --email zob@gmail.com --password zobzob
+1701175214057:updateUser --isPremium
+1701175247961:logout
+1701175260490:adminLogin --email admin --password admin
+1701175262602:listUsers
+1701175473684:login --email zob@gmail.com --password zobzob
+1701175486273:updateUser --password
+1701175497462:logout
+1701175515021:login --email zob@gmail.com --pssword zobzov
+1701175525470:login --email zob@gmail.com --password zobzob
+1701175528735:logout
+1701175720622:login --email zob@gmail.com --password zobzob
+1701175728059:updateUser --password
+1701175738395:updateUser --isPremium
+1701175749964:updateUser --password --isPremium
+1701175836302:login --email zob@gmail.com --password zobzob
+1701175844134:updateUser --password
+1701175928178:login --email zob@gmail.com --password zobzob
+1701175935675:updateUser --password
+1701175970434:login --email zob@gmail.com --password zobzob
+1701175976695:updateUser --password
+1701176063870:login --email zob@gmail.com --password zobzob
+1701176070273:updateUser --password
+1701176078498:logout
+1701176084407:login --email zob@gmail.com --password zobzob
+1701176091088:logout
+1701176110021:login --email zob@gmail.com --password zob
+1701176268946:login --email zob@gmail.com --password zobzob
+1701176278756:updateUser --password
+1701176285986:logout
+1701176288693:login --email zob@gmail.com --password zobzob
+1701176374771:updateUser --password
+1701176385034:logour
+1701176387045:logout
+1701176390141:login --email zob@gmail.com --password zobzob
+1701176395822:login --email zob@gmail.com --password zob
+1701176407005:updateUser --password
+1701176417360:logout
+1701176425812:login --email zob@gmail.com --password zob
+1701176429995:logout
+1701176439970:login --email zob@gmail.com --password zob
+1701176448525:updateUser --password
+1701176459730:logout
+1701176473565:login --email zob@gmail.com --password zobzob
+1701176481481:updateUser --isPremium
+1701176498635:logout
+1701176508712:adminLogin --email admin --password admin
+1701176511893:listUsers
+1701176526332:adminLogout
+1701176542747:login --email zob@gmail.com --password zobzob
+1701176554428:updateUser --password --isPremium
+1701176575184:logout
+1701176585704:login --email zob@gmail.com --password zobzob
+1701176987278:logout
+1701177012409:login --email bob@gmail.com --password bob123
+1701177018518:updateUser --isPremium
+1701177032808:logout
+1701177047029:amdinLogin --email admin --password admin
+1701177056583:adminLogin --email admin --password admin
+1701177059204:listUsers
+1701177318870:login --email zob@gmail.com --password zobzob
+1701177332477:updateUser --password
+1701177340298:logout
+1701177350307:login --email zob@gmail.com --password zobzob
+1701177356510:login --email zob@gmail.com --password zob
+1701177368567:updateUser --isPremium
+1701177377897:logout
+1701177393323:amdinLogin --email admin --password admin
+1701177401306:adminLogin --email admin --password admin
+1701177405184:listUsers
+1701177421499:adminLogout
+1701177435262:login --email zob@gmail.com --password zob
+1701177451801:updateUser --password --isPremium
+1701177467670:logout
+1701177477824:amdinLogin --email admin --password admin
+1701177485702:adminLogin --email admin --password admin
+1701177490964:listUsers
+1701177499244:adminLogout
+1701177514029:login --email zob@gmail.com --password zob
+1701177518876:login --email zob@gmail.com --password zobzob
+1701177549748:updateUser --isPremium
+1701177573241:updateUser --password
+1701177588303:logout
+1701177913663:login --email zob@gmail.com --password zobzob
+1701177932015:updateUser --password --isPremium
+1701177947622:logout
+1701177956974:adminLogin --email admin --password admin
+1701177959792:listUsers
+1701177968756:adminLogout
+1701177981340:login --email zob@gmail.com --password zobzob
+1701177985193:--email zob@gmail.com --password zob
+1701177996115:login --email zob@gmail.com --password zob
+1701178011959:updateUser --password
+1701178032525:logout
+1701178041916:login --email zob@gmail.com --password zob
+1701178047594:login --email zob@gmail.com --password zobzob
+1701178094858:currentUser
+1701178105810:adminLogin --email admin --password admin
+1701178113394:deleteUser --userId 152
+1701178118423:listUsers
+1701178124760:addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
+1701178130697:listUsers
+1701178138146:adminLogout
+1701178150202:login --email zob@gmail.com --password zobzob
+1701178162194:updateUser --password
+1701178284525:updateUser --isPremium
+1701178290489:logout
+1701178302641:adminLogin --email admin --password admin
+1701178391362:listUsers
+1701178664755:login --email zob@gmail.com --password zobzob
+1701178669690:updateUser --password
+1701178702023:updateUser --password --isPremium
+1701178898414:login --email zob@gmail.com --password zobzob
+1701178910805:updateUser --password --isPremium
+1701178933224:logout
+1701178938337:login --email zob@gmail.com --password zobzob
+1701178952547:updateUser --isPremium
+1701178959949:logout
+1701178967132:adminLogin --email admin --password admin
+1701178969975:listUsers
+1701178976122:adminLogout
+1701178984872:login --email zob@gmail.com --password zobzob
+1701178991030:updateUser --password
+1701179027697:updateUser --isPremium
+1701179032789:logout
+1701179043965:adminLogin --email admin --password admin
+1701179047277:listUsers
+1701179052484:adminLogout
+1701179070629:login --email zob@gmail.com --password zobzob
+1701179076261:login --email zob@gmail.com --password zob
+1701179089380:updateUser --password --isPremium
+1701179099741:logout
+1701179110939:login --email zob@gmail.com --password zob
+1701179116449:login --email zob@gmail.com --password zobzob
+1701179119095:logout
+1701179128015:adminLogin --email admin --passowrd admin
+1701179138412:adminLogin --email admin --password admin
+1701179140688:listUsers
+1701179144282:exit

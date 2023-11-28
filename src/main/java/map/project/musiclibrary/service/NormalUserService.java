@@ -61,6 +61,69 @@ public class NormalUserService {
         normalUserRepository.deleteById(id);
     }
 
+    public String updateUser(Long id, Map<String, Object> updates) {
+        Optional<NormalUser> optionalNormalUser = normalUserRepository.findById(id);
+
+        if (optionalNormalUser.isPresent()) {
+            NormalUser normalUser = optionalNormalUser.get();
+
+            for (Map.Entry<String, Object> entry : updates.entrySet()) {
+                String attribute = entry.getKey();
+
+                if (attribute.equals("password")) {
+                    String newPassword = promptForNewPassword();
+                    if (!normalUser.getLoginCredentials().getPassword().equals(newPassword)) {
+                        if (newPassword.isEmpty())
+                            return "Error: Failed to confirm new password";
+                        normalUser.getLoginCredentials().setPassword(newPassword);
+                    } else {
+                        return "Error: New password can't be the same as the old password.";
+                    }
+                }
+
+                if (attribute.equals("isPremium")) {
+                    if (!changeSubscriptionPlan(normalUser))
+                        return "The subscription plan you chose matches your current plan.";
+                }
+            }
+
+            normalUserRepository.save(normalUser);
+            return "Changes saved!";
+        } else {
+            throw new EntityNotFoundException("User not found!");
+        }
+    }
+
+
+
+    //helper method to change the password
+    public String promptForNewPassword(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the new password: ");
+        String newPassword = scanner.nextLine();
+        System.out.println("Confirm new password: ");
+        if (scanner.nextLine().equals(newPassword))
+            return newPassword;
+        return "";
+    }
+
+    //helper method to change subscription plan
+    public boolean changeSubscriptionPlan(NormalUser normalUser) {
+        System.out.println(normalUser.isPremium()
+                ? "Would you like to unsubscribe from the Premium Plan? (yes/no): "
+                : "Would you like to subscribe to the Premium Plan? (yes/no): ");
+
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine().toLowerCase();
+
+        if (userInput.equals("yes")) {
+            normalUser.setPremium(!normalUser.isPremium());
+            return true;
+        }
+
+        return false;
+    }
+
     public NormalUser save(NormalUser user) {
         return normalUserRepository.save(user);
     }

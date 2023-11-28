@@ -13,7 +13,9 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @ShellComponent
 public class NormalUserCLICommands {
@@ -70,6 +72,37 @@ public class NormalUserCLICommands {
             return "Only admin can delete a user.";
         }
     }
+
+    @ShellMethod(key = "updateUser", value = "Update user attributes")
+    public String updateUser(@ShellOption(value = {"password"}, help = "Update user password") final boolean updatePassword,
+                             @ShellOption(value = {"isPremium"}, help = "Update subscription plan") final boolean updatePremium) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+            try {
+                Long id = userSession.getCurrentUser().getId();
+                Map<String, Object> updates = new HashMap<>();
+
+                if (updatePassword) {
+                    updates.put("password", true);
+                }
+
+                if (updatePremium) {
+                    updates.put("isPremium", true);
+                }
+
+                return normalUserService.updateUser(id, updates);
+
+            } catch (NumberFormatException e) {
+                return "Error: Invalid user ID format. Please provide a valid number.";
+            }
+        } else {
+            return "Only normal users can modify their password/premium status";
+        }
+    }
+
+
+
+
+
 
     @ShellMethod(key = "findUser", value = "Find a user by name")
     public String findUser(@ShellOption(value = {"name"}, help = "Name of the user") final String name) {
