@@ -55,6 +55,20 @@ public class PlaylistCLICommands {
         }
     }
 
+    @ShellMethod(key = "updatePlaylist", value = "Update a playlist's name")
+    public String updatePlaylist(@ShellOption(value = {"id"}, help = "ID of the playlist to be updated") final String id) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+            try {
+                Long playListId = Long.parseLong(id);
+                return playlistService.updatePlaylistName(playListId);
+            } catch (NumberFormatException e) {
+                return "Error: Invalid user ID format. Please provide a valid number.";
+            }
+        } else {
+            return "Only normal users can modify their playlist's name";
+        }
+    }
+
     @ShellMethod(key = "addSongToPlaylist", value = "Add a song to a playlist")
     public String addSongToPlaylist(@ShellOption(value = {"songId"}, help = "Id of the song") final String songIdStr,
                                     @ShellOption(value = {"playListId"}, help = "Id of the playlist") final String playListIdStr) {

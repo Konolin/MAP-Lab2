@@ -2315,3 +2315,41 @@
 1701179138412:adminLogin --email admin --password admin
 1701179140688:listUsers
 1701179144282:exit
+1701192426588:login --email zob@gmail.com --password zobzob
+1701192458220:updateUser --password
+1701192521222:logout
+1701192537767:login --email zob@gmail.com --password zobzob
+1701192549212:login --email zob@gmail.com --password messi
+1701192863725:updateUser --password
+1701192977350:updateUser --isPremium
+1701193021645:logout
+1701193048925:adminLogin --email admin --password admin
+1701193052000:listUsers
+1701193101710:adminLogout
+1701193114589:login --email zob@gmail.com --password zobzob
+1701193187934:updateUser --isPremium
+1701193228968:logout
+1701193250993:adminLogin --email admin --password admin
+1701193260595:listUsers
+1701256671584:adminLogin --email admin --password admin
+1701256675325:listPodcasts
+1701256719000:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1701256724877:addHost --birthdate 2000-10-10 --name Dani
+1701256729880:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1701256742539:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 52
+1701256768476:playPodcast --podcastId 202
+1701256833657:playPodcast --name Keep Gambling
+1701256840623:adminLogin
+1701256844232:adminLogout
+1701256872391:login --email zob@gmail.com --password zobzob
+1701256880957:playPodcast --name Keep Gambling
+1701257020923:logout
+1701257047463:exit
+1701258362333:login --email zob@gmail.com --password zobzob
+1701258366282:listPlaylists
+1701258392280:addPlaylist --name Bruh
+1701258399283:listPplaylists
+1701258403287:listPlaylists
+1701258415413:updatePlaylist --id
+1701258429339:updatePlaylist --id 102
+1701258444252:listPlaylists

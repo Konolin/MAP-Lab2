@@ -1,5 +1,6 @@
 package map.project.musiclibrary.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.audios.Playlist;
 import map.project.musiclibrary.data.model.audios.Song;
 import map.project.musiclibrary.data.model.users.NormalUser;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 @Service
 public class PlaylistService {
@@ -53,6 +55,29 @@ public class PlaylistService {
             }
         }
         return false;
+    }
+
+    public String updatePlaylistName(Long id){
+        Optional<Playlist> optionalPlaylist = playlistRepository.findById(id);
+
+        if (optionalPlaylist.isPresent()){
+            Playlist playlist = optionalPlaylist.get();
+            String newPlaylistName = promptPlaylistName();
+            if (playlist.getName().equals(newPlaylistName)) {
+                return "Error: New playlist name can't be the same as the old name.";
+            }
+            playlist.setName(newPlaylistName);
+            playlistRepository.save(playlist);
+            return "Changes saved!";
+        } else {
+            throw new EntityNotFoundException("Playlist not found!");
+        }
+    }
+
+    public String promptPlaylistName(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the new playlist name: ");
+        return scanner.nextLine();
     }
 
     public Playlist save(Playlist playlist) {
