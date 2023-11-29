@@ -84,4 +84,20 @@ public class PlaylistCLICommands {
             return "You must log in as a normal user to add a song to a playlist.";
         }
     }
+
+    @ShellMethod(key = "removeSongFromPlaylist", value = "Remove a song from a playlist")
+    public String removeSongFromPlaylist(@ShellOption(value = {"songId"}, help = "ID of the song") final String songIdStr,
+                                           @ShellOption(value = {"playlistId"}, help = "ID of the playlist") final String playlistIdStr) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+            try {
+                Long playlistId = Long.parseLong(playlistIdStr);
+                Long songId = Long.parseLong(songIdStr);
+                return playlistService.removeSong(playlistId, songId).toString();
+            } catch (NumberFormatException e) {
+                return "Error: Invalid integer format. Please provide a valid number.";
+            }
+        } else {
+            return "You must log in as a normal user to remove a song from a playlist.";
+        }
+    }
 }

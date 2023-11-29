@@ -123,6 +123,24 @@ public class PlaylistService {
     }
 
     @Transactional
+    public Playlist removeSong(Long playlistId, Long songId){
+        Optional<Song> optionalSong = songRepository.findById(songId);
+        Optional<Playlist> optionalPlaylist = playlistRepository.findById(playlistId);
+
+        if (optionalPlaylist.isPresent() && optionalSong.isPresent()) {
+            Playlist playlist = optionalPlaylist.get();
+            Song song = optionalSong.get();
+
+            playlist.removeSong(song);
+            song.getPlaylists().remove(playlist);
+            songRepository.save(song);
+            return playlistRepository.save(playlist);
+        } else {
+            throw new EntityNotFoundException("Song or playlist not found.");
+        }
+    }
+
+    @Transactional
     public List<Playlist> findByUser(User user) {
         List<Playlist> playlists = playlistRepository.findByNormalUser((NormalUser) user);
         playlists.forEach(playlist -> {

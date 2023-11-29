@@ -35,6 +35,10 @@ public class Playlist {
         return songs.add(song);
     }
 
+    public boolean removeSong(Song song) {
+        return songs.remove(song);
+    }
+
     public void setUser(NormalUser normalUser) {
         this.normalUser = normalUser;
     }
