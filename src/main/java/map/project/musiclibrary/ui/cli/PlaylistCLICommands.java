@@ -1,4 +1,4 @@
-package map.project.musiclibrary.cli;
+package map.project.musiclibrary.ui.cli;
 
 import map.project.musiclibrary.data.model.users.NormalUser;
 import map.project.musiclibrary.data.model.users.UserSession;
