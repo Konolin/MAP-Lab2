@@ -1,5 +1,6 @@
 package map.project.musiclibrary.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.misc.Label;
 import map.project.musiclibrary.data.model.users.ArtistUser;
 import map.project.musiclibrary.data.repository.ArtistUserRepository;
@@ -75,6 +76,6 @@ public class LabelService {
             return labelRepository.save(label);
         }
 
-        throw new RuntimeException("LabelService::Artist or label with specified id doesn't exist");
+        throw new EntityNotFoundException("LabelService::Artist or label with specified id doesn't exist");
     }
 }

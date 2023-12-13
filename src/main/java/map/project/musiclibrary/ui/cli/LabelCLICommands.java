@@ -68,9 +68,11 @@ public class LabelCLICommands {
                 return labelService.addArtist(artistIdStr, labelIdStr).toString();
             } catch (NumberFormatException e) {
                 return "Error: Invalid integer format. Please provide a valid number.";
+            } catch (EntityNotFoundException e) {
+                return "Error: Artist or label was not found";
             }
         } else {
-            throw new RuntimeException("Only admin can add artists to a label");
+            return "Only admin can add artists to a label";
         }
     }
 }
