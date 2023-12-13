@@ -19,6 +19,7 @@ public class Label {
     private String name;
 
     @OneToMany(mappedBy = "label", fetch = FetchType.EAGER)
+
     private List<ArtistUser> artists;
 
     public boolean addArtist(ArtistUser artistUser) {

@@ -1,5 +1,6 @@
 package map.project.musiclibrary.cli;
 
+import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.model.users.NormalUser;
 import map.project.musiclibrary.data.model.users.UserSession;
@@ -38,12 +39,29 @@ public class PodcastCLICommands {
         //check if the currentUser is an admin, because only admins can add podcasts to the library
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
             try {
-                return podcastService.adPodcast(name, lengthStr, topic, releaseDateStr, hostIdStr).toString();
+                return podcastService.addPodcast(name, lengthStr, topic, releaseDateStr, hostIdStr).toString();
             } catch (IllegalArgumentException e) {
                 return e.getMessage();
             }
         } else {
             return "Only admins may add podcasts";
+        }
+    }
+
+    @ShellMethod(key = "deletePodcast", value = "Delete a podcast by ID")
+    public String deletePodcast(@ShellOption(value = {"podcastId"}, help = "ID of the podcast to be deleted") final String podcastIdStr){
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin){
+            try {
+                Long podcastId = Long.parseLong(podcastIdStr);
+                podcastService.deletePodcast(podcastId);
+                return "Podcast with ID " + podcastId + " has been deleted successfully!";
+            } catch (IllegalArgumentException e) {
+                return "Error: Invalid id format";
+            } catch (EntityNotFoundException e) {
+                return "Error: Podcast was not found";
+            }
+        } else {
+            return "Only admin can delete a podcast";
         }
     }
 

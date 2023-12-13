@@ -1,5 +1,6 @@
 package map.project.musiclibrary.data.model.audios;
 
+
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,6 +26,7 @@ public class Podcast extends Audio {
             joinColumns = @JoinColumn(name = "podcast_id"),
             inverseJoinColumns = @JoinColumn(name = "advertisement_id")
     )
+
     private List<Advertisement> advertisements;
 
     public static String listToString(List<Podcast> podcasts) {

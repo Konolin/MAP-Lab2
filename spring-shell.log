@@ -1869,50 +1869,487 @@
 1700929620408:adminLogin --email admin --password admin
 1700929627618:listUsers
 1700929638653:listArtists
-1700997223724:login --email 123 --password 123
-1700997241983:login --email zob@gmail.com --password zobzob
-1700997252089:listSOngs
-1700997254780:listSongs
-1700997271837:playSong --name acasa
-1700997349963:login --email zob@gmail.com --password zobzob
-1700997353121:playSong --name acasa
-1700997407193:adminLogin --email admin --password admin
-1700997431014:addAd --type food --name McDonalds --length 130 --releaseDate 2014-05-09
-1700997437576:adminLogout
-1700997446153:login --email zob@gmail.com --password zobzob
-1700997452207:playSong --name acasa
-1700998448577:adminLogin --email admin --password admin
-1700998464089:addAd --type temo --name temp --length 200 --releaseDate 2010-01-01
-1700998466662:listAds
-1700998541245:deleteAd --id 52
-1700998544213:listAds
-1700998580256:adminLogin --email admin --password admin
-1700998589718:addAd --type gambling --name temp --length 200 --releaseDate 2010-01-01
-1700998604605:addAdToPodcast --adId 102 --podcastId 1
-1700998608212:listPodcasts
-1700998620530:deleteAd --id 102
-1700998900028:adminLogin --email admin --password admin
-1700998905278:listAds
-1700998924579:deleteAd --id 102
-1700998980799:adminLogin --email admin --password admin
-1700998988190:deleteAd --id 102
-1700999373269:adminLogin --email admin --password admin
-1700999386321:deleteAd --id 102
-1700999392039:listPodcasts
-1700999399779:listAds
-1701000309057:adminLogin --email admin --password admin
-1701000327129:addSong --length 200 --name temp --releaseDate 2010-11-11 --artistId 1 --genre pop
-1701000486128:adminLogin --email admin --password admin
-1701000490370:listAlbums
-1701000501600:addSong --length 200 --name acasa --releaseDate 2010-11-11 --artistId 1 --genre pop
-1701000505723:listSongs
-1701000523899:addAlbum --artistId 1 --name Acasa albumul --songIds 52,102
-1701000528005:listAlbums
-1701000537542:listArtists
-1701000582075:deleteAlbum
-1701000597866:deleteAlbum --id 102
-1701000620533:deleteAlbum --id 2
-1701000827067:adminLogin --email admin --password admin
-1701000832516:deleteAlbum --id 2
-1701000837235:listSongs
-1701000854830:listAlbums
+1700935458544:help
+1700935476464:addUser --email bob@gmail.com --password bob123 --name bob --birthdate 2000-5-5 --isPremium true
+1700935481446:adminLogin --email admin --password admin
+1700935485660:addUser --email bob@gmail.com --password bob123 --name bob --birthdate 2000-5-5 --isPremium true
+1700935552596:addPlaylist --name Bruh
+1700935567257:login --email 123 --password 123
+1700935584722:login --bob@gmail.com -password bob123
+1700935597801:login --email bob@gmail.com -password bob123
+1700935607844:login --email bob@gmail.com --password bob123
+1700935615509:addPlaylist --name Bruh
+1700935645918:logout
+1700935650066:adminLogin --email admin --password admin
+1700935658056:addArtist --name Smiley --birthdate 1985-11-11
+1700935666662:addSong --length 200 --name acasa --releaseDate 2010-11-11 --artistId 1 --genre pop
+1700935904753:adminLogin --email admin --password admin
+1700935909963:addUser --email bob@gmail.com --password bob123 --name bob --birthdate 2000-5-5 --isPremium true
+1700935931866:addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
+1700936243810:help
+1700936254270:findUser --name zob
+1700936261872:adminLogin --email admin --password admin
+1700936267727:findUser --name zob
+1700943187495:adminLogin --email admin --password admin
+1700943197040:findUser --name bob
+1700943208180:findUser --name zob
+1700943218070:findUser --name cob
+1700943230932:findUser --name zob
+1700944551001:help
+1700944569686:deleteUser --userId 1
+1700944574964:adminLogin --email admin --password admin
+1700944595340:deleteUser --userId 2
+1700944628063:findUser --userId 2
+1700944638500:findUser --name zob
+1700944645987:findUser --name bob
+1700944658093:addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
+1700944683579:deleteUser --userId 2
+1700944696256:findUser --name bob
+1700944703569:listUsers
+1700944728367:deleteUser --userId 52
+1700944735409:listUsers
+1700944750485:deleteUser --userId 5
+1700944766036:findUser --name zob
+1700944769705:addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
+1700944785399:deleteUser --userId 53
+1700944790053:listUsers
+1700944851687:addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
+1700944873459:deleteUser --userId 54
+1700945017185:addUser --email cob@gmail.com --password cobcob --name cob --birthdate 2002-1-5 --isPremium false
+1700945027347:deleteUser --userId 55
+1700948716202:addPlaylist --name Bruh
+1700948747976:login --email bob@gmail.com --password bob123
+1700948764739:addPlaylist --name Bruh
+1700948798546:deletePlaylist --playlistId 1
+1700949008406:listPlaylists
+1700949096169:deletePlaylist --playlistId 1
+1700949506113:login --email bob@gmail.com --password bob123
+1700949516732:listPlaylists
+1700949531921:logout
+1700949536719:addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
+1700949542214:adminLogin --email admin --password admin
+1700949550094:addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
+1700949570278:listPlaylists
+1700949593811:login --email zob@gmail.com --password zobzob
+1700949599580:listPlaylists
+1700949604870:logout
+1700949619376:login --email bob@gmail.com --password bob123
+1700949628023:deletePlaylist --playlistId 1
+1700949910201:login --email bob@gmail.com --password bob123
+1700949921237:deletePlaylist --playlistId 1
+1700950027497:login --email bob@gmail.com --password bob123
+1700950037613:deletePlaylist --playlistId 1
+1700950047362:listPlaylists
+1700950088466:addPlaylist --name Bruh
+1700950110722:deletePlaylist --playlistId 52
+1700950116402:listPlaylists
+1700950126599:addPlaylist --name Bruh
+1700950132352:listPlaylists
+1700950156662:logout
+1700950172099:login --email zob@gmai.com --password zobzob
+1700950180039:login --email zob@gmail.com --password zobzob
+1700950195129:deletePlaylist --playlistId 53
+1700950206581:logout
+1700950222217:adminLogin --email admin --password admin
+1700950227791:deletePlaylist --playlistId 53
+1700996453354:adminLogin --email admin --password admin
+1700996471607:findUser --name bob
+1700996500832:help
+1700996656859:playSong --name acasa
+1700996662898:adminLogout
+1700996671376:login --email bob@gmail.com --password bob123
+1700996676960:playSong --name acasa
+1700996706262:playPodcast --name Keep Gambling
+1700996713330:logout
+1700996723014:adminLogin --email admin --password admin
+1700996726806:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1700996732211:addHost --birthdate 2000-10-10 --name Dani
+1700996737183:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1700996747273:adminLogout
+1700996755990:login --email bob@gmail.com --password bob123
+1700996770344:playPodcast --name Keep Gambling
+1701079658298:help
+1701079712624:quit
+1701080400967:listArtists
+1701080412749:adminLogin --email admin --password admin
+1701080417153:listArtists
+1701080425459:deleteArtist --artistId 1
+1701080433441:deleteArtist --id 1
+1701080750932:adminLogin --email admin --password admin
+1701080755412:listLabels
+1701080773064:addLabel --name HaHa Production
+1701080784112:addArtistToLabel --artistId 1 --labelId 1
+1701080796827:listSongs
+1701080804602:listAlbums
+1701080813090:addAlbum --name Acasa albumul --songIds 1,2
+1701080832442:addAlbum --name Acasa albumul --artistId 1 --songIds 1
+1701080848020:deleteArtist --id 1
+1701082398081:adminLogin --email admin --password admin
+1701082402609:listSongs
+1701082414974:deleteSong --id 1
+1701082419560:listSongs
+1701082438293:addSong --length 200 --name acasa --releaseDate 2010-11-11 --artistId 1 --genre pop
+1701082450815:listSongs
+1701082457681:listAlbums
+1701082487719:deleteAlbum --id 1
+1701082492516:listAlbums
+1701082496373:listSongs
+1701082528372:deleteArtist --id 1
+1701085629854:adminLogin
+1701085641960:adminLogin --email admin --password admin
+1701085645621:listAlbum
+1701085649081:listAlbums
+1701085660997:listSongs
+1701085665466:listArtist
+1701085670637:listArtists
+1701085687167:addAlbum --name Acasa album --artistId 1 --songIds 1
+1701085697392:addAlbum --name Acasa album --artistId 1 --songIds 2
+1701087096285:listArtists
+1701087105218:deleteArtist --id 1
+1701087273405:adminLogin --email admin --password admin
+1701087280921:deleteArtist --id 1
+1701087386752:adminLogin --email admin --password admin
+1701087396522:deleteArtist --id 1
+1701087406610:listSongs
+1701087413896:listAlbums
+1701087426198:listLabels
+1701087456591:addArtist --name Smiley --birthdate 1985-11-11
+1701087476167:addArtistToLabel --artistId 2 --labelId 1
+1701087484000:listLabels
+1701087490463:addSong --length 200 --name acasa --releaseDate 2010-11-11 --artistId 1 --genre pop
+1701087498876:addSong --length 200 --name acasa --releaseDate 2010-11-11 --artistId 2 --genre pop
+1701087580103:listAlbums
+1701087610124:deleteAlbum --id 3
+1701087613671:listAlbums
+1701087632712:deleteAlbum --id 2
+1701087635985:listAlbums
+1701087662060:addAlbum --name Acasa --artistId 2 albumul --songIds 52
+1701087707315:listArtists
+1701087710717:listSongs
+1701087746883:addAlbum --name Acasa album --artistId 2 albumul --songIds 52
+1701087766991:addAlbum --name Acasa album --artistId 2 --songIds 52
+1701087780884:listLabels
+1701087814483:deleteSong --id 52
+1701087840416:deleteArtist --id 2
+1701087844859:listSongs
+1701087850229:listAlbums
+1701087864318:listLabels
+1701087976507:adminLogin --email admin --password admin
+1701087983569:listAlbums
+1701087991529:deleteAlbum --id 52
+1701087998475:listArtists
+1701088001197:listSongs
+1701088009241:addArtist --name Smiley --birthdate 1985-11-11
+1701088016529:addArtistToLabel --artistId 1 --labelId 1
+1701088024569:listLabels
+1701088035667:addArtistToLabel --artistId 52 --labelId 1
+1701088054156:addSong --length 200 --name acasa --releaseDate 2010-11-11 --artistId 52 --genre pop
+1701088089333:addAlbum --name Acasa album --artistId 52 --songIds 102
+1701088103838:deleteAlbum --id 102
+1701088115702:listAlbums
+1701088120195:listSongs
+1701088157363:deleteSong --id 102
+1701088168377:deleteArtist --id 52
+1701088172429:listArtists
+1701088175617:listSongs
+1701088315906:help
+1701089639332:adminLogin --email admin
+1701089646539:adminLogin --email admin --password admin
+1701089651114:listPodcasts
+1701089668380:deletePodcast --id 1
+1701089678296:deletePOdcast --podcastId 1
+1701089688055:deletePodcast --podcastId 1
+1701089694460:listPodcasts
+1701089705659:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1701089726526:deletePodcast --podcastId 2
+1701089731737:listPodcasts
+1701089743935:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1701089839631:adminLogin --email admin --password admin
+1701089846382:listHostsPodcasts
+1701089854587:listHostsPodcasts --id 1
+1701089867810:deletePodcast --podcastId 3
+1701089873998:listHostsPodcasts --id 1
+1701089881205:listHosts
+1701089894395:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1701089908189:listHostsPodcasts --id 1
+1701089924692:listHosts
+1701090654056:adminLogin --email admin --password admin
+1701090661037:listHosts
+1701090667188:listPodcasts
+1701090677107:deleteHost --hostId 1
+1701090683258:listHosts
+1701090694731:listPodcasts
+1701090868962:adminLogin --email admin --password admin
+1701090877626:listHosts
+1701090881861:listPodcasts
+1701090900693:deletePodcast --podcastId 52
+1701090904830:listHosts
+1701090909116:listPodcasts
+1701090917240:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1701090921771:listHosts
+1701090926086:listPodcasts
+1701090932634:deleteHost --id 1
+1701090941917:deleteHost --hostId
+1701090950992:deleteHost --hostId 1
+1701091446572:adminLogin --email admin --password admin
+1701091455010:deleteHost --hostId 1
+1701092022145:adminLogin --email admin --password admin
+1701092027080:listPodcasts
+1701092042410:deleteHost --hostId 1
+1701092050442:listHosts
+1701092056368:listPodcasts
+1701092066038:addHost --birthdate 2000-10-10 --name Dani
+1701092069526:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1701092077395:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 2
+1701092094138:deletePodcast --podcastId 152
+1701092103263:listPodcasts
+1701092108955:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1701092115874:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 2
+1701092121308:listPodcasts
+1701092146204:deleteHost --hostId 2
+1701092149969:listPodcasts
+1701092153820:listHosts
+1701092745008:adminLogin --email admin --password admin
+1701092751274:listLabels
+1701092759714:listArtists
+1701092766545:addArtist --name Smiley --birthdate 1985-11-11
+1701092774175:addArtistToLabel --artistId 102 --labelId 1
+1701092794066:listArtists
+1701092803469:deleteLabel --labelId 1
+1701092873446:adminLogin --email admin --password admin
+1701092881303:deleteLabel --labelId 1
+1701092893500:listLabels
+1701092897933:listArtists
+1701167588587:adminLogin --email admin --password admin
+1701167608317:listUsers
+1701167623057:deleteUser --userId 102
+1701167627478:listUsers
+1701167656939:login --email zob@gmail.com --password zobzob
+1701167666094:addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
+1701167673096:login --email zob@gmail.com --password zobzob
+1701167675368:logout
+1701170715540:login --email zob@gmail.com --password zobzob
+1701170732567:help updateUser
+1701170783836:logout
+1701170800752:adminLogin --email admin --password admin
+1701170803845:listUsers
+1701170808351:adminLogou
+1701170810946:adminLogout
+1701170827293:login --email zob@gmail.com --password zobzob
+1701170847566:updateUser --id 152, --password zobzobzob
+1701170869323:updateUser --userId 152, --password zobzobzob
+1701170917942:updateUser --userId 152 --password zobzobzob
+1701170949038:logout
+1701170967332:login --email zob@gmail.com --password zobzob
+1701170977185:login --email zob@gmail.com --password zobzobzob
+1701170999736:updateUser --userId 152 --password
+1701171024059:logout
+1701171039120:login --email zob@gmail.com --password zobzob
+1701171129314:adminLogin --email admin --password admin
+1701171132496:listUsers
+1701171146641:adminLogout
+1701171160568:login --email zob@gmail.com --password zobzob
+1701171190390:updateUser --userId 152 --password --isPremium
+1701171211925:logout
+1701171224344:adminLogin --email admin --password admin
+1701171226974:listUsers
+1701171238671:adminLogout
+1701171253444:login --email zob@gmail.com --password zobzob
+1701171255811:logout
+1701173159035:login --email zob@gmail.com --password zobzob
+1701173194840:updateUser --userId 152 --password
+1701173305807:login --email zob@gmail.com --password zobzob
+1701173320773:updateUser --userId 152 --password
+1701173419218:login --email zob@gmail.com --password zobzob
+1701173431748:updateUser --userId 152 --password
+1701173474075:logout
+1701173487018:adminLogin --email admin --password admin
+1701173489893:listUsers
+1701173538951:login --email zob@gmail.com --password zobzob
+1701173569175:updateUser --userId 152 --password --isPremium
+1701174556528:updateUSer --password
+1701174565322:--updateUser --password
+1701174572400:updateUser --password
+1701174653603:login --email zob@gmail.com --password zobzob
+1701174662677:updateUser --password
+1701174761203:updateUser --isPremium
+1701174787130:logout
+1701174795794:adminLogin --email admin --password admin
+1701174798611:listUsers
+1701175202746:login --email zob@gmail.com --password zobzob
+1701175214057:updateUser --isPremium
+1701175247961:logout
+1701175260490:adminLogin --email admin --password admin
+1701175262602:listUsers
+1701175473684:login --email zob@gmail.com --password zobzob
+1701175486273:updateUser --password
+1701175497462:logout
+1701175515021:login --email zob@gmail.com --pssword zobzov
+1701175525470:login --email zob@gmail.com --password zobzob
+1701175528735:logout
+1701175720622:login --email zob@gmail.com --password zobzob
+1701175728059:updateUser --password
+1701175738395:updateUser --isPremium
+1701175749964:updateUser --password --isPremium
+1701175836302:login --email zob@gmail.com --password zobzob
+1701175844134:updateUser --password
+1701175928178:login --email zob@gmail.com --password zobzob
+1701175935675:updateUser --password
+1701175970434:login --email zob@gmail.com --password zobzob
+1701175976695:updateUser --password
+1701176063870:login --email zob@gmail.com --password zobzob
+1701176070273:updateUser --password
+1701176078498:logout
+1701176084407:login --email zob@gmail.com --password zobzob
+1701176091088:logout
+1701176110021:login --email zob@gmail.com --password zob
+1701176268946:login --email zob@gmail.com --password zobzob
+1701176278756:updateUser --password
+1701176285986:logout
+1701176288693:login --email zob@gmail.com --password zobzob
+1701176374771:updateUser --password
+1701176385034:logour
+1701176387045:logout
+1701176390141:login --email zob@gmail.com --password zobzob
+1701176395822:login --email zob@gmail.com --password zob
+1701176407005:updateUser --password
+1701176417360:logout
+1701176425812:login --email zob@gmail.com --password zob
+1701176429995:logout
+1701176439970:login --email zob@gmail.com --password zob
+1701176448525:updateUser --password
+1701176459730:logout
+1701176473565:login --email zob@gmail.com --password zobzob
+1701176481481:updateUser --isPremium
+1701176498635:logout
+1701176508712:adminLogin --email admin --password admin
+1701176511893:listUsers
+1701176526332:adminLogout
+1701176542747:login --email zob@gmail.com --password zobzob
+1701176554428:updateUser --password --isPremium
+1701176575184:logout
+1701176585704:login --email zob@gmail.com --password zobzob
+1701176987278:logout
+1701177012409:login --email bob@gmail.com --password bob123
+1701177018518:updateUser --isPremium
+1701177032808:logout
+1701177047029:amdinLogin --email admin --password admin
+1701177056583:adminLogin --email admin --password admin
+1701177059204:listUsers
+1701177318870:login --email zob@gmail.com --password zobzob
+1701177332477:updateUser --password
+1701177340298:logout
+1701177350307:login --email zob@gmail.com --password zobzob
+1701177356510:login --email zob@gmail.com --password zob
+1701177368567:updateUser --isPremium
+1701177377897:logout
+1701177393323:amdinLogin --email admin --password admin
+1701177401306:adminLogin --email admin --password admin
+1701177405184:listUsers
+1701177421499:adminLogout
+1701177435262:login --email zob@gmail.com --password zob
+1701177451801:updateUser --password --isPremium
+1701177467670:logout
+1701177477824:amdinLogin --email admin --password admin
+1701177485702:adminLogin --email admin --password admin
+1701177490964:listUsers
+1701177499244:adminLogout
+1701177514029:login --email zob@gmail.com --password zob
+1701177518876:login --email zob@gmail.com --password zobzob
+1701177549748:updateUser --isPremium
+1701177573241:updateUser --password
+1701177588303:logout
+1701177913663:login --email zob@gmail.com --password zobzob
+1701177932015:updateUser --password --isPremium
+1701177947622:logout
+1701177956974:adminLogin --email admin --password admin
+1701177959792:listUsers
+1701177968756:adminLogout
+1701177981340:login --email zob@gmail.com --password zobzob
+1701177985193:--email zob@gmail.com --password zob
+1701177996115:login --email zob@gmail.com --password zob
+1701178011959:updateUser --password
+1701178032525:logout
+1701178041916:login --email zob@gmail.com --password zob
+1701178047594:login --email zob@gmail.com --password zobzob
+1701178094858:currentUser
+1701178105810:adminLogin --email admin --password admin
+1701178113394:deleteUser --userId 152
+1701178118423:listUsers
+1701178124760:addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
+1701178130697:listUsers
+1701178138146:adminLogout
+1701178150202:login --email zob@gmail.com --password zobzob
+1701178162194:updateUser --password
+1701178284525:updateUser --isPremium
+1701178290489:logout
+1701178302641:adminLogin --email admin --password admin
+1701178391362:listUsers
+1701178664755:login --email zob@gmail.com --password zobzob
+1701178669690:updateUser --password
+1701178702023:updateUser --password --isPremium
+1701178898414:login --email zob@gmail.com --password zobzob
+1701178910805:updateUser --password --isPremium
+1701178933224:logout
+1701178938337:login --email zob@gmail.com --password zobzob
+1701178952547:updateUser --isPremium
+1701178959949:logout
+1701178967132:adminLogin --email admin --password admin
+1701178969975:listUsers
+1701178976122:adminLogout
+1701178984872:login --email zob@gmail.com --password zobzob
+1701178991030:updateUser --password
+1701179027697:updateUser --isPremium
+1701179032789:logout
+1701179043965:adminLogin --email admin --password admin
+1701179047277:listUsers
+1701179052484:adminLogout
+1701179070629:login --email zob@gmail.com --password zobzob
+1701179076261:login --email zob@gmail.com --password zob
+1701179089380:updateUser --password --isPremium
+1701179099741:logout
+1701179110939:login --email zob@gmail.com --password zob
+1701179116449:login --email zob@gmail.com --password zobzob
+1701179119095:logout
+1701179128015:adminLogin --email admin --passowrd admin
+1701179138412:adminLogin --email admin --password admin
+1701179140688:listUsers
+1701179144282:exit
+1701192426588:login --email zob@gmail.com --password zobzob
+1701192458220:updateUser --password
+1701192521222:logout
+1701192537767:login --email zob@gmail.com --password zobzob
+1701192549212:login --email zob@gmail.com --password messi
+1701192863725:updateUser --password
+1701192977350:updateUser --isPremium
+1701193021645:logout
+1701193048925:adminLogin --email admin --password admin
+1701193052000:listUsers
+1701193101710:adminLogout
+1701193114589:login --email zob@gmail.com --password zobzob
+1701193187934:updateUser --isPremium
+1701193228968:logout
+1701193250993:adminLogin --email admin --password admin
+1701193260595:listUsers
+1701256671584:adminLogin --email admin --password admin
+1701256675325:listPodcasts
+1701256719000:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1701256724877:addHost --birthdate 2000-10-10 --name Dani
+1701256729880:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 1
+1701256742539:addPodcast --topic Gambling --name Keep Gambling --releaseDate 1111-11-11 --length 193 --hostId 52
+1701256768476:playPodcast --podcastId 202
+1701256833657:playPodcast --name Keep Gambling
+1701256840623:adminLogin
+1701256844232:adminLogout
+1701256872391:login --email zob@gmail.com --password zobzob
+1701256880957:playPodcast --name Keep Gambling
+1701257020923:logout
+1701257047463:exit
+1701258362333:login --email zob@gmail.com --password zobzob
+1701258366282:listPlaylists
+1701258392280:addPlaylist --name Bruh
+1701258399283:listPplaylists
+1701258403287:listPlaylists
+1701258415413:updatePlaylist --id
+1701258429339:updatePlaylist --id 102
+1701258444252:listPlaylists

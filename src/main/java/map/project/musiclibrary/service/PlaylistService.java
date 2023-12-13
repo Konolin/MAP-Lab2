@@ -1,5 +1,6 @@
 package map.project.musiclibrary.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.audios.Playlist;
 import map.project.musiclibrary.data.model.audios.Song;
 import map.project.musiclibrary.data.model.users.NormalUser;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 @Service
 public class PlaylistService {
@@ -31,6 +33,51 @@ public class PlaylistService {
         playlist.setUser(currentUser);
         playlist.setSongs(new ArrayList<>());
         return playlistRepository.save(playlist);
+    }
+
+    @Transactional
+    public boolean deletePlaylist(Long id, NormalUser currentUser) {
+        Optional<Playlist> playlistOptional = playlistRepository.findById(id);
+
+        if (playlistOptional.isPresent()) {
+            Playlist playlist = playlistOptional.get();
+
+            if (currentUser.equals(playlist.getNormalUser())) {  //checking if the playlist to be deleted belongs to the user that created it
+                for (Song song : playlist.getSongs()) {
+                    song.getPlaylists().remove(playlist);
+                    songRepository.save(song);
+                }
+
+                //clear the list of songs from the playlist
+                playlist.getSongs().clear();
+                playlistRepository.deleteById(id);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String updatePlaylistName(Long id){
+        Optional<Playlist> optionalPlaylist = playlistRepository.findById(id);
+
+        if (optionalPlaylist.isPresent()){
+            Playlist playlist = optionalPlaylist.get();
+            String newPlaylistName = promptPlaylistName();
+            if (playlist.getName().equals(newPlaylistName)) {
+                return "Error: New playlist name can't be the same as the old name.";
+            }
+            playlist.setName(newPlaylistName);
+            playlistRepository.save(playlist);
+            return "Changes saved!";
+        } else {
+            throw new EntityNotFoundException("Playlist not found!");
+        }
+    }
+
+    public String promptPlaylistName(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the new playlist name: ");
+        return scanner.nextLine();
     }
 
     public Playlist save(Playlist playlist) {
@@ -67,12 +114,30 @@ public class PlaylistService {
             //associate the playlist with the logged-in user
             playlist.setUser(currentUser);
             playlist.addSong(song);
-            song.setPlaylist(playlist);
+            song.getPlaylists().add(playlist);
             songRepository.save(song);
             return playlistRepository.save(playlist);
         }
 
         throw new RuntimeException("PlaylistService::Song or Playlist with specified id doesn't exist");
+    }
+
+    @Transactional
+    public Playlist removeSong(Long playlistId, Long songId){
+        Optional<Song> optionalSong = songRepository.findById(songId);
+        Optional<Playlist> optionalPlaylist = playlistRepository.findById(playlistId);
+
+        if (optionalPlaylist.isPresent() && optionalSong.isPresent()) {
+            Playlist playlist = optionalPlaylist.get();
+            Song song = optionalSong.get();
+
+            playlist.removeSong(song);
+            song.getPlaylists().remove(playlist);
+            songRepository.save(song);
+            return playlistRepository.save(playlist);
+        } else {
+            throw new EntityNotFoundException("Song or playlist not found.");
+        }
     }
 
     @Transactional

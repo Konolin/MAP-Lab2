@@ -18,6 +18,7 @@ import java.util.List;
 public class ArtistUser extends User {
     @ManyToOne
     @JoinColumn(name = "label_id")
+
     private Label label;
 
     @OneToMany(mappedBy = "artist", fetch = FetchType.EAGER)

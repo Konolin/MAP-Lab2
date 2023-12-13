@@ -2,7 +2,6 @@ package map.project.musiclibrary.data.model.audios;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import map.project.musiclibrary.data.model.audios.Song;
 import map.project.musiclibrary.data.model.users.NormalUser;
 
 import java.util.List;
@@ -25,6 +24,7 @@ public class Playlist {
             joinColumns = @JoinColumn(name = "playlist_id"),
             inverseJoinColumns = @JoinColumn(name = "song_id")
     )
+
     private List<Song> songs;
 
     @ManyToOne
@@ -33,6 +33,10 @@ public class Playlist {
 
     public boolean addSong(Song song) {
         return songs.add(song);
+    }
+
+    public boolean removeSong(Song song) {
+        return songs.remove(song);
     }
 
     public void setUser(NormalUser normalUser) {

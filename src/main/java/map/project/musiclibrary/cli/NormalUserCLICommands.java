@@ -13,7 +13,9 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @ShellComponent
 public class NormalUserCLICommands {
@@ -31,7 +33,7 @@ public class NormalUserCLICommands {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
             return normalUserService.findAll().toString();
         } else {
-            return "Only admin can list all users";
+            return "Only admin can list all users.";
         }
     }
 
@@ -47,21 +49,67 @@ public class NormalUserCLICommands {
             } catch (ParseException e) {
                 return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
             } catch (EntityExistsException e) {
-                return "Error: Email already in use";
+                return "Error: Email already in use.";
             } catch (IllegalArgumentException e) {
-                return "Error: Email can not be set to admin";
+                return "Error: Email can not be set to admin.";
             }
         } else {
-            return "Only admin can add users";
+            return "Only admin can add users.";
         }
     }
+
+    @ShellMethod(key = "deleteUser", value = "Delete a user")
+    public String deleteUser(@ShellOption(value = {"userId"}, help = "Id of the user to be deleted") final String userIdstr){
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin){
+            try{
+                Long userId = Long.parseLong(userIdstr);
+                normalUserService.deleteNormalUser(userId);
+                return "User with ID " + userId + " has been deleted.";
+            } catch (IllegalArgumentException e){
+                return "Error: Invalid integer format. Please provide a valid number.";
+            }
+        } else {
+            return "Only admin can delete a user.";
+        }
+    }
+
+    @ShellMethod(key = "updateUser", value = "Update user attributes")
+    public String updateUser(@ShellOption(value = {"password"}, help = "Update user password") final boolean updatePassword,
+                             @ShellOption(value = {"isPremium"}, help = "Update subscription plan") final boolean updatePremium) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+            try {
+                Long id = userSession.getCurrentUser().getId();
+                Map<String, Object> updates = new HashMap<>();
+
+                if (updatePassword) {
+                    updates.put("password", true);
+                }
+
+                if (updatePremium) {
+                    updates.put("isPremium", true);
+                }
+
+                return normalUserService.updateUser(id, updates);
+
+            } catch (NumberFormatException e) {
+                return "Error: Invalid user ID format. Please provide a valid number.";
+            }
+        } else {
+            return "Only normal users can modify their password/premium status";
+        }
+    }
+
+
+
+
+
 
     @ShellMethod(key = "findUser", value = "Find a user by name")
     public String findUser(@ShellOption(value = {"name"}, help = "Name of the user") final String name) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
             return normalUserService.findByName(name).toString();
         } else {
-            return "Only admin can search for users";
+            return "Only admin can search for users.";
         }
     }
 
@@ -111,7 +159,7 @@ public class NormalUserCLICommands {
                 return "Error: Invalid integer format. Please provide a valid number.";
             }
         } else {
-            return "Only normal users can follow artists";
+            return "Only normal users can follow artists.";
         }
     }
 
@@ -127,7 +175,7 @@ public class NormalUserCLICommands {
                 return "Artist or user not found.";
             }
         } else {
-            return "Only normal users can unfollow artists";
+            return "Only normal users can unfollow artists.";
         }
     }
 

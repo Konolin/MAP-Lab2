@@ -4,6 +4,7 @@ import map.project.musiclibrary.data.model.audios.Podcast;
 import map.project.musiclibrary.data.model.users.HostUser;
 import map.project.musiclibrary.data.repository.HostUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -15,10 +16,12 @@ import java.util.Optional;
 @Service
 public class HostUserService {
     private final HostUserRepository hostUserRepository;
+    private final PodcastService podcastService;
 
     @Autowired
-    public HostUserService(HostUserRepository hostUserRepository) {
+    public HostUserService(HostUserRepository hostUserRepository, @Lazy PodcastService podcastService) {
         this.hostUserRepository = hostUserRepository;
+        this.podcastService = podcastService;
     }
 
     public HostUser addHost(String name, String birthdateStr) throws ParseException {
@@ -30,6 +33,20 @@ public class HostUserService {
         host.setBirthdate(birthdate);
 
         return hostUserRepository.save(host);
+    }
+
+    public void deleteHost(Long id){
+        Optional<HostUser> hostUserOptional = hostUserRepository.findById(id);
+
+        if (hostUserOptional.isPresent()){
+            HostUser host = hostUserOptional.get();
+
+            for (Podcast podcast : host.getPodcasts()){
+                podcastService.deletePodcast(podcast.getId());
+            }
+            host.getPodcasts().clear();
+            hostUserRepository.deleteById(id);
+        }
     }
 
     public HostUser save(HostUser hostUser) {

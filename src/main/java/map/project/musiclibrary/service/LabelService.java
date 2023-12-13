@@ -29,6 +29,20 @@ public class LabelService {
         return labelRepository.save(label);
     }
 
+    public void deleteLabel(Long id){
+        Optional<Label> labelOptional = labelRepository.findById(id);
+
+        if (labelOptional.isPresent()) {
+            Label label = labelOptional.get();
+            for (ArtistUser artistUser : label.getArtists()) {
+                artistUser.setLabel(null);
+                artistUserRepository.save(artistUser);
+            }
+            label.getArtists().clear();
+            labelRepository.deleteById(id);
+        }
+    }
+
     public Label save(Label label) {
         return labelRepository.save(label);
     }

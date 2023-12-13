@@ -10,7 +10,7 @@ addArtistToLabel --artistId 1 --labelId 1
 addUser --email bob@gmail.com --password bob123 --name bob --birthdate 2000-5-5 --isPremium true
 addUser --email zob@gmail.com --password zobzob --name zob --birthdate 2002-1-5 --isPremium false
 addSong --length 200 --name acasa --releaseDate 2010-11-11 --artistId 1 --genre pop
-addAlbum --name Acasa albumul --songIds 1,2
+addAlbum --name Acasa --artistId 1 albumul --songIds 1
 
 addPlaylist --name Bruh
 addSongToPlaylist --songId 1 --playListId 1
