@@ -2,7 +2,6 @@ package map.project.musiclibrary.ui.rest;
 
 import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.dto.SongDTO;
-import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.model.users.NormalUser;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.SongService;
@@ -32,7 +31,7 @@ public class SongEndpoint {
 
     @PostMapping("/add")
     public String addSong(@RequestBody SongDTO request) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return songService.addSong(request.getName(), request.getGenre(), request.getLengthStr(), request.getReleaseDateStr(), request.getArtistIdStr()).toString();
             } catch (IllegalArgumentException e) {
@@ -52,7 +51,7 @@ public class SongEndpoint {
 
     @PostMapping("/delete")
     public String deleteSong(@RequestParam String idStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 songService.delete(idStr);
                 return "Song successfully deleted.";
@@ -68,7 +67,7 @@ public class SongEndpoint {
 
     @PostMapping("/play")
     public String playSong(@RequestParam String songName) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             return songService.playSong(songName, (NormalUser) userSession.getCurrentUser());
         }
         return "Only normal users can play songs";

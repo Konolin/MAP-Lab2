@@ -2,8 +2,6 @@ package map.project.musiclibrary.ui.rest;
 
 import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.dto.PodcastDTO;
-import map.project.musiclibrary.data.model.users.Admin;
-import map.project.musiclibrary.data.model.users.NormalUser;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.PodcastService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +30,7 @@ public class PodcastEndpoint {
 
     @PostMapping("/add")
     public String addPodcast(@RequestBody PodcastDTO request) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return podcastService.addPodcast(request.getName(), request.getLengthStr(), request.getTopic(), request.getReleaseDateStr(), request.getHostIdStr()).toString();
             } catch (IllegalArgumentException e) {
@@ -44,8 +42,8 @@ public class PodcastEndpoint {
     }
 
     @PostMapping("/delete")
-    public String deletePodcast(@RequestParam String podcastIdStr){
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin){
+    public String deletePodcast(@RequestParam String podcastIdStr) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 Long podcastId = Long.parseLong(podcastIdStr);
                 podcastService.deletePodcast(podcastId);
@@ -67,7 +65,7 @@ public class PodcastEndpoint {
 
     @PostMapping("/addAd")
     public String addAd(@RequestParam String podcastIdStr, @RequestParam String adIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return podcastService.addAdToPodcast(adIdStr, podcastIdStr).toString();
             } catch (NumberFormatException e) {
@@ -82,7 +80,7 @@ public class PodcastEndpoint {
 
     @PostMapping("/play")
     public String playPodcast(@RequestParam String podcastName) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             return podcastService.playPodcast(podcastName);
         }
         return "You must log into a normal user account to play a podcast.";

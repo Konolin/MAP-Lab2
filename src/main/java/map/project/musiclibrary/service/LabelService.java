@@ -30,7 +30,7 @@ public class LabelService {
         return labelRepository.save(label);
     }
 
-    public void deleteLabel(Long id){
+    public void deleteLabel(Long id) {
         Optional<Label> labelOptional = labelRepository.findById(id);
 
         if (labelOptional.isPresent()) {

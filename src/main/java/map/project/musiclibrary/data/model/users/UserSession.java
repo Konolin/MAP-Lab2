@@ -1,6 +1,5 @@
 package map.project.musiclibrary.data.model.users;
 
-import map.project.musiclibrary.data.model.users.User;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -20,16 +20,16 @@ public class AlbumEndpoint {
 
     @PostMapping("/list")
     public String listAlbums() {
-        if (userSession.isLoggedIn()) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             return albumService.findAll().toString();
         } else {
-            return "Only logged in users can list all albums";
+            return "Only admins can list all albums";
         }
     }
 
     @PostMapping("/add")
     public String addAlbum(@RequestBody AlbumDTO request) {
-        if (userSession.isLoggedIn()) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return albumService.addAlbum(request.getName(), request.getArtistId(), request.getSongIds()).toString();
             } catch (NumberFormatException e) {
@@ -38,7 +38,7 @@ public class AlbumEndpoint {
                 return e.getMessage();
             }
         } else {
-            return "Only logged in users can add an album";
+            return "Only admins can add an album";
         }
     }
 
@@ -49,7 +49,7 @@ public class AlbumEndpoint {
 
     @PostMapping("/delete")
     public String deleteAlbum(@RequestParam String idStr) {
-        if (userSession.isLoggedIn()) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 albumService.delete(idStr);
                 return "Album with ID " + idStr + " has been deleted successfully!";
@@ -57,7 +57,7 @@ public class AlbumEndpoint {
                 return "Error: Invalid integer format. Please provide a valid number.";
             }
         } else {
-            return "Only logged in users can delete albums.";
+            return "Only admins can delete albums.";
         }
     }
 }

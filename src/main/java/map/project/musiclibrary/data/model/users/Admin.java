@@ -20,4 +20,9 @@ public class Admin extends User {
     public String toString() {
         return "Admin";
     }
+
+    @Override
+    public boolean isAdmin() {
+        return true;
+    }
 }

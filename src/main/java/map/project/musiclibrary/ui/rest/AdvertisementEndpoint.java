@@ -1,7 +1,6 @@
 package map.project.musiclibrary.ui.rest;
 
 import map.project.musiclibrary.data.dto.AdvertisementDTO;
-import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.AdvertisementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class AdvertisementEndpoint {
 
     @PostMapping("/list")
     public String listAdvertisements() {
-        if (userSession.isLoggedIn()) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             return advertisementService.findAll().toString();
         } else {
             return "Only admin can list all ads";
@@ -32,7 +31,7 @@ public class AdvertisementEndpoint {
 
     @PostMapping("/add")
     public String addAdvertisement(@RequestBody AdvertisementDTO request) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return advertisementService.addAdvertisement(request.getName(), request.getLength(), request.getType(), request.getReleaseDate()).toString();
             } catch (ParseException e) {
@@ -45,7 +44,7 @@ public class AdvertisementEndpoint {
 
     @PostMapping("/find")
     public String findAd(@RequestParam String name) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             return advertisementService.findByName(name).toString();
         } else {
             return "Only admin can search for ads";
@@ -54,7 +53,7 @@ public class AdvertisementEndpoint {
 
     @PostMapping("/delete")
     public String deleteAd(@RequestParam String idStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 advertisementService.delete(idStr);
                 return "Advertisement with ID " + idStr + " has been deleted successfully!";

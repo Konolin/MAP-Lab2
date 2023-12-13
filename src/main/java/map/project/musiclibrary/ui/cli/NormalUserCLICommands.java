@@ -30,7 +30,7 @@ public class NormalUserCLICommands {
 
     @ShellMethod(key = "listUsers", value = "List all users")
     public String listUsers() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             return normalUserService.findAll().toString();
         } else {
             return "Only admin can list all users.";
@@ -43,7 +43,7 @@ public class NormalUserCLICommands {
                           @ShellOption(value = {"password"}, help = "Password of the user") final String password,
                           @ShellOption(value = {"birthdate"}, help = "Birthdate of the user (yyyy-MM-dd)") final String birthdateStr,
                           @ShellOption(value = {"isPremium"}, help = "Is the user premium (boolean)") final String isPremiumStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return normalUserService.addNormalUser(name, email, password, isPremiumStr, birthdateStr).toString();
             } catch (ParseException e) {
@@ -59,13 +59,13 @@ public class NormalUserCLICommands {
     }
 
     @ShellMethod(key = "deleteUser", value = "Delete a user")
-    public String deleteUser(@ShellOption(value = {"userId"}, help = "Id of the user to be deleted") final String userIdstr){
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin){
-            try{
+    public String deleteUser(@ShellOption(value = {"userId"}, help = "Id of the user to be deleted") final String userIdstr) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+            try {
                 Long userId = Long.parseLong(userIdstr);
                 normalUserService.deleteNormalUser(userId);
                 return "User with ID " + userId + " has been deleted.";
-            } catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 return "Error: Invalid integer format. Please provide a valid number.";
             }
         } else {
@@ -76,7 +76,7 @@ public class NormalUserCLICommands {
     @ShellMethod(key = "updateUser", value = "Update user attributes")
     public String updateUser(@ShellOption(value = {"password"}, help = "Update user password") final boolean updatePassword,
                              @ShellOption(value = {"isPremium"}, help = "Update subscription plan") final boolean updatePremium) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             try {
                 Long id = userSession.getCurrentUser().getId();
                 Map<String, Object> updates = new HashMap<>();
@@ -98,10 +98,6 @@ public class NormalUserCLICommands {
             return "Only normal users can modify their password/premium status";
         }
     }
-
-
-
-
 
 
     @ShellMethod(key = "findUser", value = "Find a user by name")

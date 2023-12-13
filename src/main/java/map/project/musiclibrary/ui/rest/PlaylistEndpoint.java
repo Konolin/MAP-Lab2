@@ -23,7 +23,7 @@ public class PlaylistEndpoint {
 
     @PostMapping("/list")
     public String listPlaylists() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             return playlistService.findByUser(userSession.getCurrentUser()).toString();
         } else {
             return "You must log in into a normal user account to see your playlists.";
@@ -32,7 +32,7 @@ public class PlaylistEndpoint {
 
     @PostMapping("/add")
     public String addPlaylist(@RequestParam String name) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             return playlistService.addPlaylist(name, (NormalUser) userSession.getCurrentUser()).toString();
         } else {
             return "You must log into a normal user account to add a playlist.";
@@ -41,7 +41,7 @@ public class PlaylistEndpoint {
 
     @PostMapping("/delete")
     public String deletePlaylist(@RequestParam String playlistIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             try {
                 Long playlistId = Long.parseLong(playlistIdStr);
                 NormalUser currentUser = (NormalUser) userSession.getCurrentUser();
@@ -59,7 +59,7 @@ public class PlaylistEndpoint {
 
     @PostMapping("/update")
     public String updatePlaylist(@RequestParam String id) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             try {
                 Long playListId = Long.parseLong(id);
                 return playlistService.updatePlaylistName(playListId);
@@ -73,7 +73,7 @@ public class PlaylistEndpoint {
 
     @PostMapping("/addSong")
     public String addSongToPlaylist(@RequestParam String playlistIdStr, @RequestParam String songIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             try {
                 return playlistService.addSong(songIdStr, playlistIdStr, (NormalUser) userSession.getCurrentUser()).toString();
             } catch (NumberFormatException e) {
@@ -88,7 +88,7 @@ public class PlaylistEndpoint {
 
     @PostMapping("/removeSong")
     public String removeSongFromPlaylist(@RequestParam String playlistIdStr, @RequestParam String songIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             try {
                 Long playlistId = Long.parseLong(playlistIdStr);
                 Long songId = Long.parseLong(songIdStr);

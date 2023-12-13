@@ -35,7 +35,7 @@ public class PodcastService {
         return podcastRepository.save(podcast);
     }
 
-    public void deletePodcast(Long id){
+    public void deletePodcast(Long id) {
         podcastRepository.deleteById(id);
     }
 

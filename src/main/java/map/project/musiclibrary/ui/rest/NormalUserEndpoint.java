@@ -2,8 +2,6 @@ package map.project.musiclibrary.ui.rest;
 
 import jakarta.persistence.EntityExistsException;
 import map.project.musiclibrary.data.dto.NormalUserDTO;
-import map.project.musiclibrary.data.model.users.Admin;
-import map.project.musiclibrary.data.model.users.NormalUser;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.NormalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,7 @@ public class NormalUserEndpoint {
 
     @PostMapping("/list")
     public String listUsers() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             return normalUserService.findAll().toString();
         } else {
             return "Only admin can list all users.";
@@ -36,7 +34,7 @@ public class NormalUserEndpoint {
 
     @PostMapping("/add")
     public String addUser(@RequestBody NormalUserDTO request) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return normalUserService.addNormalUser(request.getName(), request.getEmail(), request.getPassword(), request.getIsPremiumStr(), request.getBirthdateStr()).toString();
             } catch (ParseException e) {
@@ -53,7 +51,7 @@ public class NormalUserEndpoint {
 
     @PostMapping("/delete")
     public String deleteUser(@RequestParam String idStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 Long id = Long.parseLong(idStr);
                 normalUserService.deleteNormalUser(id);
@@ -68,7 +66,7 @@ public class NormalUserEndpoint {
 
     @PostMapping("/update")
     public String updateUser(@RequestParam boolean updatePassword, @RequestParam boolean updatePremium) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             try {
                 Long id = userSession.getCurrentUser().getId();
                 Map<String, Object> updates = new HashMap<>();

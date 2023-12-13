@@ -1,12 +1,15 @@
 package map.project.musiclibrary.ui.rest;
 
 import map.project.musiclibrary.data.dto.AdminDTO;
+import map.project.musiclibrary.data.dto.LoginResponseDTO;
 import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.model.users.UserSession;
-import map.project.musiclibrary.data.dto.LoginResponseDTO;
 import map.project.musiclibrary.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/admin")

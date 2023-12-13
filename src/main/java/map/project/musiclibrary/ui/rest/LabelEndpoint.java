@@ -1,7 +1,6 @@
 package map.project.musiclibrary.ui.rest;
 
 import jakarta.persistence.EntityNotFoundException;
-import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class LabelEndpoint {
 
     @PostMapping("/list")
     public String listLabels() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             return labelService.findAll().toString();
         } else {
             return "You must be logged in to see all labels";
@@ -33,7 +32,7 @@ public class LabelEndpoint {
 
     @PostMapping("/add")
     public String addLabel(@RequestParam String name) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             return labelService.addLabel(name).toString();
         } else {
             return "Only admin can add a label";
@@ -42,7 +41,7 @@ public class LabelEndpoint {
 
     @PostMapping("/delete")
     public String deleteLabel(@RequestParam String labelIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 Long labelId = Long.parseLong(labelIdStr);
                 labelService.deleteLabel(labelId);
@@ -64,7 +63,7 @@ public class LabelEndpoint {
 
     @PostMapping("/addArtist")
     public String addArtistToLabel(@RequestParam String artistIdStr, @RequestParam String labelIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return labelService.addArtist(artistIdStr, labelIdStr).toString();
             } catch (IllegalArgumentException e) {

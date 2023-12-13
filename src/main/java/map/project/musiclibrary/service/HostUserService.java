@@ -35,13 +35,13 @@ public class HostUserService {
         return hostUserRepository.save(host);
     }
 
-    public void deleteHost(Long id){
+    public void deleteHost(Long id) {
         Optional<HostUser> hostUserOptional = hostUserRepository.findById(id);
 
-        if (hostUserOptional.isPresent()){
+        if (hostUserOptional.isPresent()) {
             HostUser host = hostUserOptional.get();
 
-            for (Podcast podcast : host.getPodcasts()){
+            for (Podcast podcast : host.getPodcasts()) {
                 podcastService.deletePodcast(podcast.getId());
             }
             host.getPodcasts().clear();

@@ -1,12 +1,8 @@
 package map.project.musiclibrary.ui.cli;
 
 import jakarta.persistence.EntityNotFoundException;
-import map.project.musiclibrary.data.model.audios.Song;
-import map.project.musiclibrary.data.model.users.Admin;
-import map.project.musiclibrary.data.model.users.ArtistUser;
 import map.project.musiclibrary.data.model.users.NormalUser;
 import map.project.musiclibrary.data.model.users.UserSession;
-import map.project.musiclibrary.service.ArtistUserService;
 import map.project.musiclibrary.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -14,9 +10,6 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Optional;
 
 @ShellComponent
 public class SongCLICommands {
@@ -44,7 +37,7 @@ public class SongCLICommands {
                           @ShellOption(value = {"length"}, help = "Length of the song(in seconds)") final String lengthStr,
                           @ShellOption(value = {"releaseDate"}, help = "The release date of the song") final String releaseDateStr,
                           @ShellOption(value = {"artistId"}, help = "The id of the artist of the song") final String artistIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return songService.addSong(name, genre, lengthStr, releaseDateStr, artistIdStr).toString();
             } catch (IllegalArgumentException e) {
@@ -64,7 +57,7 @@ public class SongCLICommands {
 
     @ShellMethod(key = "playSong", value = "Play a song by name")
     public String playSong(@ShellOption(value = {"name"}, help = "Name of the song") final String songName) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             return songService.playSong(songName, (NormalUser) userSession.getCurrentUser());
         }
         return "Only normal users can play songs";
@@ -72,7 +65,7 @@ public class SongCLICommands {
 
     @ShellMethod(key = "deleteSong", value = "Delete a song by id")
     public String deleteSong(@ShellOption(value = {"id"}, help = "Id of the song") final String idStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 songService.delete(idStr);
                 return "Song successfully deleted.";

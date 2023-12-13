@@ -1,7 +1,6 @@
 package map.project.musiclibrary.ui.rest;
 
 import map.project.musiclibrary.data.dto.HostDTO;
-import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.HostUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class HostEndpoint {
 
     @PostMapping("/list")
     public String listHostUsers() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             return hostUserService.findAll().toString();
         } else {
             return "You must log in to list all hosts.";
@@ -30,7 +29,7 @@ public class HostEndpoint {
 
     @PostMapping("/add")
     public String addHost(@RequestBody HostDTO request) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return hostUserService.addHost(request.getName(), request.getBirthdate()).toString();
             } catch (Exception e) {
@@ -43,7 +42,7 @@ public class HostEndpoint {
 
     @PostMapping("/delete")
     public String deleteHost(@RequestParam String idStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 Long hostId = Long.parseLong(idStr);
                 hostUserService.deleteHost(hostId);

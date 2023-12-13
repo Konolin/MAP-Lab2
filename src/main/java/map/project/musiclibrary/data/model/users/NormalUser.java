@@ -79,4 +79,8 @@ public class NormalUser extends User implements Observer {
         return Objects.hash(isPremium(), getLoginCredentials().getId());
     }
 
+    @Override
+    public boolean isNormalUser() {
+        return true;
+    }
 }

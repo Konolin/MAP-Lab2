@@ -1,7 +1,6 @@
 package map.project.musiclibrary.ui.rest;
 
 import map.project.musiclibrary.data.dto.ArtistDTO;
-import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.ArtistUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class ArtistEndpoint {
 
     @PostMapping("/list")
     public String listArtists() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             return artistUserService.findAll().toString();
         } else {
             return "Only admin can list all artists";
@@ -32,7 +31,7 @@ public class ArtistEndpoint {
 
     @PostMapping("/add")
     public String addArtist(@RequestBody ArtistDTO request) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return artistUserService.addArtist(request.getName(), request.getBirthdate()).toString();
             } catch (ParseException e) {
@@ -50,7 +49,7 @@ public class ArtistEndpoint {
 
     @PostMapping("/followers")
     public String getFollowers(@RequestParam String artistIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return artistUserService.getFollowers(artistIdStr).toString();
             } catch (NumberFormatException e) {
@@ -63,7 +62,7 @@ public class ArtistEndpoint {
 
     @PostMapping("/delete")
     public String deleteArtist(@RequestParam String idStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 artistUserService.delete(idStr);
                 return "Artist with ID " + idStr + " has been deleted successfully!";
