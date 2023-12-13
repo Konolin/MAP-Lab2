@@ -57,10 +57,10 @@ public class PlaylistService {
         return false;
     }
 
-    public String updatePlaylistName(Long id){
+    public String updatePlaylistName(Long id) {
         Optional<Playlist> optionalPlaylist = playlistRepository.findById(id);
 
-        if (optionalPlaylist.isPresent()){
+        if (optionalPlaylist.isPresent()) {
             Playlist playlist = optionalPlaylist.get();
             String newPlaylistName = promptPlaylistName();
             if (playlist.getName().equals(newPlaylistName)) {
@@ -74,7 +74,7 @@ public class PlaylistService {
         }
     }
 
-    public String promptPlaylistName(){
+    public String promptPlaylistName() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the new playlist name: ");
         return scanner.nextLine();
@@ -123,7 +123,7 @@ public class PlaylistService {
     }
 
     @Transactional
-    public Playlist removeSong(Long playlistId, Long songId){
+    public Playlist removeSong(Long playlistId, Long songId) {
         Optional<Song> optionalSong = songRepository.findById(songId);
         Optional<Playlist> optionalPlaylist = playlistRepository.findById(playlistId);
 

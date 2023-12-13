@@ -1,8 +1,6 @@
-package map.project.musiclibrary.cli;
+package map.project.musiclibrary.ui.cli;
 
 import jakarta.persistence.EntityNotFoundException;
-import map.project.musiclibrary.data.model.users.Admin;
-import map.project.musiclibrary.data.model.users.NormalUser;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.PodcastService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +35,7 @@ public class PodcastCLICommands {
                              @ShellOption(value = {"releaseDate"}, help = "The release date of the podcast") final String releaseDateStr,
                              @ShellOption(value = {"hostId"}, help = "The id of the host") final String hostIdStr) {
         //check if the currentUser is an admin, because only admins can add podcasts to the library
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return podcastService.addPodcast(name, lengthStr, topic, releaseDateStr, hostIdStr).toString();
             } catch (IllegalArgumentException e) {
@@ -49,8 +47,8 @@ public class PodcastCLICommands {
     }
 
     @ShellMethod(key = "deletePodcast", value = "Delete a podcast by ID")
-    public String deletePodcast(@ShellOption(value = {"podcastId"}, help = "ID of the podcast to be deleted") final String podcastIdStr){
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin){
+    public String deletePodcast(@ShellOption(value = {"podcastId"}, help = "ID of the podcast to be deleted") final String podcastIdStr) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 Long podcastId = Long.parseLong(podcastIdStr);
                 podcastService.deletePodcast(podcastId);
@@ -73,7 +71,7 @@ public class PodcastCLICommands {
     @ShellMethod(key = "addAdToPodcast", value = "Add an advertisement to a podcast")
     public String addAdToPodcast(@ShellOption(value = {"adId"}, help = "Id of the advertisement") final String adIdStr,
                                  @ShellOption(value = {"podcastId"}, help = "Id of the podcast") final String podcastIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return podcastService.addAdToPodcast(adIdStr, podcastIdStr).toString();
             } catch (NumberFormatException e) {
@@ -88,7 +86,7 @@ public class PodcastCLICommands {
 
     @ShellMethod(key = "playPodcast", value = "Play a podcast by name")
     public String playPodcast(@ShellOption(value = {"name"}, help = "Name of the podcast") final String podcastName) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             return podcastService.playPodcast(podcastName);
         }
         return "You must log into a normal user account to play a podcast.";

@@ -57,7 +57,7 @@ public class NormalUserService {
         return normalUserRepository.save(user);
     }
 
-    public void deleteNormalUser(Long id){
+    public void deleteNormalUser(Long id) {
         normalUserRepository.deleteById(id);
     }
 
@@ -95,9 +95,8 @@ public class NormalUserService {
     }
 
 
-
     //helper method to change the password
-    public String promptForNewPassword(){
+    public String promptForNewPassword() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the new password: ");
         String newPassword = scanner.nextLine();
