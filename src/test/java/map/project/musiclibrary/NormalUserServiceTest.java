@@ -1,10 +1,11 @@
 package map.project.musiclibrary;
 
-import map.project.musiclibrary.data.repository.NormalUserRepository;
 import map.project.musiclibrary.data.model.users.NormalUser;
+import map.project.musiclibrary.data.repository.NormalUserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -16,10 +17,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class NormalUserServiceTest {
-
-    private List<NormalUser> inMemoryRepository;
-    private NormalUserRepository normalUserRepository;
+    private final List<NormalUser> inMemoryRepository;
+    private final NormalUserRepository normalUserRepository;
 
     @Autowired
     public NormalUserServiceTest(NormalUserRepository normalUserRepository) {
@@ -53,12 +54,14 @@ public class NormalUserServiceTest {
         List<NormalUser> foundUsers = normalUserRepository.findByName("John Doe");
 
         assertFalse(foundUsers.isEmpty());
-        assertEquals("John Doe", foundUsers.get(0).getName());
+        assertEquals("John Doe", foundUsers.getFirst().getName());
     }
 
 
     @Test
     void testFindAll() {
+        int expected = normalUserRepository.findAll().size();
+
         NormalUser user1 = new NormalUser();
         user1.setName("John Doe");
         inMemoryRepository.add(user1);
@@ -72,7 +75,7 @@ public class NormalUserServiceTest {
         List<NormalUser> allUsers = normalUserRepository.findAll();
 
         assertFalse(allUsers.isEmpty());
-        assertEquals(2, allUsers.size());
+        assertEquals(expected + 2, allUsers.size());
     }
 }
 
