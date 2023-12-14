@@ -83,4 +83,8 @@ public class NormalUser extends User implements Observer {
     public boolean isNormalUser() {
         return true;
     }
+
+    public boolean isPremiumUser() {
+        return isPremium;
+    }
 }

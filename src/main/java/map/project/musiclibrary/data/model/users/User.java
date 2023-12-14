@@ -33,4 +33,8 @@ public abstract class User {
     public boolean isNormalUser() {
         return false;
     }
+
+    public boolean isPremiumUser() {
+        return false;
+    }
 }

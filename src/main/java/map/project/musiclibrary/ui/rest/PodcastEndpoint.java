@@ -85,4 +85,18 @@ public class PodcastEndpoint {
         }
         return "You must log into a normal user account to play a podcast.";
     }
+
+    @PostMapping("/playSpeed")
+    public String playPodcastSpeed(@RequestParam String podcastName, @RequestParam String speed) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser() && userSession.getCurrentUser().isPremiumUser()) {
+            try {
+                return podcastService.playPodcastSpeed(podcastName, speed);
+            } catch (EntityNotFoundException e) {
+                return e.getMessage();
+            } catch (NumberFormatException e) {
+                return "Error: Invalid integer format. Please provide a valid number.";
+            }
+        }
+        return "You must log into a premium normal user account to play a podcast.";
+    }
 }
