@@ -2353,3 +2353,7 @@
 1701258415413:updatePlaylist --id
 1701258429339:updatePlaylist --id 102
 1701258444252:listPlaylists
+1702567427800:login --email bob@gmail.com --password bob123
+1702567448604:playPodcast
+1702567459847:playPodcast --name Keep,Gambling
+1702567475519:playPodcastSpeed --name Keep,Gambling --speed 2

@@ -91,4 +91,19 @@ public class PodcastCLICommands {
         }
         return "You must log into a normal user account to play a podcast.";
     }
+
+    @ShellMethod(key = "playPodcastSpeed", value = "Play a podcast by name with a specified speed")
+    public String playPodcastSpeed(@ShellOption(value = {"name"}, help = "Name of the podcast") final String podcastName,
+                                   @ShellOption(value = {"speed"}, help = "Speed of the podcast") final String speed) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser() && userSession.getCurrentUser().isPremiumUser()) {
+            try {
+                return podcastService.playPodcastSpeed(podcastName, speed);
+            } catch (EntityNotFoundException e) {
+                return e.getMessage();
+            } catch (NumberFormatException e) {
+                return "Error: Invalid integer format. Please provide a valid number.";
+            }
+        }
+        return "You must log into a premium normal user account to play a podcast.";
+    }
 }
