@@ -1,7 +1,6 @@
-package map.project.musiclibrary.cli;
+package map.project.musiclibrary.ui.cli;
 
 import jakarta.persistence.EntityNotFoundException;
-import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.ArtistUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class ArtistCLICommands {
 
     @ShellMethod(key = "listArtists", value = "List all artists")
     public String listArtists() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             return artistUserService.findAll().toString();
         } else {
             return "Only admin can list all artists";
@@ -34,7 +33,7 @@ public class ArtistCLICommands {
     @ShellMethod(key = "addArtist", value = "Add an artist")
     public String addArtist(@ShellOption(value = {"name"}, help = "Name of the artist") final String name,
                             @ShellOption(value = {"birthdate"}, help = "Birthdate of the artist") final String birthdateStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return artistUserService.addArtist(name, birthdateStr).toString();
             } catch (ParseException e) {
@@ -52,7 +51,7 @@ public class ArtistCLICommands {
 
     @ShellMethod(key = "listFollowers", value = "List the followers of an artist")
     public String getFollowers(@ShellOption(value = {"artistId"}, help = "ID of the artist") final String artistIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return artistUserService.getFollowers(artistIdStr).toString();
             } catch (NumberFormatException e) {
@@ -67,7 +66,7 @@ public class ArtistCLICommands {
 
     @ShellMethod(key = "deleteArtist", value = "Delete an artist by id (It also deletes their songs!)")
     public String deleteAlbum(@ShellOption(value = {"id"}, help = "Id of the artist") final String idStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 artistUserService.delete(idStr);
                 return "Artist successfully deleted.";

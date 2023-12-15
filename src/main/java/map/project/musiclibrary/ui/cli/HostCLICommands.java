@@ -1,7 +1,6 @@
-package map.project.musiclibrary.cli;
+package map.project.musiclibrary.ui.cli;
 
 import jakarta.persistence.EntityNotFoundException;
-import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.HostUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class HostCLICommands {
 
     @ShellMethod(key = "listHosts", value = "List all hosts")
     public String listHostUsers() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             return hostUserService.findAll().toString();
         } else {
             return "Only admin can list all hosts";
@@ -34,7 +33,7 @@ public class HostCLICommands {
     @ShellMethod(key = "addHost", value = "Add a host")
     public String addHost(@ShellOption(value = {"name"}, help = "Name of the host") final String name,
                           @ShellOption(value = {"birthdate"}, help = "Birthdate of the user (yyyy-MM-dd)") final String birthdateStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return hostUserService.addHost(name, birthdateStr).toString();
             } catch (ParseException e) {
@@ -47,7 +46,7 @@ public class HostCLICommands {
 
     @ShellMethod(key = "deleteHost", value = "Delete a host (Deletes their podcasts as well!")
     public String deleteHost(@ShellOption(value = {"hostId"}, help = "ID of the host to be deleted") final String hostIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 Long hostId = Long.parseLong(hostIdStr);
                 hostUserService.deleteHost(hostId);

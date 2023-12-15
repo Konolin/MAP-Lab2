@@ -1,4 +1,4 @@
-package map.project.musiclibrary.cli;
+package map.project.musiclibrary.ui.cli;
 
 import map.project.musiclibrary.data.model.users.NormalUser;
 import map.project.musiclibrary.data.model.users.UserSession;
@@ -30,7 +30,7 @@ public class PlaylistCLICommands {
 
     @ShellMethod(key = "addPlaylist", value = "Add a playlist")
     public String addPlaylist(@ShellOption(value = {"name"}, help = "Name of the playlist to be added") final String name) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             return playlistService.addPlaylist(name, (NormalUser) userSession.getCurrentUser()).toString();
         } else {
             return "You must log into a normal user account to add a playlist.";
@@ -39,7 +39,7 @@ public class PlaylistCLICommands {
 
     @ShellMethod(key = "deletePlaylist", value = "Delete a playlist")
     public String deletePlaylist(@ShellOption(value = {"playlistId"}, help = "ID of the playlist to be deleted") final String playlistIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             try {
                 Long playlistId = Long.parseLong(playlistIdStr);
                 NormalUser currentUser = (NormalUser) userSession.getCurrentUser();
@@ -57,7 +57,7 @@ public class PlaylistCLICommands {
 
     @ShellMethod(key = "updatePlaylist", value = "Update a playlist's name")
     public String updatePlaylist(@ShellOption(value = {"id"}, help = "ID of the playlist to be updated") final String id) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             try {
                 Long playListId = Long.parseLong(id);
                 return playlistService.updatePlaylistName(playListId);
@@ -72,7 +72,7 @@ public class PlaylistCLICommands {
     @ShellMethod(key = "addSongToPlaylist", value = "Add a song to a playlist")
     public String addSongToPlaylist(@ShellOption(value = {"songId"}, help = "Id of the song") final String songIdStr,
                                     @ShellOption(value = {"playListId"}, help = "Id of the playlist") final String playListIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             try {
                 return playlistService.addSong(songIdStr, playListIdStr, (NormalUser) userSession.getCurrentUser());
             } catch (NumberFormatException e) {
@@ -87,8 +87,8 @@ public class PlaylistCLICommands {
 
     @ShellMethod(key = "removeSongFromPlaylist", value = "Remove a song from a playlist")
     public String removeSongFromPlaylist(@ShellOption(value = {"songId"}, help = "ID of the song") final String songIdStr,
-                                           @ShellOption(value = {"playlistId"}, help = "ID of the playlist") final String playlistIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof NormalUser) {
+                                         @ShellOption(value = {"playlistId"}, help = "ID of the playlist") final String playlistIdStr) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             try {
                 Long playlistId = Long.parseLong(playlistIdStr);
                 Long songId = Long.parseLong(songIdStr);

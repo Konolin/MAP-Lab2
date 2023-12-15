@@ -25,4 +25,16 @@ public abstract class User {
         }
         this.birthdate = birthdate;
     }
+
+    public boolean isAdmin() {
+        return false;
+    }
+
+    public boolean isNormalUser() {
+        return false;
+    }
+
+    public boolean isPremiumUser() {
+        return false;
+    }
 }

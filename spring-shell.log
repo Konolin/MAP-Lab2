@@ -2353,37 +2353,3 @@
 1701258415413:updatePlaylist --id
 1701258429339:updatePlaylist --id 102
 1701258444252:listPlaylists
-1701260224621:login --email zob@gmail.com --password zobzob
-1701260228999:listPlaylists
-1701260245496:logout
-1701260252476:adminLogin --email admin --password admin
-1701260259324:addSong --length 200 --name acasa --releaseDate 2010-11-11 --artistId 1 --genre pop
-1701260264689:listArtists
-1701260282370:addSong --length 200 --name acasa --releaseDate 2010-11-11 --artistId 102 --genre pop
-1701260294590:adminLogout
-1701260300633:login --email zob@gmail.com --password zobzob
-1701260331179:removeSongFromPlaylist --playlistId 102 --songId 152
-1701260353137:addSongToPlaylist --playlistId 102 --songId 152
-1701260368399:addSongToPlaylist --playListId 102 --songId 152
-1701260387252:removeSongFromPlaylist --playlistId 102 --songId 152
-1701330577455:adminLogin --email admin --password admin
-1701330580543:listSongs
-1701330588911:listPlaylists
-1701330594955:adminLogout
-1701330633107:login --email zob@gmail.com --password zobzob
-1701330640825:listPlaylists
-1701330661520:adSongToPlaylist --playListId 102 --songId 152
-1701330672538:addSongToPlaylist --playListId 102 --songId 152
-1701330706650:removeSongFromPlaylist --playlistId 102 --songId 152
-1701331409851:login --email zob@gmail.com --password zobzob
-1701331421990:updateUser --password
-1701331474383:login --email zob@gmail.com --password zobzob
-1701331482461:updateUser --password
-1701331546260:login --email zob@gmail.com --password zobzob
-1701331552616:updateUser --password
-1701332656209:login --email zob@gmail.com --password zobzob
-1701332661759:updateUser --password
-1701333423573:login --email zob@gmail.com --password zobzob
-1701333432532:updateUser --password
-1701333789436:login --email zob@gmail.com --password zobzob
-1701333797638:updateUser --password

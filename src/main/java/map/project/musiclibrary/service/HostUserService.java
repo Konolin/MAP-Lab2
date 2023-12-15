@@ -25,23 +25,21 @@ public class HostUserService {
     }
 
     public HostUser addHost(String name, String birthdateStr) throws ParseException {
-        HostUser host = new HostUser();
-        host.setName(name);
-
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date birthdate = dateFormat.parse(birthdateStr);
-        host.setBirthdate(birthdate);
+
+        HostUser host = (HostUser) CreatorUserFactory.createCreatorUser("host", name, birthdate);
 
         return hostUserRepository.save(host);
     }
 
-    public void deleteHost(Long id){
+    public void deleteHost(Long id) {
         Optional<HostUser> hostUserOptional = hostUserRepository.findById(id);
 
-        if (hostUserOptional.isPresent()){
+        if (hostUserOptional.isPresent()) {
             HostUser host = hostUserOptional.get();
 
-            for (Podcast podcast : host.getPodcasts()){
+            for (Podcast podcast : host.getPodcasts()) {
                 podcastService.deletePodcast(podcast.getId());
             }
             host.getPodcasts().clear();

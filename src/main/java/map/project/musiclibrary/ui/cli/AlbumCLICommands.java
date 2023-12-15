@@ -1,7 +1,6 @@
-package map.project.musiclibrary.cli;
+package map.project.musiclibrary.ui.cli;
 
 import jakarta.persistence.EntityNotFoundException;
-import map.project.musiclibrary.data.model.users.Admin;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class AlbumCLICommands {
 
     @ShellMethod(key = "listAlbums", value = "List all albums")
     public String listAlbums() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             return albumService.findAll().toString();
         } else {
             return "Only admin can list all albums";
@@ -35,7 +34,7 @@ public class AlbumCLICommands {
     public String addAlbum(@ShellOption(value = {"name"}, help = "Name of the album") final String name,
                            @ShellOption(value = {"artistId"}, help = "ID of the artist") final String artistIdStr,
                            @ShellOption(value = {"songIds"}, help = "List of song ids (format: 1,2,3)") final String songIdsStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return albumService.addAlbum(name, artistIdStr, songIdsStr).toString();
             } catch (NumberFormatException e) {
@@ -55,7 +54,7 @@ public class AlbumCLICommands {
 
     @ShellMethod(key = "deleteAlbum", value = "Delete an album by id")
     public String deleteAlbum(@ShellOption(value = {"id"}, help = "Id of the album") final String idStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 albumService.delete(idStr);
                 return "Album successfully deleted.";

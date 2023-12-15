@@ -100,7 +100,7 @@ public class PlaylistService {
     }
 
     @Transactional
-    public String addSong(String songIdStr, String playListIdStr, NormalUser currentUser) throws NumberFormatException {
+    public Playlist addSong(String songIdStr, String playListIdStr, NormalUser currentUser) throws NumberFormatException {
         Long songId = Long.parseLong(songIdStr);
         Long playListId = Long.parseLong(playListIdStr);
 
@@ -116,15 +116,14 @@ public class PlaylistService {
             playlist.addSong(song);
             song.getPlaylists().add(playlist);
             songRepository.save(song);
-            playlistRepository.save(playlist);
-            return "Song " + song.getName() + " by " + song.getArtist().getName() + " has been added to playlist " + playlist.getName();
-        } else {
-            throw new EntityNotFoundException("Song or playlist not found.");
+            return playlistRepository.save(playlist);
         }
+
+        throw new RuntimeException("PlaylistService::Song or Playlist with specified id doesn't exist");
     }
 
     @Transactional
-    public String removeSong(Long playlistId, Long songId){
+    public Playlist removeSong(Long playlistId, Long songId){
         Optional<Song> optionalSong = songRepository.findById(songId);
         Optional<Playlist> optionalPlaylist = playlistRepository.findById(playlistId);
 
@@ -135,8 +134,7 @@ public class PlaylistService {
             playlist.removeSong(song);
             song.getPlaylists().remove(playlist);
             songRepository.save(song);
-            playlistRepository.save(playlist);
-            return "Song " + song.getName() + " by " + song.getArtist().getName() + " has been deleted from playlist " + playlist.getName();
+            return playlistRepository.save(playlist);
         } else {
             throw new EntityNotFoundException("Song or playlist not found.");
         }

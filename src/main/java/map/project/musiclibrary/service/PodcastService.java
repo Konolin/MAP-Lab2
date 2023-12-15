@@ -1,7 +1,9 @@
 package map.project.musiclibrary.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.audios.Advertisement;
 import map.project.musiclibrary.data.model.audios.Podcast;
+import map.project.musiclibrary.data.model.audios.PodcastPlaybackSpeedDecorator;
 import map.project.musiclibrary.data.repository.AdvertisementRepository;
 import map.project.musiclibrary.data.repository.PodcastRepository;
 import map.project.musiclibrary.service.builders.PodcastBuilder;
@@ -35,7 +37,7 @@ public class PodcastService {
         return podcastRepository.save(podcast);
     }
 
-    public void deletePodcast(Long id){
+    public void deletePodcast(Long id) {
         podcastRepository.deleteById(id);
     }
 
@@ -77,6 +79,15 @@ public class PodcastService {
         if (!foundPodcasts.isEmpty()) {
             return foundPodcasts.getFirst().play();
         }
-        return "Podcast not found";
+        throw new EntityNotFoundException("PodcastService::Podcast with name " + podcastName + " was not found");
+    }
+
+    public String playPodcastSpeed(String podcastName, String speedStr) {
+        List<Podcast> foundPodcasts = podcastRepository.findByName(podcastName);
+        if (!foundPodcasts.isEmpty()) {
+            int speed = Integer.parseInt(speedStr);
+            return new PodcastPlaybackSpeedDecorator(foundPodcasts.getFirst(), speed).play();
+        }
+        throw new EntityNotFoundException("PodcastService::Podcast with name " + podcastName + " was not found");
     }
 }

@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -32,13 +31,10 @@ public class ArtistUserService {
     }
 
     public ArtistUser addArtist(String name, String birthdateStr) throws ParseException {
-        ArtistUser artist = new ArtistUser();
-        artist.setName(name);
-        artist.setSongs(new ArrayList<>());
-
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date birthdate = dateFormat.parse(birthdateStr);
-        artist.setBirthdate(birthdate);
+
+        ArtistUser artist = (ArtistUser) CreatorUserFactory.createCreatorUser("artist", name, birthdate);
 
         return artistUserRepository.save(artist);
     }
