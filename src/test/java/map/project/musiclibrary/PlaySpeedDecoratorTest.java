@@ -4,7 +4,6 @@ import map.project.musiclibrary.data.model.audios.Advertisement;
 import map.project.musiclibrary.data.model.audios.Podcast;
 import map.project.musiclibrary.data.model.audios.PodcastPlaybackSpeedDecorator;
 import map.project.musiclibrary.data.repository.PodcastRepository;
-import map.project.musiclibrary.service.PodcastService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +42,22 @@ public class PlaySpeedDecoratorTest {
 
         PodcastPlaybackSpeedDecorator podcastPlaybackSpeedDecorator = new PodcastPlaybackSpeedDecorator(podcast, speed);
         assertThrows(NullPointerException.class, podcastPlaybackSpeedDecorator::play);
+    }
+
+    @Test
+    public void test() {
+        Podcast podcast = podcastRepository.findAll().getFirst();
+        String podcastName = podcast.getName();
+        String podcastHostName = podcast.getHost().getName();
+        String podcastSponsorName = Advertisement.listToString(podcast.getAdvertisements());
+        double speed = 2;
+
+        PodcastPlaybackSpeedDecorator podcastPlaybackSpeedDecorator = new PodcastPlaybackSpeedDecorator(podcast, speed);
+        podcastPlaybackSpeedDecorator = new PodcastPlaybackSpeedDecorator(podcastPlaybackSpeedDecorator, speed);
+
+
+        String expected = podcastPlaybackSpeedDecorator.play();
+
+        assertEquals(expected, "Playing \"" + podcastName + "\" by " + podcastHostName + "\nSponsors: " + podcastSponsorName + "\nat " + speed + "x speed");
     }
 }
