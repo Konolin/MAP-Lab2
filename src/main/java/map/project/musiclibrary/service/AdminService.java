@@ -6,12 +6,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AdminService {
-    private final LoginCredentialsRepository loginCredentialsRepository;
-
-    public AdminService(LoginCredentialsRepository loginCredentialsRepository) {
-        this.loginCredentialsRepository = loginCredentialsRepository;
-    }
-
     public Admin login(String email, String password) {
         if ("admin".equals(email) && "admin".equals(password)) {
             return Admin.getInstance();

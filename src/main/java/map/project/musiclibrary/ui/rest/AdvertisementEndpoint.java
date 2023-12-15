@@ -22,46 +22,40 @@ public class AdvertisementEndpoint {
 
     @PostMapping("/list")
     public String listAdvertisements() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            return advertisementService.findAll().toString();
-        } else {
-            return "Only admin can list all ads";
+        try {
+            return advertisementService.findAll(userSession).toString();
+        } catch (RuntimeException e) {
+            return e.getMessage();
         }
     }
 
     @PostMapping("/add")
     public String addAdvertisement(@RequestBody AdvertisementDTO request) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            try {
-                return advertisementService.addAdvertisement(request.getName(), request.getLength(), request.getType(), request.getReleaseDate()).toString();
-            } catch (ParseException e) {
-                return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
-            }
-        } else {
-            return "Only admin can add ads";
+        try {
+            return advertisementService.addAdvertisement(userSession, request.getName(), request.getLength(), request.getType(), request.getReleaseDate()).toString();
+        } catch (ParseException e) {
+            return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
+        } catch (RuntimeException e) {
+            return e.getMessage();
         }
     }
 
     @PostMapping("/find")
     public String findAd(@RequestParam String name) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            return advertisementService.findByName(name).toString();
-        } else {
-            return "Only admin can search for ads";
+        try {
+            return advertisementService.findByName(userSession, name).toString();
+        } catch (RuntimeException e) {
+            return e.getMessage();
         }
     }
 
     @PostMapping("/delete")
     public String deleteAd(@RequestParam String idStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            try {
-                advertisementService.delete(idStr);
-                return "Advertisement with ID " + idStr + " has been deleted successfully!";
-            } catch (IllegalArgumentException e) {
-                return "Invalid id format";
-            }
-        } else {
-            return "Only admin can delete ads.";
+        try {
+            advertisementService.delete(userSession, idStr);
+            return "Advertisement with ID " + idStr + " has been deleted successfully!";
+        } catch (RuntimeException e) {
+            return e.getMessage();
         }
     }
 }
