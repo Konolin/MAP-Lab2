@@ -74,7 +74,7 @@ public class PlaylistCLICommands {
                                     @ShellOption(value = {"playListId"}, help = "Id of the playlist") final String playListIdStr) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             try {
-                return playlistService.addSong(songIdStr, playListIdStr, (NormalUser) userSession.getCurrentUser()).toString();
+                return playlistService.addSong(songIdStr, playListIdStr, (NormalUser) userSession.getCurrentUser());
             } catch (NumberFormatException e) {
                 return "Error: Invalid integer format. Please provide a valid number.";
             } catch (RuntimeException e) {
@@ -92,7 +92,7 @@ public class PlaylistCLICommands {
             try {
                 Long playlistId = Long.parseLong(playlistIdStr);
                 Long songId = Long.parseLong(songIdStr);
-                return playlistService.removeSong(playlistId, songId).toString();
+                return playlistService.removeSong(playlistId, songId);
             } catch (NumberFormatException e) {
                 return "Error: Invalid integer format. Please provide a valid number.";
             }

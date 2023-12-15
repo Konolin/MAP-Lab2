@@ -25,12 +25,10 @@ public class HostUserService {
     }
 
     public HostUser addHost(String name, String birthdateStr) throws ParseException {
-        HostUser host = new HostUser();
-        host.setName(name);
-
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date birthdate = dateFormat.parse(birthdateStr);
-        host.setBirthdate(birthdate);
+
+        HostUser host = (HostUser) CreatorUserFactory.createCreatorUser("host", name, birthdate);
 
         return hostUserRepository.save(host);
     }
