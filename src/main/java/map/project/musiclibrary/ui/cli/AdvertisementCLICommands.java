@@ -1,6 +1,5 @@
 package map.project.musiclibrary.ui.cli;
 
-import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.AdvertisementService;
 import org.springframework.beans.factory.annotation.Autowired;
