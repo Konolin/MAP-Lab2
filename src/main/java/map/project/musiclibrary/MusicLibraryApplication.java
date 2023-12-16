@@ -13,5 +13,4 @@ public class MusicLibraryApplication {
 // TODO - toString mai frumoase (cu \n; fara toate paranteztele etc)
 // TODO - adminLogin si login sa fie o singura chestie ex: login --email admin --password admin -> te logheaza ca admin
 // TODO - date format (sa nu mai fie si ora)
-// TODO - mutare check admin/normal user in service
-// TODO - decorator song cu lyrics pentru premium user
+// TODO - userSession sa fie singleton si static

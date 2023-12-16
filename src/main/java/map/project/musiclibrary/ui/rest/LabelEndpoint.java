@@ -20,36 +20,31 @@ public class LabelEndpoint {
 
     @GetMapping("/list")
     public String listLabels() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            return labelService.findAll().toString();
-        } else {
-            return "You must be logged in to see all labels";
+        try {
+            return labelService.findAll(userSession).toString();
+        } catch (SecurityException e) {
+            return e.getMessage();
         }
     }
 
     @PostMapping("/add")
     public String addLabel(@RequestParam String name) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            return labelService.addLabel(name).toString();
-        } else {
-            return "Only admin can add a label";
+        try {
+            return labelService.addLabel(userSession, name).toString();
+        } catch (SecurityException e) {
+            return e.getMessage();
         }
     }
 
     @DeleteMapping("/delete")
     public String deleteLabel(@RequestParam String labelIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            try {
-                Long labelId = Long.parseLong(labelIdStr);
-                labelService.deleteLabel(labelId);
-                return "Label with ID " + labelId + " has been deleted successfully!";
-            } catch (IllegalArgumentException e) {
-                return "Invalid id format";
-            } catch (EntityNotFoundException e) {
-                return "Label was not found";
-            }
-        } else {
-            return "Only admin can delete labels.";
+        try {
+            labelService.deleteLabel(userSession, labelIdStr);
+            return "Label with ID " + labelIdStr + " has been deleted successfully!";
+        } catch (NumberFormatException e) {
+            return "Invalid id format";
+        } catch (EntityNotFoundException | SecurityException e) {
+            return e.getMessage();
         }
     }
 
@@ -60,16 +55,12 @@ public class LabelEndpoint {
 
     @PostMapping("/addArtist")
     public String addArtistToLabel(@RequestParam String artistIdStr, @RequestParam String labelIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            try {
-                return labelService.addArtist(artistIdStr, labelIdStr).toString();
-            } catch (IllegalArgumentException e) {
-                return "Invalid id format";
-            } catch (EntityNotFoundException e) {
-                return "Artist or label was not found";
-            }
-        } else {
-            return "Only admin can add artists to labels.";
+        try {
+            return labelService.addArtist(userSession, artistIdStr, labelIdStr).toString();
+        } catch (IllegalArgumentException e) {
+            return "Invalid id format";
+        } catch (EntityNotFoundException | SecurityException e) {
+            return e.getMessage();
         }
     }
 }

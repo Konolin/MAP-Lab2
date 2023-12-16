@@ -21,36 +21,31 @@ public class LabelCLICommands {
 
     @ShellMethod(key = "listLabels", value = "List all labels")
     public String listLabels() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            return labelService.findAll().toString();
-        } else {
-            return "Only admin can list all labels";
+        try {
+            return labelService.findAll(userSession).toString();
+        } catch (SecurityException e) {
+            return e.getMessage();
         }
     }
 
     @ShellMethod(key = "addLabel", value = "Add a label")
     public String addLabel(@ShellOption(value = {"name"}, help = "Name of the label") final String name) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            return labelService.addLabel(name).toString();
-        } else {
-            return "Only admin can add a label";
+        try {
+            return labelService.addLabel(userSession, name).toString();
+        } catch (SecurityException e) {
+            return e.getMessage();
         }
     }
 
     @ShellMethod(key = "deleteLabel", value = "Delete a label by ID")
     public String deleteLabel(@ShellOption(value = {"labelId"}, help = "ID of the label to be removed") final String labelIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            try {
-                Long labelId = Long.parseLong(labelIdStr);
-                labelService.deleteLabel(labelId);
-                return "Label with ID " + labelId + " has been deleted successfully!";
-            } catch (IllegalArgumentException e) {
-                return "Invalid id format";
-            } catch (EntityNotFoundException e) {
-                return "Label was not found";
-            }
-        } else {
-            return "Only admin can delete labels.";
+        try {
+            labelService.deleteLabel(userSession, labelIdStr);
+            return "Label with ID " + labelIdStr + " has been deleted successfully!";
+        } catch (NumberFormatException e) {
+            return "Invalid id format";
+        } catch (EntityNotFoundException | SecurityException e) {
+            return e.getMessage();
         }
     }
 
@@ -62,16 +57,12 @@ public class LabelCLICommands {
     @ShellMethod(key = "addArtistToLabel", value = "Add an artist to a label")
     public String addArtistToLabel(@ShellOption(value = {"artistId"}, help = "Id of the artist") final String artistIdStr,
                                    @ShellOption(value = {"labelId"}, help = "Id of the label") final String labelIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            try {
-                return labelService.addArtist(artistIdStr, labelIdStr).toString();
-            } catch (NumberFormatException e) {
-                return "Error: Invalid integer format. Please provide a valid number.";
-            } catch (EntityNotFoundException e) {
-                return "Error: Artist or label was not found";
-            }
-        } else {
-            return "Only admin can add artists to a label";
+        try {
+            return labelService.addArtist(userSession, artistIdStr, labelIdStr).toString();
+        } catch (NumberFormatException e) {
+            return "Error: Invalid integer format. Please provide a valid number.";
+        } catch (EntityNotFoundException | SecurityException e) {
+            return e.getMessage();
         }
     }
 }
