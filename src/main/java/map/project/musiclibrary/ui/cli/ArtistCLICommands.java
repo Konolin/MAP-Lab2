@@ -23,24 +23,20 @@ public class ArtistCLICommands {
 
     @ShellMethod(key = "listArtists", value = "List all artists")
     public String listArtists() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            return artistUserService.findAll().toString();
-        } else {
-            return "Only admin can list all artists";
+        try {
+            return artistUserService.findAll(userSession).toString();
+        } catch (SecurityException e) {
+            return e.getMessage();
         }
     }
 
     @ShellMethod(key = "addArtist", value = "Add an artist")
     public String addArtist(@ShellOption(value = {"name"}, help = "Name of the artist") final String name,
                             @ShellOption(value = {"birthdate"}, help = "Birthdate of the artist") final String birthdateStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            try {
-                return artistUserService.addArtist(name, birthdateStr).toString();
-            } catch (ParseException e) {
-                return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
-            }
-        } else {
-            return "Only admin can add an artist";
+        try {
+            return artistUserService.addArtist(userSession, name, birthdateStr).toString();
+        } catch (SecurityException | IllegalArgumentException e) {
+            return e.getMessage();
         }
     }
 
@@ -51,32 +47,24 @@ public class ArtistCLICommands {
 
     @ShellMethod(key = "listFollowers", value = "List the followers of an artist")
     public String getFollowers(@ShellOption(value = {"artistId"}, help = "ID of the artist") final String artistIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            try {
-                return artistUserService.getFollowers(artistIdStr).toString();
-            } catch (NumberFormatException e) {
-                return "Error: Invalid integer format. Please provide a valid number.";
-            } catch (EntityNotFoundException e) {
-                return "User with specified id not found";
-            }
-        } else {
-            return "Only admin can list all the followers of an artist";
+        try {
+            return artistUserService.getFollowers(userSession, artistIdStr).toString();
+        } catch (NumberFormatException e) {
+            return "Error: Invalid integer format. Please provide a valid number.";
+        } catch (SecurityException | EntityNotFoundException e) {
+            return e.getMessage();
         }
     }
 
     @ShellMethod(key = "deleteArtist", value = "Delete an artist by id (It also deletes their songs!)")
     public String deleteAlbum(@ShellOption(value = {"id"}, help = "Id of the artist") final String idStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            try {
-                artistUserService.delete(userSession, idStr);
-                return "Artist successfully deleted.";
-            } catch (NumberFormatException e) {
-                return "Invalid id format";
-            } catch (EntityNotFoundException e) {
-                return "Artist was not found";
-            }
-        } else {
-            return "Only admin can delete an artist";
+        try {
+            artistUserService.delete(userSession, idStr);
+            return "Artist with ID " + idStr + " has been deleted successfully!";
+        } catch (NumberFormatException e) {
+            return "Invalid id format";
+        } catch (SecurityException | EntityNotFoundException e) {
+            return e.getMessage();
         }
     }
 }

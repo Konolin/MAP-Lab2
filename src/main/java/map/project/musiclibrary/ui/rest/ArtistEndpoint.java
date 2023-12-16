@@ -1,5 +1,6 @@
 package map.project.musiclibrary.ui.rest;
 
+import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.dto.ArtistDTO;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.ArtistUserService;
@@ -22,23 +23,19 @@ public class ArtistEndpoint {
 
     @GetMapping("/list")
     public String listArtists() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            return artistUserService.findAll().toString();
-        } else {
-            return "Only admin can list all artists";
+        try {
+            return artistUserService.findAll(userSession).toString();
+        } catch (SecurityException e) {
+            return e.getMessage();
         }
     }
 
     @PostMapping("/add")
     public String addArtist(@RequestBody ArtistDTO request) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            try {
-                return artistUserService.addArtist(request.getName(), request.getBirthdate()).toString();
-            } catch (ParseException e) {
-                return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
-            }
-        } else {
-            return "Only admin can add an artist";
+        try {
+            return artistUserService.addArtist(userSession, request.getName(), request.getBirthdate()).toString();
+        } catch (SecurityException | IllegalArgumentException e) {
+            return e.getMessage();
         }
     }
 
@@ -49,28 +46,24 @@ public class ArtistEndpoint {
 
     @GetMapping("/followers")
     public String getFollowers(@RequestParam String artistIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            try {
-                return artistUserService.getFollowers(artistIdStr).toString();
-            } catch (NumberFormatException e) {
-                return "Error: Invalid integer format. Please provide a valid number.";
-            }
-        } else {
-            return "Only admin can list all followers";
+        try {
+            return artistUserService.getFollowers(userSession, artistIdStr).toString();
+        } catch (NumberFormatException e) {
+            return "Error: Invalid integer format. Please provide a valid number.";
+        } catch (SecurityException | EntityNotFoundException e) {
+            return e.getMessage();
         }
     }
 
     @DeleteMapping("/delete")
     public String deleteArtist(@RequestParam String idStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            try {
-                artistUserService.delete(userSession, idStr);
-                return "Artist with ID " + idStr + " has been deleted successfully!";
-            } catch (IllegalArgumentException e) {
-                return "Invalid id format";
-            }
-        } else {
-            return "Only admin can delete artists.";
+        try {
+            artistUserService.delete(userSession, idStr);
+            return "Artist with ID " + idStr + " has been deleted successfully!";
+        } catch (NumberFormatException e) {
+            return "Invalid id format";
+        } catch (SecurityException | EntityNotFoundException e) {
+            return e.getMessage();
         }
     }
 }
