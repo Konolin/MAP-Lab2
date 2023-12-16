@@ -20,7 +20,7 @@ public class AdvertisementEndpoint {
         this.userSession = userSession;
     }
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     public String listAdvertisements() {
         try {
             return advertisementService.findAll(userSession).toString();
@@ -40,7 +40,7 @@ public class AdvertisementEndpoint {
         }
     }
 
-    @PostMapping("/find")
+    @GetMapping("/find")
     public String findAd(@RequestParam String name) {
         try {
             return advertisementService.findByName(userSession, name).toString();
@@ -49,7 +49,7 @@ public class AdvertisementEndpoint {
         }
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public String deleteAd(@RequestParam String idStr) {
         try {
             advertisementService.delete(userSession, idStr);

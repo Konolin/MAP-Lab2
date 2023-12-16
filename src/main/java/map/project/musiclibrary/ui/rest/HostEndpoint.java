@@ -18,7 +18,7 @@ public class HostEndpoint {
         this.userSession = userSession;
     }
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     public String listHostUsers() {
         if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             return hostUserService.findAll().toString();
@@ -40,7 +40,7 @@ public class HostEndpoint {
         }
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public String deleteHost(@RequestParam String idStr) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
@@ -57,12 +57,12 @@ public class HostEndpoint {
         }
     }
 
-    @PostMapping("/find")
+    @GetMapping("/find")
     public String findHost(@RequestParam String name) {
         return hostUserService.findByName(name).toString();
     }
 
-    @PostMapping("listPodcasts")
+    @GetMapping("listPodcasts")
     public String listPodcasts(@RequestParam String idStr) {
         try {
             return hostUserService.listHostsPodcasts(idStr).toString();

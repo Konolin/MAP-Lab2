@@ -20,7 +20,7 @@ public class ArtistEndpoint {
         this.userSession = userSession;
     }
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     public String listArtists() {
         if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             return artistUserService.findAll().toString();
@@ -42,12 +42,12 @@ public class ArtistEndpoint {
         }
     }
 
-    @PostMapping("/find")
+    @GetMapping("/find")
     public String findArtist(@RequestParam String name) {
         return artistUserService.findByName(name).toString();
     }
 
-    @PostMapping("/followers")
+    @GetMapping("/followers")
     public String getFollowers(@RequestParam String artistIdStr) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
@@ -60,11 +60,11 @@ public class ArtistEndpoint {
         }
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public String deleteArtist(@RequestParam String idStr) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
-                artistUserService.delete(idStr);
+                artistUserService.delete(userSession, idStr);
                 return "Artist with ID " + idStr + " has been deleted successfully!";
             } catch (IllegalArgumentException e) {
                 return "Invalid id format";

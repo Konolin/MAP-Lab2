@@ -23,7 +23,7 @@ public class NormalUserEndpoint {
         this.userSession = userSession;
     }
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     public String listUsers() {
         if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             return normalUserService.findAll().toString();
@@ -49,7 +49,7 @@ public class NormalUserEndpoint {
         }
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public String deleteUser(@RequestParam String idStr) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
@@ -64,7 +64,7 @@ public class NormalUserEndpoint {
         }
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public String updateUser(@RequestParam boolean updatePassword, @RequestParam boolean updatePremium) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             try {

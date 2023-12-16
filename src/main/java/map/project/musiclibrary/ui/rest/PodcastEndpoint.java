@@ -19,7 +19,7 @@ public class PodcastEndpoint {
         this.userSession = userSession;
     }
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     public String listPodcasts() {
         if (userSession.isLoggedIn()) {
             return podcastService.findAll().toString();
@@ -41,7 +41,7 @@ public class PodcastEndpoint {
         }
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public String deletePodcast(@RequestParam String podcastIdStr) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
@@ -58,7 +58,7 @@ public class PodcastEndpoint {
         }
     }
 
-    @PostMapping("/find")
+    @GetMapping("/find")
     public String findPodcast(@RequestParam String name) {
         return podcastService.findByName(name).toString();
     }

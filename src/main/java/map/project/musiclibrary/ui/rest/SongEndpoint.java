@@ -20,7 +20,7 @@ public class SongEndpoint {
         this.userSession = userSession;
     }
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     public String listSongs() {
         if (userSession.isLoggedIn()) {
             return songService.findAll().toString();
@@ -44,12 +44,12 @@ public class SongEndpoint {
         }
     }
 
-    @PostMapping("/find")
+    @GetMapping("/find")
     public String findSong(@RequestParam String name) {
         return songService.findByName(name).toString();
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public String deleteSong(@RequestParam String idStr) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {

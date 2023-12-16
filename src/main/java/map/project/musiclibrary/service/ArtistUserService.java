@@ -5,6 +5,7 @@ import map.project.musiclibrary.data.model.audios.Album;
 import map.project.musiclibrary.data.model.audios.Song;
 import map.project.musiclibrary.data.model.users.ArtistUser;
 import map.project.musiclibrary.data.model.users.NormalUser;
+import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.data.repository.ArtistUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -67,7 +68,7 @@ public class ArtistUserService {
     }
 
     @Transactional
-    public void delete(String idStr) throws NumberFormatException {
+    public void delete(UserSession userSession, String idStr) throws NumberFormatException {
         Long id = Long.parseLong(idStr);
         Optional<ArtistUser> optional = artistUserRepository.findById(id);
         if (optional.isPresent()) {
@@ -84,7 +85,7 @@ public class ArtistUserService {
 
             // remove albums associated with the artist
             for (Album album : artist.getAlbums()) {
-                albumService.delete(album.getId().toString());
+                albumService.delete(userSession, album.getId().toString());
             }
 
             artistUserRepository.deleteById(id);

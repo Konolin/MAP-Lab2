@@ -19,7 +19,7 @@ public class AlbumEndpoint {
         this.userSession = userSession;
     }
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     public String listAlbums() {
         try {
             return albumService.findAll(userSession).toString();
@@ -39,12 +39,12 @@ public class AlbumEndpoint {
         }
     }
 
-    @PostMapping("/find")
+    @GetMapping("/find")
     public String findAlbum(@RequestParam String name) {
         return albumService.findByName(name).toString();
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public String deleteAlbum(@RequestParam String idStr) {
         try {
             albumService.delete(userSession, idStr);

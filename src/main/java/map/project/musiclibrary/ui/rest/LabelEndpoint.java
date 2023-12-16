@@ -4,10 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/labels")
@@ -21,7 +18,7 @@ public class LabelEndpoint {
         this.userSession = userSession;
     }
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     public String listLabels() {
         if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             return labelService.findAll().toString();
@@ -39,7 +36,7 @@ public class LabelEndpoint {
         }
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public String deleteLabel(@RequestParam String labelIdStr) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
@@ -56,7 +53,7 @@ public class LabelEndpoint {
         }
     }
 
-    @PostMapping("/find")
+    @GetMapping("/find")
     public String findLabel(@RequestParam String name) {
         return labelService.findByName(name).toString();
     }

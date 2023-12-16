@@ -68,7 +68,7 @@ public class ArtistCLICommands {
     public String deleteAlbum(@ShellOption(value = {"id"}, help = "Id of the artist") final String idStr) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
-                artistUserService.delete(idStr);
+                artistUserService.delete(userSession, idStr);
                 return "Artist successfully deleted.";
             } catch (NumberFormatException e) {
                 return "Invalid id format";

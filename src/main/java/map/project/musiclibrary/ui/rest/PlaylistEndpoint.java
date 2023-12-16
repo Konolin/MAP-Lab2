@@ -4,10 +4,7 @@ import map.project.musiclibrary.data.model.users.NormalUser;
 import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/playlists")
@@ -21,7 +18,7 @@ public class PlaylistEndpoint {
         this.userSession = userSession;
     }
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     public String listPlaylists() {
         if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             return playlistService.findByUser(userSession.getCurrentUser()).toString();
@@ -39,7 +36,7 @@ public class PlaylistEndpoint {
         }
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public String deletePlaylist(@RequestParam String playlistIdStr) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             try {
@@ -57,7 +54,7 @@ public class PlaylistEndpoint {
         }
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public String updatePlaylist(@RequestParam String id) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             try {
@@ -86,7 +83,7 @@ public class PlaylistEndpoint {
         }
     }
 
-    @PostMapping("/removeSong")
+    @DeleteMapping("/removeSong")
     public String removeSongFromPlaylist(@RequestParam String playlistIdStr, @RequestParam String songIdStr) {
         if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
             try {
