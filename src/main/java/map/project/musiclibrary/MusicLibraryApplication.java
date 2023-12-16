@@ -14,3 +14,5 @@ public class MusicLibraryApplication {
 // TODO - adminLogin si login sa fie o singura chestie ex: login --email admin --password admin -> te logheaza ca admin
 // TODO - date format (sa nu mai fie si ora)
 // TODO - userSession sa fie singleton si static
+// TODO - exceptions mai frumoase (Locatie::metoda::mesaj)
+// TODO - json format fix
