@@ -1,7 +1,5 @@
 package map.project.musiclibrary.ui.cli;
 
-import jakarta.persistence.EntityNotFoundException;
-import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.AdvertisementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -13,20 +11,18 @@ import java.text.ParseException;
 @ShellComponent
 public class AdvertisementCLICommands {
     private final AdvertisementService advertisementService;
-    private final UserSession userSession;
 
     @Autowired
-    public AdvertisementCLICommands(AdvertisementService advertisementService, UserSession userSession) {
+    public AdvertisementCLICommands(AdvertisementService advertisementService) {
         this.advertisementService = advertisementService;
-        this.userSession = userSession;
     }
 
     @ShellMethod(key = "listAds", value = "List all advertisements")
     public String listAdvertisements() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+        try {
             return advertisementService.findAll().toString();
-        } else {
-            return "Only admin can list all ads";
+        } catch (RuntimeException e) {
+            return e.getMessage();
         }
     }
 
@@ -35,39 +31,31 @@ public class AdvertisementCLICommands {
                                    @ShellOption(value = {"length"}, help = "Length of the advertisement") final String length,
                                    @ShellOption(value = {"type"}, help = "The type of the advertisement") final String type,
                                    @ShellOption(value = {"releaseDate"}, help = "The release date of the ad (yyyy-MM-dd)") final String releaseDate) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            try {
-                return advertisementService.addAdvertisement(name, length, type, releaseDate).toString();
-            } catch (ParseException e) {
-                return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
-            }
-        } else {
-            return "Only admin can add ads";
+        try {
+            return advertisementService.addAdvertisement(name, length, type, releaseDate).toString();
+        } catch (ParseException e) {
+            return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
+        } catch (RuntimeException e) {
+            return e.getMessage();
         }
     }
 
     @ShellMethod(key = "findAd", value = "Find an ad by name")
     public String findAd(@ShellOption(value = {"name"}, help = "Name of the ad") final String name) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+        try {
             return advertisementService.findByName(name).toString();
-        } else {
-            return "Only admin can search for ads";
+        } catch (RuntimeException e) {
+            return e.getMessage();
         }
     }
 
     @ShellMethod(key = "deleteAd", value = "Delete an ad by id")
     public String deleteAd(@ShellOption(value = {"id"}, help = "Id of the ad") final String idStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            try {
-                advertisementService.delete(idStr);
-                return "Ad successfully deleted.";
-            } catch (NumberFormatException e) {
-                return "Invalid id format";
-            } catch (EntityNotFoundException e) {
-                return "Ad was not found";
-            }
-        } else {
-            return "Only admin can delete an ad";
+        try {
+            advertisementService.delete(idStr);
+            return "Ad successfully deleted.";
+        } catch (RuntimeException e) {
+            return e.getMessage();
         }
     }
 }

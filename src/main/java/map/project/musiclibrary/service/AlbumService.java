@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.audios.Album;
 import map.project.musiclibrary.data.model.audios.Song;
 import map.project.musiclibrary.data.model.users.ArtistUser;
+import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.data.repository.AlbumRepository;
 import map.project.musiclibrary.service.builders.AlbumBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,21 +31,24 @@ public class AlbumService {
     }
 
     public Album addAlbum(String name, String artistIdStr, String songIdsStr) {
-        List<Long> songIds = Arrays.stream(songIdsStr.split(","))
-                .map(Long::parseLong)
-                .collect(Collectors.toList());
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
+            List<Long> songIds = Arrays.stream(songIdsStr.split(","))
+                    .map(Long::parseLong)
+                    .collect(Collectors.toList());
 
-        //retrieve artist and release album
-        Long artistId = Long.parseLong(artistIdStr);
-        ArtistUser artist = artistUserService.findById(artistId)
-                .orElseThrow(() -> new EntityNotFoundException("Artist with ID " + artistId + " not found."));
-        Album album = new AlbumBuilder()
-                .setName(name)
-                .setSongIds(songIds)
-                .build(songService, this);
+            //retrieve artist and release album
+            Long artistId = Long.parseLong(artistIdStr);
+            ArtistUser artist = artistUserService.findById(artistId)
+                    .orElseThrow(() -> new EntityNotFoundException("Artist with ID " + artistId + " not found."));
+            Album album = new AlbumBuilder()
+                    .setName(name)
+                    .setSongIds(songIds)
+                    .build(songService, this);
 
-        releaseAlbum(artist, album);
-        return albumRepository.save(album);
+            releaseAlbum(artist, album);
+            return albumRepository.save(album);
+        }
+        throw new SecurityException("Only admins can add albums.");
     }
 
     public Album save(Album album) {
@@ -56,7 +60,11 @@ public class AlbumService {
     }
 
     public List<Album> findAll() {
-        return albumRepository.findAll();
+        if (UserSession.isLoggedIn()) {
+            return albumRepository.findAll();
+        } else {
+            throw new SecurityException("You must be logged in to view all albums");
+        }
     }
 
     public void releaseAlbum(ArtistUser artist, Album album) {
@@ -64,23 +72,26 @@ public class AlbumService {
     }
 
     public void delete(String idStr) throws NumberFormatException {
-        Long id = Long.parseLong(idStr);
-        Optional<Album> optional = albumRepository.findById(id);
-        if (optional.isPresent()) {
-            Album album = optional.get();
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
+            Long id = Long.parseLong(idStr);
+            Optional<Album> optional = albumRepository.findById(id);
+            if (optional.isPresent()) {
+                Album album = optional.get();
 
-            // remove the links between the songs and album
-            Iterator<Song> iterator = album.getSongs().iterator();
-            while (iterator.hasNext()) {
-                Song song = iterator.next();
-                song.setAlbum(null);
-                songService.save(song);
-                iterator.remove();
+                // remove the links between the songs and album
+                Iterator<Song> iterator = album.getSongs().iterator();
+                while (iterator.hasNext()) {
+                    Song song = iterator.next();
+                    song.setAlbum(null);
+                    songService.save(song);
+                    iterator.remove();
+                }
+
+                albumRepository.deleteById(id);
+            } else {
+                throw new EntityNotFoundException("Album was not found");
             }
-
-            albumRepository.deleteById(id);
-        } else {
-            throw new EntityNotFoundException("Album was not found");
         }
+        throw new SecurityException("Only admins can delete albums.");
     }
 }

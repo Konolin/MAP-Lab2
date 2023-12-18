@@ -5,6 +5,7 @@ import map.project.musiclibrary.data.model.audios.Playlist;
 import map.project.musiclibrary.data.model.audios.Song;
 import map.project.musiclibrary.data.model.users.NormalUser;
 import map.project.musiclibrary.data.model.users.User;
+import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.data.repository.PlaylistRepository;
 import map.project.musiclibrary.data.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,53 +29,60 @@ public class PlaylistService {
     }
 
     public Playlist addPlaylist(String name, NormalUser currentUser) {
-        Playlist playlist = new Playlist();
-        playlist.setName(name);
-        playlist.setUser(currentUser);
-        playlist.setSongs(new ArrayList<>());
-        return playlistRepository.save(playlist);
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
+            Playlist playlist = new Playlist();
+            playlist.setName(name);
+            playlist.setUser(currentUser);
+            playlist.setSongs(new ArrayList<>());
+            return playlistRepository.save(playlist);
+        }
+        throw new SecurityException("Only normal users can add a playlist.");
     }
 
     @Transactional
-    public boolean deletePlaylist(Long id, NormalUser currentUser) {
-        Optional<Playlist> playlistOptional = playlistRepository.findById(id);
-
-        if (playlistOptional.isPresent()) {
-            Playlist playlist = playlistOptional.get();
-
-            if (currentUser.equals(playlist.getNormalUser())) {  //checking if the playlist to be deleted belongs to the user that created it
-                for (Song song : playlist.getSongs()) {
-                    song.getPlaylists().remove(playlist);
-                    songRepository.save(song);
+    public boolean deletePlaylist(String idStr) throws NumberFormatException {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
+            Long id = Long.parseLong(idStr);
+            Optional<Playlist> playlistOptional = playlistRepository.findById(id);
+            if (playlistOptional.isPresent()) {
+                Playlist playlist = playlistOptional.get();
+                if (UserSession.getCurrentUser().equals(playlist.getNormalUser())) {  //checking if the playlist to be deleted belongs to the user that created it
+                    for (Song song : playlist.getSongs()) {
+                        song.getPlaylists().remove(playlist);
+                        songRepository.save(song);
+                    }
+                    //clear the list of songs from the playlist
+                    playlist.getSongs().clear();
+                    playlistRepository.deleteById(id);
+                    return true;
                 }
-
-                //clear the list of songs from the playlist
-                playlist.getSongs().clear();
-                playlistRepository.deleteById(id);
-                return true;
             }
+            return false;
         }
-        return false;
+        throw new SecurityException("Only normal users can delete their playlists.");
     }
 
-    public String updatePlaylistName(Long id){
-        Optional<Playlist> optionalPlaylist = playlistRepository.findById(id);
+    public String updatePlaylistName(Long id) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
+            Optional<Playlist> optionalPlaylist = playlistRepository.findById(id);
 
-        if (optionalPlaylist.isPresent()){
-            Playlist playlist = optionalPlaylist.get();
-            String newPlaylistName = promptPlaylistName();
-            if (playlist.getName().equals(newPlaylistName)) {
-                return "Error: New playlist name can't be the same as the old name.";
+            if (optionalPlaylist.isPresent()) {
+                Playlist playlist = optionalPlaylist.get();
+                String newPlaylistName = promptPlaylistName();
+                if (playlist.getName().equals(newPlaylistName)) {
+                    throw new IllegalArgumentException("Error: New playlist name can't be the same as the old name.");
+                }
+                playlist.setName(newPlaylistName);
+                playlistRepository.save(playlist);
+                return "Changes saved!";
+            } else {
+                throw new EntityNotFoundException("Playlist not found!");
             }
-            playlist.setName(newPlaylistName);
-            playlistRepository.save(playlist);
-            return "Changes saved!";
-        } else {
-            throw new EntityNotFoundException("Playlist not found!");
         }
+        throw new SecurityException("Only normal users can update their playlists.");
     }
 
-    public String promptPlaylistName(){
+    public String promptPlaylistName() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the new playlist name: ");
         return scanner.nextLine();
@@ -90,63 +98,58 @@ public class PlaylistService {
 
     @Transactional
     public List<Playlist> findAll() {
-        List<Playlist> playlists = playlistRepository.findAll();
-
-        playlists.forEach(playlist -> {
-            playlist.getSongs().size();
-        });
-
-        return playlists;
+        return playlistRepository.findAll();
     }
 
     @Transactional
     public Playlist addSong(String songIdStr, String playListIdStr, NormalUser currentUser) throws NumberFormatException {
-        Long songId = Long.parseLong(songIdStr);
-        Long playListId = Long.parseLong(playListIdStr);
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
+            Long songId = Long.parseLong(songIdStr);
+            Long playListId = Long.parseLong(playListIdStr);
+            Optional<Song> songOptional = songRepository.findById(songId);
+            Optional<Playlist> playlistOptional = playlistRepository.findById(playListId);
+            if (songOptional.isPresent() && playlistOptional.isPresent()) {
+                Song song = songOptional.get();
+                Playlist playlist = playlistOptional.get();
 
-        Optional<Song> songOptional = songRepository.findById(songId);
-        Optional<Playlist> playlistOptional = playlistRepository.findById(playListId);
-
-        if (songOptional.isPresent() && playlistOptional.isPresent()) {
-            Song song = songOptional.get();
-            Playlist playlist = playlistOptional.get();
-
-            //associate the playlist with the logged-in user
-            playlist.setUser(currentUser);
-            playlist.addSong(song);
-            song.getPlaylists().add(playlist);
-            songRepository.save(song);
-            return playlistRepository.save(playlist);
+                //associate the playlist with the logged-in user
+                playlist.setUser(currentUser);
+                playlist.addSong(song);
+                song.getPlaylists().add(playlist);
+                songRepository.save(song);
+                return playlistRepository.save(playlist);
+            }
+            throw new EntityNotFoundException("PlaylistService::Song or Playlist with specified id doesn't exist");
         }
-
-        throw new RuntimeException("PlaylistService::Song or Playlist with specified id doesn't exist");
+        throw new SecurityException("Only normal users can add a song to a playlist.");
     }
 
     @Transactional
-    public Playlist removeSong(Long playlistId, Long songId){
-        Optional<Song> optionalSong = songRepository.findById(songId);
-        Optional<Playlist> optionalPlaylist = playlistRepository.findById(playlistId);
+    public Playlist removeSong(Long playlistId, Long songId) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
+            Optional<Song> optionalSong = songRepository.findById(songId);
+            Optional<Playlist> optionalPlaylist = playlistRepository.findById(playlistId);
 
-        if (optionalPlaylist.isPresent() && optionalSong.isPresent()) {
-            Playlist playlist = optionalPlaylist.get();
-            Song song = optionalSong.get();
+            if (optionalPlaylist.isPresent() && optionalSong.isPresent()) {
+                Playlist playlist = optionalPlaylist.get();
+                Song song = optionalSong.get();
 
-            playlist.removeSong(song);
-            song.getPlaylists().remove(playlist);
-            songRepository.save(song);
-            return playlistRepository.save(playlist);
-        } else {
-            throw new EntityNotFoundException("Song or playlist not found.");
+                playlist.removeSong(song);
+                song.getPlaylists().remove(playlist);
+                songRepository.save(song);
+                return playlistRepository.save(playlist);
+            } else {
+                throw new EntityNotFoundException("Song or playlist not found.");
+            }
         }
+        throw new SecurityException("Only normal users can remove a song from a playlist.");
     }
 
     @Transactional
     public List<Playlist> findByUser(User user) {
-        List<Playlist> playlists = playlistRepository.findByNormalUser((NormalUser) user);
-        playlists.forEach(playlist -> {
-            playlist.getSongs().size();
-        });
-
-        return playlists;
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
+            return playlistRepository.findByNormalUser((NormalUser) user);
+        }
+        throw new SecurityException("Only normal users can view their playlists.");
     }
 }

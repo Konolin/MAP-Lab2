@@ -2353,3 +2353,15 @@
 1701258415413:updatePlaylist --id
 1701258429339:updatePlaylist --id 102
 1701258444252:listPlaylists
+1702912768689:listArtists
+1702912785390:adminLogin --email admin --password admin
+1702912790660:listArtists
+1702912815132:--login --email bob@gmail.com --password --bob123
+1702912822409:adminLogout
+1702912827328:--login --email bob@gmail.com --password --bob123
+1702912837402:help
+1702912854723:login
+1702912866262:--login --email bob@gmail.com --password --bob123
+1702912875428:login --email bob@gmail.com --password --bob123
+1702912885171:login --email bob@gmail.com --password bob123
+1702912890099:listArtists

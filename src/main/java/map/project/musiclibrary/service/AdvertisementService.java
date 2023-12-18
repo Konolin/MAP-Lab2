@@ -3,6 +3,7 @@ package map.project.musiclibrary.service;
 import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.model.audios.Advertisement;
 import map.project.musiclibrary.data.model.audios.Podcast;
+import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.data.repository.AdvertisementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,46 +27,69 @@ public class AdvertisementService {
     }
 
     public Advertisement addAdvertisement(String name, String lengthStr, String type, String releaseDateStr) throws ParseException {
-        Advertisement advertisement = new Advertisement();
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
+            Advertisement advertisement = new Advertisement();
 
-        advertisement.setName(name);
-        advertisement.setLength(Integer.parseInt(lengthStr));
-        advertisement.setAdvertisementType(type);
+            advertisement.setName(name);
+            try {
+                int length = Integer.parseInt(lengthStr);
+                advertisement.setLength(length);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException("Error: Invalid length format. Please use a number.");
+            }
+            advertisement.setAdvertisementType(type);
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date releaseDate = dateFormat.parse(releaseDateStr);
-        advertisement.setReleaseDate(releaseDate);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date releaseDate = dateFormat.parse(releaseDateStr);
+            advertisement.setReleaseDate(releaseDate);
 
-        return advertisementRepository.save(advertisement);
+            return advertisementRepository.save(advertisement);
+        }
+        throw new RuntimeException("Only admin can add ads");
     }
 
     public Advertisement findByName(String name) {
-        return advertisementRepository.findByName(name).stream().findFirst().orElse(null);
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
+            return advertisementRepository.findByName(name).stream().findFirst().orElse(null);
+        }
+        throw new RuntimeException("Only admin can find ads");
     }
 
     public List<Advertisement> findAll() {
-        return advertisementRepository.findAll();
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
+            return advertisementRepository.findAll();
+        }
+        throw new RuntimeException("Only admin can list all ads");
     }
 
-    public boolean delete(String idStr) throws NumberFormatException {
-        Long id = Long.parseLong(idStr);
-        Optional<Advertisement> optional = advertisementRepository.findById(id);
-        if (optional.isPresent()) {
-            Advertisement advertisement = optional.get();
-
-            // remove the links between the podcasts and ad
-            Iterator<Podcast> iterator = advertisement.getPodcasts().iterator();
-            while (iterator.hasNext()) {
-                Podcast podcast = iterator.next();
-                podcast.getAdvertisements().remove(advertisement);
-                podcastService.save(podcast);
-                iterator.remove();
+    public boolean delete(String idStr) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
+            Long id;
+            try {
+                id = Long.parseLong(idStr);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException("Error: Invalid id format. Please use a number.");
             }
 
-            advertisementRepository.deleteById(id);
-            return true;
-        } else {
-            throw new EntityNotFoundException("Ad was not found");
+            Optional<Advertisement> optional = advertisementRepository.findById(id);
+            if (optional.isPresent()) {
+                Advertisement advertisement = optional.get();
+
+                // remove the links between the podcasts and ad
+                Iterator<Podcast> iterator = advertisement.getPodcasts().iterator();
+                while (iterator.hasNext()) {
+                    Podcast podcast = iterator.next();
+                    podcast.getAdvertisements().remove(advertisement);
+                    podcastService.save(podcast);
+                    iterator.remove();
+                }
+
+                advertisementRepository.deleteById(id);
+                return true;
+            } else {
+                throw new EntityNotFoundException("Ad was not found");
+            }
         }
+        throw new RuntimeException("Only admin can delete ads");
     }
 }

@@ -1,25 +1,22 @@
 package map.project.musiclibrary.data.model.users;
 
+import lombok.Getter;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserSession {
+    @Getter
+    private static User currentUser;
 
-    private User currentUser;
-
-    public void login(User user) {
-        this.currentUser = user;
+    public static void login(User user) {
+        currentUser = user;
     }
 
-    public User getCurrentUser() {
-        return currentUser;
+    public static void logout() {
+        currentUser = null;
     }
 
-    public void logout() {
-        this.currentUser = null;
-    }
-
-    public boolean isLoggedIn() {
+    public static boolean isLoggedIn() {
         return currentUser != null;
     }
 }

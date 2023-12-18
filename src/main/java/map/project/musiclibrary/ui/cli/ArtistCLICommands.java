@@ -1,46 +1,37 @@
 package map.project.musiclibrary.ui.cli;
 
 import jakarta.persistence.EntityNotFoundException;
-import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.ArtistUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
-import java.text.ParseException;
-
 @ShellComponent
 public class ArtistCLICommands {
     private final ArtistUserService artistUserService;
-    private final UserSession userSession;
 
     @Autowired
-    public ArtistCLICommands(ArtistUserService artistUserService, UserSession userSession) {
+    public ArtistCLICommands(ArtistUserService artistUserService) {
         this.artistUserService = artistUserService;
-        this.userSession = userSession;
     }
 
     @ShellMethod(key = "listArtists", value = "List all artists")
     public String listArtists() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+        try {
             return artistUserService.findAll().toString();
-        } else {
-            return "Only admin can list all artists";
+        } catch (SecurityException e) {
+            return e.getMessage();
         }
     }
 
     @ShellMethod(key = "addArtist", value = "Add an artist")
     public String addArtist(@ShellOption(value = {"name"}, help = "Name of the artist") final String name,
                             @ShellOption(value = {"birthdate"}, help = "Birthdate of the artist") final String birthdateStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            try {
-                return artistUserService.addArtist(name, birthdateStr).toString();
-            } catch (ParseException e) {
-                return "Error: Invalid birthdate format. Please use yyyy-MM-dd.";
-            }
-        } else {
-            return "Only admin can add an artist";
+        try {
+            return artistUserService.addArtist(name, birthdateStr).toString();
+        } catch (SecurityException | IllegalArgumentException e) {
+            return e.getMessage();
         }
     }
 
@@ -51,32 +42,24 @@ public class ArtistCLICommands {
 
     @ShellMethod(key = "listFollowers", value = "List the followers of an artist")
     public String getFollowers(@ShellOption(value = {"artistId"}, help = "ID of the artist") final String artistIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            try {
-                return artistUserService.getFollowers(artistIdStr).toString();
-            } catch (NumberFormatException e) {
-                return "Error: Invalid integer format. Please provide a valid number.";
-            } catch (EntityNotFoundException e) {
-                return "User with specified id not found";
-            }
-        } else {
-            return "Only admin can list all the followers of an artist";
+        try {
+            return artistUserService.getFollowers(artistIdStr).toString();
+        } catch (NumberFormatException e) {
+            return "Error: Invalid integer format. Please provide a valid number.";
+        } catch (SecurityException | EntityNotFoundException e) {
+            return e.getMessage();
         }
     }
 
     @ShellMethod(key = "deleteArtist", value = "Delete an artist by id (It also deletes their songs!)")
     public String deleteAlbum(@ShellOption(value = {"id"}, help = "Id of the artist") final String idStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            try {
-                artistUserService.delete(idStr);
-                return "Artist successfully deleted.";
-            } catch (NumberFormatException e) {
-                return "Invalid id format";
-            } catch (EntityNotFoundException e) {
-                return "Artist was not found";
-            }
-        } else {
-            return "Only admin can delete an artist";
+        try {
+            artistUserService.delete(idStr);
+            return "Artist with ID " + idStr + " has been deleted successfully!";
+        } catch (NumberFormatException e) {
+            return "Invalid id format";
+        } catch (SecurityException | EntityNotFoundException e) {
+            return e.getMessage();
         }
     }
 }

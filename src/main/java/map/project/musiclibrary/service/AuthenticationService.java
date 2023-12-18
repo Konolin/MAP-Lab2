@@ -12,15 +12,18 @@ import java.util.List;
 
 @Service
 public class AuthenticationService {
+    private final LoginCredentialsRepository loginCredentialsRepository;
 
     @Autowired
-    private LoginCredentialsRepository loginCredentialsRepository;
+    public AuthenticationService(LoginCredentialsRepository loginCredentialsRepository) {
+        this.loginCredentialsRepository = loginCredentialsRepository;
+    }
 
     public User login(String email, String password) {
         List<LoginCredentials> loginCredentialsList = loginCredentialsRepository.findByEmailAndPassword(email, password);
 
-        if (!loginCredentialsList.isEmpty() && loginCredentialsList.get(0).getUser() instanceof NormalUser) {
-            return loginCredentialsList.get(0).getUser();
+        if (!loginCredentialsList.isEmpty() && loginCredentialsList.getFirst().getUser().isNormalUser()) {
+            return loginCredentialsList.getFirst().getUser();
         }
         if (isAdminCredentials(email, password)) {
             return Admin.getInstance();

@@ -14,20 +14,18 @@ import java.text.ParseException;
 @ShellComponent
 public class SongCLICommands {
     private final SongService songService;
-    private final UserSession userSession;
 
     @Autowired
-    public SongCLICommands(SongService songService, UserSession userSession) {
+    public SongCLICommands(SongService songService) {
         this.songService = songService;
-        this.userSession = userSession;
     }
 
     @ShellMethod(key = "listSongs", value = "List all songs")
     public String listSongs() {
-        if (userSession.isLoggedIn()) {
+        try {
             return songService.findAll().toString();
-        } else {
-            return "You must be logged in to se all songs";
+        } catch (SecurityException e) {
+            return e.getMessage();
         }
     }
 
@@ -37,17 +35,13 @@ public class SongCLICommands {
                           @ShellOption(value = {"length"}, help = "Length of the song(in seconds)") final String lengthStr,
                           @ShellOption(value = {"releaseDate"}, help = "The release date of the song") final String releaseDateStr,
                           @ShellOption(value = {"artistId"}, help = "The id of the artist of the song") final String artistIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
             try {
                 return songService.addSong(name, genre, lengthStr, releaseDateStr, artistIdStr).toString();
-            } catch (IllegalArgumentException e) {
+            } catch (SecurityException | NumberFormatException | EntityNotFoundException e) {
                 return e.getMessage();
             } catch (ParseException e) {
                 return "Invalid birthdate format. Please use yyyy-MM-dd.";
             }
-        } else {
-            return "Only admin can add songs";
-        }
     }
 
     @ShellMethod(key = "findSong", value = "Find a song by name")
@@ -57,25 +51,22 @@ public class SongCLICommands {
 
     @ShellMethod(key = "playSong", value = "Play a song by name")
     public String playSong(@ShellOption(value = {"name"}, help = "Name of the song") final String songName) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
-            return songService.playSong(songName, (NormalUser) userSession.getCurrentUser());
+        try {
+            return songService.playSong(songName);
+        } catch (SecurityException | EntityNotFoundException e) {
+            return e.getMessage();
         }
-        return "Only normal users can play songs";
     }
 
     @ShellMethod(key = "deleteSong", value = "Delete a song by id")
     public String deleteSong(@ShellOption(value = {"id"}, help = "Id of the song") final String idStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
-            try {
-                songService.delete(idStr);
-                return "Song successfully deleted.";
-            } catch (NumberFormatException e) {
-                return "Invalid id format";
-            } catch (EntityNotFoundException e) {
-                return "Song was not found";
-            }
-        } else {
-            return "Only admin can delete a song";
+        try {
+            songService.delete(idStr);
+            return "Song successfully deleted.";
+        } catch (NumberFormatException e) {
+            return "Invalid id format";
+        } catch (SecurityException | EntityNotFoundException e) {
+            return e.getMessage();
         }
     }
 }
