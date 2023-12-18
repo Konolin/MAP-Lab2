@@ -8,6 +8,8 @@ import map.project.musiclibrary.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+
 @RestController
 @RequestMapping("/songs")
 public class SongEndpoint {
@@ -20,25 +22,21 @@ public class SongEndpoint {
 
     @GetMapping("/list")
     public String listSongs() {
-        if (UserSession.isLoggedIn()) {
+        try {
             return songService.findAll().toString();
-        } else {
-            return "You must be logged in to se all songs";
+        } catch (SecurityException e) {
+            return e.getMessage();
         }
     }
 
     @PostMapping("/add")
     public String addSong(@RequestBody SongDTO request) {
-        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
-            try {
-                return songService.addSong(request.getName(), request.getGenre(), request.getLengthStr(), request.getReleaseDateStr(), request.getArtistIdStr()).toString();
-            } catch (IllegalArgumentException e) {
-                return e.getMessage();
-            } catch (Exception e) {
-                return "Invalid birthdate format. Please use yyyy-MM-dd.";
-            }
-        } else {
-            return "Only admin can add songs";
+        try {
+            return songService.addSong(request.getName(), request.getGenre(), request.getLengthStr(), request.getReleaseDateStr(), request.getArtistIdStr()).toString();
+        } catch (SecurityException | NumberFormatException | EntityNotFoundException e) {
+            return e.getMessage();
+        } catch (ParseException e) {
+            return "Invalid birthdate format. Please use yyyy-MM-dd.";
         }
     }
 
@@ -49,25 +47,22 @@ public class SongEndpoint {
 
     @DeleteMapping("/delete")
     public String deleteSong(@RequestParam String idStr) {
-        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
-            try {
-                songService.delete(idStr);
-                return "Song successfully deleted.";
-            } catch (NumberFormatException e) {
-                return "Invalid id format";
-            } catch (EntityNotFoundException e) {
-                return "Song was not found";
-            }
-        } else {
-            return "Only admin can delete a song";
+        try {
+            songService.delete(idStr);
+            return "Song successfully deleted.";
+        } catch (NumberFormatException e) {
+            return "Invalid id format";
+        } catch (SecurityException | EntityNotFoundException e) {
+            return e.getMessage();
         }
     }
 
     @PostMapping("/play")
     public String playSong(@RequestParam String songName) {
-        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
-            return songService.playSong(songName, (NormalUser) UserSession.getCurrentUser());
+        try {
+            return songService.playSong(songName);
+        } catch (SecurityException | EntityNotFoundException e) {
+            return e.getMessage();
         }
-        return "Only normal users can play songs";
     }
 }
