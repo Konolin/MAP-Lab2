@@ -1,30 +1,25 @@
 package map.project.musiclibrary.ui.cli;
 
 import jakarta.persistence.EntityNotFoundException;
-import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.HostUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
-import java.text.ParseException;
-
 @ShellComponent
 public class HostCLICommands {
     private final HostUserService hostUserService;
-    private final UserSession userSession;
 
     @Autowired
-    public HostCLICommands(HostUserService hostUserService, UserSession userSession) {
+    public HostCLICommands(HostUserService hostUserService) {
         this.hostUserService = hostUserService;
-        this.userSession = userSession;
     }
 
     @ShellMethod(key = "listHosts", value = "List all hosts")
     public String listHostUsers() {
         try {
-            return hostUserService.findAll(userSession).toString();
+            return hostUserService.findAll().toString();
         } catch (SecurityException e) {
             return e.getMessage();
         }
@@ -34,7 +29,7 @@ public class HostCLICommands {
     public String addHost(@ShellOption(value = {"name"}, help = "Name of the host") final String name,
                           @ShellOption(value = {"birthdate"}, help = "Birthdate of the user (yyyy-MM-dd)") final String birthdateStr) {
         try {
-            return hostUserService.addHost(userSession, name, birthdateStr).toString();
+            return hostUserService.addHost(name, birthdateStr).toString();
         } catch (SecurityException | IllegalArgumentException e) {
             return e.getMessage();
         }
@@ -43,7 +38,7 @@ public class HostCLICommands {
     @ShellMethod(key = "deleteHost", value = "Delete a host (Deletes their podcasts as well!")
     public String deleteHost(@ShellOption(value = {"hostId"}, help = "ID of the host to be deleted") final String hostIdStr) {
         try {
-            hostUserService.deleteHost(userSession, hostIdStr);
+            hostUserService.deleteHost(hostIdStr);
             return "Host with ID " + hostIdStr + " has been deleted successfully!";
         } catch (NumberFormatException e) {
             return "Invalid id format";

@@ -11,17 +11,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/podcasts")
 public class PodcastEndpoint {
     private final PodcastService podcastService;
-    private final UserSession userSession;
 
     @Autowired
-    public PodcastEndpoint(PodcastService podcastService, UserSession userSession) {
+    public PodcastEndpoint(PodcastService podcastService) {
         this.podcastService = podcastService;
-        this.userSession = userSession;
     }
 
     @GetMapping("/list")
     public String listPodcasts() {
-        if (userSession.isLoggedIn()) {
+        if (UserSession.isLoggedIn()) {
             return podcastService.findAll().toString();
         } else {
             return "You must be logged in to see all podcasts";
@@ -30,7 +28,7 @@ public class PodcastEndpoint {
 
     @PostMapping("/add")
     public String addPodcast(@RequestBody PodcastDTO request) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             try {
                 return podcastService.addPodcast(request.getName(), request.getLengthStr(), request.getTopic(), request.getReleaseDateStr(), request.getHostIdStr()).toString();
             } catch (IllegalArgumentException e) {
@@ -43,7 +41,7 @@ public class PodcastEndpoint {
 
     @DeleteMapping("/delete")
     public String deletePodcast(@RequestParam String podcastIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             try {
                 Long podcastId = Long.parseLong(podcastIdStr);
                 podcastService.deletePodcast(podcastId);
@@ -65,7 +63,7 @@ public class PodcastEndpoint {
 
     @PostMapping("/addAd")
     public String addAd(@RequestParam String podcastIdStr, @RequestParam String adIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             try {
                 return podcastService.addAdToPodcast(adIdStr, podcastIdStr).toString();
             } catch (NumberFormatException e) {
@@ -80,7 +78,7 @@ public class PodcastEndpoint {
 
     @PostMapping("/play")
     public String playPodcast(@RequestParam String podcastName) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
             return podcastService.playPodcast(podcastName);
         }
         return "You must log into a normal user account to play a podcast.";
@@ -88,7 +86,7 @@ public class PodcastEndpoint {
 
     @PostMapping("/playSpeed")
     public String playPodcastSpeed(@RequestParam String podcastName, @RequestParam String speed) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser() && userSession.getCurrentUser().isPremiumUser()) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser() && UserSession.getCurrentUser().isPremiumUser()) {
             try {
                 return podcastService.playPodcastSpeed(podcastName, speed);
             } catch (EntityNotFoundException e) {

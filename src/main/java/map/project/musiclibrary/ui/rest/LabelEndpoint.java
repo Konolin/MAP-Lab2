@@ -1,7 +1,6 @@
 package map.project.musiclibrary.ui.rest;
 
 import jakarta.persistence.EntityNotFoundException;
-import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,18 +9,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/labels")
 public class LabelEndpoint {
     private final LabelService labelService;
-    private final UserSession userSession;
 
     @Autowired
-    public LabelEndpoint(LabelService labelService, UserSession userSession) {
+    public LabelEndpoint(LabelService labelService) {
         this.labelService = labelService;
-        this.userSession = userSession;
     }
 
     @GetMapping("/list")
     public String listLabels() {
         try {
-            return labelService.findAll(userSession).toString();
+            return labelService.findAll().toString();
         } catch (SecurityException e) {
             return e.getMessage();
         }
@@ -30,7 +27,7 @@ public class LabelEndpoint {
     @PostMapping("/add")
     public String addLabel(@RequestParam String name) {
         try {
-            return labelService.addLabel(userSession, name).toString();
+            return labelService.addLabel(name).toString();
         } catch (SecurityException e) {
             return e.getMessage();
         }
@@ -39,7 +36,7 @@ public class LabelEndpoint {
     @DeleteMapping("/delete")
     public String deleteLabel(@RequestParam String labelIdStr) {
         try {
-            labelService.deleteLabel(userSession, labelIdStr);
+            labelService.deleteLabel(labelIdStr);
             return "Label with ID " + labelIdStr + " has been deleted successfully!";
         } catch (NumberFormatException e) {
             return "Invalid id format";
@@ -56,7 +53,7 @@ public class LabelEndpoint {
     @PostMapping("/addArtist")
     public String addArtistToLabel(@RequestParam String artistIdStr, @RequestParam String labelIdStr) {
         try {
-            return labelService.addArtist(userSession, artistIdStr, labelIdStr).toString();
+            return labelService.addArtist(artistIdStr, labelIdStr).toString();
         } catch (IllegalArgumentException e) {
             return "Invalid id format";
         } catch (EntityNotFoundException | SecurityException e) {

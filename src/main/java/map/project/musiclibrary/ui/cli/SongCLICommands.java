@@ -14,17 +14,15 @@ import java.text.ParseException;
 @ShellComponent
 public class SongCLICommands {
     private final SongService songService;
-    private final UserSession userSession;
 
     @Autowired
-    public SongCLICommands(SongService songService, UserSession userSession) {
+    public SongCLICommands(SongService songService) {
         this.songService = songService;
-        this.userSession = userSession;
     }
 
     @ShellMethod(key = "listSongs", value = "List all songs")
     public String listSongs() {
-        if (userSession.isLoggedIn()) {
+        if (UserSession.isLoggedIn()) {
             return songService.findAll().toString();
         } else {
             return "You must be logged in to se all songs";
@@ -37,7 +35,7 @@ public class SongCLICommands {
                           @ShellOption(value = {"length"}, help = "Length of the song(in seconds)") final String lengthStr,
                           @ShellOption(value = {"releaseDate"}, help = "The release date of the song") final String releaseDateStr,
                           @ShellOption(value = {"artistId"}, help = "The id of the artist of the song") final String artistIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             try {
                 return songService.addSong(name, genre, lengthStr, releaseDateStr, artistIdStr).toString();
             } catch (IllegalArgumentException e) {
@@ -57,15 +55,15 @@ public class SongCLICommands {
 
     @ShellMethod(key = "playSong", value = "Play a song by name")
     public String playSong(@ShellOption(value = {"name"}, help = "Name of the song") final String songName) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
-            return songService.playSong(songName, (NormalUser) userSession.getCurrentUser());
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
+            return songService.playSong(songName, (NormalUser) UserSession.getCurrentUser());
         }
         return "Only normal users can play songs";
     }
 
     @ShellMethod(key = "deleteSong", value = "Delete a song by id")
     public String deleteSong(@ShellOption(value = {"id"}, help = "Id of the song") final String idStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             try {
                 songService.delete(idStr);
                 return "Song successfully deleted.";

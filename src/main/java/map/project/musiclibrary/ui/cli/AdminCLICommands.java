@@ -12,12 +12,10 @@ import org.springframework.shell.standard.ShellOption;
 public class AdminCLICommands {
 
     private final AdminService adminService;
-    private final UserSession userSession;
 
     @Autowired
-    public AdminCLICommands(AdminService adminService, UserSession userSession) {
+    public AdminCLICommands(AdminService adminService) {
         this.adminService = adminService;
-        this.userSession = userSession;
     }
 
     @ShellMethod(key = "adminLogin", value = "Log in as an admin")
@@ -26,7 +24,7 @@ public class AdminCLICommands {
         Admin admin = adminService.login(email, password);
 
         if (admin != null) {
-            userSession.login(admin);
+            UserSession.login(admin);
             return "Admin login successful";
         } else {
             return "Invalid admin credentials. Please try again.";
@@ -35,7 +33,7 @@ public class AdminCLICommands {
 
     @ShellMethod(key = "adminLogout", value = "Logout as an admin")
     public String adminLogout() {
-        userSession.logout();
+        UserSession.logout();
         return "Admin logout successful.";
     }
 }

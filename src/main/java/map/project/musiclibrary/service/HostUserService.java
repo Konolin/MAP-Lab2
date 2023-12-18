@@ -26,8 +26,8 @@ public class HostUserService {
         this.podcastService = podcastService;
     }
 
-    public HostUser addHost(UserSession userSession, String name, String birthdateStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public HostUser addHost(String name, String birthdateStr) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date birthdate;
             try {
@@ -43,8 +43,8 @@ public class HostUserService {
         throw new SecurityException("You must log in as an admin to add a host.");
     }
 
-    public void deleteHost(UserSession userSession, String idStr) throws NumberFormatException {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public void deleteHost(String idStr) throws NumberFormatException {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             Long id = Long.parseLong(idStr);
             Optional<HostUser> hostUserOptional = hostUserRepository.findById(id);
 
@@ -70,8 +70,8 @@ public class HostUserService {
         return hostUserRepository.findByName(name).stream().findFirst().orElse(null);
     }
 
-    public List<HostUser> findAll(UserSession userSession) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public List<HostUser> findAll() {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             return hostUserRepository.findAll();
         }
         throw new SecurityException("You must log in as an admin to list all hosts.");

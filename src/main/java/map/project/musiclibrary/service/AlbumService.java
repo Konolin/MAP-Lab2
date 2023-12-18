@@ -30,8 +30,8 @@ public class AlbumService {
         this.songService = songService;
     }
 
-    public Album addAlbum(UserSession userSession, String name, String artistIdStr, String songIdsStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public Album addAlbum(String name, String artistIdStr, String songIdsStr) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             List<Long> songIds = Arrays.stream(songIdsStr.split(","))
                     .map(Long::parseLong)
                     .collect(Collectors.toList());
@@ -59,8 +59,8 @@ public class AlbumService {
         return albumRepository.findByName(name).stream().findFirst().orElse(null);
     }
 
-    public List<Album> findAll(UserSession userSession) {
-        if (userSession.isLoggedIn()) {
+    public List<Album> findAll() {
+        if (UserSession.isLoggedIn()) {
             return albumRepository.findAll();
         } else {
             throw new SecurityException("You must be logged in to view all albums");
@@ -71,8 +71,8 @@ public class AlbumService {
         artist.notifyFollowers(album);
     }
 
-    public void delete(UserSession userSession, String idStr) throws NumberFormatException {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public void delete(String idStr) throws NumberFormatException {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             Long id = Long.parseLong(idStr);
             Optional<Album> optional = albumRepository.findById(id);
             if (optional.isPresent()) {

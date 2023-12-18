@@ -26,8 +26,8 @@ public class AdvertisementService {
         this.podcastService = podcastService;
     }
 
-    public Advertisement addAdvertisement(UserSession userSession, String name, String lengthStr, String type, String releaseDateStr) throws ParseException {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public Advertisement addAdvertisement(String name, String lengthStr, String type, String releaseDateStr) throws ParseException {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             Advertisement advertisement = new Advertisement();
 
             advertisement.setName(name);
@@ -48,22 +48,22 @@ public class AdvertisementService {
         throw new RuntimeException("Only admin can add ads");
     }
 
-    public Advertisement findByName(UserSession userSession, String name) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public Advertisement findByName(String name) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             return advertisementRepository.findByName(name).stream().findFirst().orElse(null);
         }
         throw new RuntimeException("Only admin can find ads");
     }
 
-    public List<Advertisement> findAll(UserSession userSession) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public List<Advertisement> findAll() {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             return advertisementRepository.findAll();
         }
         throw new RuntimeException("Only admin can list all ads");
     }
 
-    public boolean delete(UserSession userSession, String idStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public boolean delete(String idStr) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             Long id;
             try {
                 id = Long.parseLong(idStr);

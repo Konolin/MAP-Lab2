@@ -12,17 +12,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/songs")
 public class SongEndpoint {
     private final SongService songService;
-    private final UserSession userSession;
 
     @Autowired
-    public SongEndpoint(SongService songService, UserSession userSession) {
+    public SongEndpoint(SongService songService) {
         this.songService = songService;
-        this.userSession = userSession;
     }
 
     @GetMapping("/list")
     public String listSongs() {
-        if (userSession.isLoggedIn()) {
+        if (UserSession.isLoggedIn()) {
             return songService.findAll().toString();
         } else {
             return "You must be logged in to se all songs";
@@ -31,7 +29,7 @@ public class SongEndpoint {
 
     @PostMapping("/add")
     public String addSong(@RequestBody SongDTO request) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             try {
                 return songService.addSong(request.getName(), request.getGenre(), request.getLengthStr(), request.getReleaseDateStr(), request.getArtistIdStr()).toString();
             } catch (IllegalArgumentException e) {
@@ -51,7 +49,7 @@ public class SongEndpoint {
 
     @DeleteMapping("/delete")
     public String deleteSong(@RequestParam String idStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             try {
                 songService.delete(idStr);
                 return "Song successfully deleted.";
@@ -67,8 +65,8 @@ public class SongEndpoint {
 
     @PostMapping("/play")
     public String playSong(@RequestParam String songName) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
-            return songService.playSong(songName, (NormalUser) userSession.getCurrentUser());
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
+            return songService.playSong(songName, (NormalUser) UserSession.getCurrentUser());
         }
         return "Only normal users can play songs";
     }

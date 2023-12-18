@@ -2,7 +2,6 @@ package map.project.musiclibrary.ui.rest;
 
 import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.dto.AlbumDTO;
-import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,18 +10,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/album")
 public class AlbumEndpoint {
     private final AlbumService albumService;
-    private final UserSession userSession;
 
     @Autowired
-    public AlbumEndpoint(AlbumService albumService, UserSession userSession) {
+    public AlbumEndpoint(AlbumService albumService) {
         this.albumService = albumService;
-        this.userSession = userSession;
     }
 
     @GetMapping("/list")
     public String listAlbums() {
         try {
-            return albumService.findAll(userSession).toString();
+            return albumService.findAll().toString();
         } catch (SecurityException e) {
             return e.getMessage();
         }
@@ -31,7 +28,7 @@ public class AlbumEndpoint {
     @PostMapping("/add")
     public String addAlbum(@RequestBody AlbumDTO request) {
         try {
-            return albumService.addAlbum(userSession, request.getName(), request.getArtistId(), request.getSongIds()).toString();
+            return albumService.addAlbum(request.getName(), request.getArtistId(), request.getSongIds()).toString();
         } catch (NumberFormatException e) {
             return "Error: Invalid integer format. Please provide valid numbers for song IDs.";
         } catch (IllegalArgumentException | SecurityException e) {
@@ -47,7 +44,7 @@ public class AlbumEndpoint {
     @DeleteMapping("/delete")
     public String deleteAlbum(@RequestParam String idStr) {
         try {
-            albumService.delete(userSession, idStr);
+            albumService.delete(idStr);
             return "Album with ID " + idStr + " has been deleted successfully!";
         } catch (NumberFormatException e) {
             return "Error: Invalid integer format. Please provide a valid number.";

@@ -2,7 +2,6 @@ package map.project.musiclibrary.ui.rest;
 
 import jakarta.persistence.EntityNotFoundException;
 import map.project.musiclibrary.data.dto.HostDTO;
-import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.HostUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,18 +10,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/host")
 public class HostEndpoint {
     private final HostUserService hostUserService;
-    private final UserSession userSession;
 
     @Autowired
-    public HostEndpoint(HostUserService hostUserService, UserSession userSession) {
+    public HostEndpoint(HostUserService hostUserService) {
         this.hostUserService = hostUserService;
-        this.userSession = userSession;
     }
 
     @GetMapping("/list")
     public String listHostUsers() {
         try {
-            return hostUserService.findAll(userSession).toString();
+            return hostUserService.findAll().toString();
         } catch (SecurityException e) {
             return e.getMessage();
         }
@@ -31,7 +28,7 @@ public class HostEndpoint {
     @PostMapping("/add")
     public String addHost(@RequestBody HostDTO request) {
         try {
-            return hostUserService.addHost(userSession, request.getName(), request.getBirthdate()).toString();
+            return hostUserService.addHost(request.getName(), request.getBirthdate()).toString();
         } catch (SecurityException | IllegalArgumentException e) {
             return e.getMessage();
         }
@@ -40,7 +37,7 @@ public class HostEndpoint {
     @DeleteMapping("/delete")
     public String deleteHost(@RequestParam String idStr) {
         try {
-            hostUserService.deleteHost(userSession, idStr);
+            hostUserService.deleteHost(idStr);
             return "Host with ID " + idStr + " has been deleted successfully!";
         } catch (NumberFormatException e) {
             return "Invalid id format";

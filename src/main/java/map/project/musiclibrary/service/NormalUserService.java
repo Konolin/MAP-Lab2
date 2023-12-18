@@ -27,8 +27,8 @@ public class NormalUserService {
         this.artistUserService = artistUserService;
     }
 
-    public NormalUser addNormalUser(UserSession userSession, String name, String email, String password, String isPremiumStr, String birthdateStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public NormalUser addNormalUser(String name, String email, String password, String isPremiumStr, String birthdateStr) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             NormalUser user = new NormalUser();
             user.setName(name);
 
@@ -63,16 +63,16 @@ public class NormalUserService {
         throw new SecurityException("Only admin can add users.");
     }
 
-    public void deleteNormalUser(UserSession userSession, String idStr) throws NumberFormatException {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public void deleteNormalUser(String idStr) throws NumberFormatException {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             Long id = Long.parseLong(idStr);
             normalUserRepository.deleteById(id);
         }
         throw new SecurityException("Only admin can delete users.");
     }
 
-    public String updateUser(UserSession userSession, Long id, Map<String, Object> updates) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
+    public String updateUser(Long id, Map<String, Object> updates) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
             Optional<NormalUser> optionalNormalUser = normalUserRepository.findById(id);
             if (optionalNormalUser.isPresent()) {
                 NormalUser normalUser = optionalNormalUser.get();
@@ -135,15 +135,15 @@ public class NormalUserService {
         return normalUserRepository.save(user);
     }
 
-    public NormalUser findByName(UserSession userSession, String name) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser() instanceof Admin) {
+    public NormalUser findByName(String name) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser() instanceof Admin) {
             return normalUserRepository.findByName(name).stream().findFirst().orElse(null);
         }
         throw new SecurityException("Only admin can view all users.");
     }
 
-    public List<NormalUser> findAll(UserSession userSession) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public List<NormalUser> findAll() {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             return normalUserRepository.findAll();
         }
         throw new SecurityException("Only admin can view all users.");
@@ -158,12 +158,12 @@ public class NormalUserService {
     }
 
     @Transactional
-    public void followArtist(UserSession userSession, String artistIdStr) throws NumberFormatException {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
+    public void followArtist(String artistIdStr) throws NumberFormatException {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
             Long artistId = Long.parseLong(artistIdStr);
             Optional<ArtistUser> artistUserOptional = artistUserService.findById(artistId);
 
-            NormalUser user = (NormalUser) userSession.getCurrentUser();
+            NormalUser user = (NormalUser) UserSession.getCurrentUser();
             Optional<NormalUser> userOptional = normalUserRepository.findById(user.getId());
 
             if (artistUserOptional.isPresent() && userOptional.isPresent()) {
@@ -179,12 +179,12 @@ public class NormalUserService {
     }
 
     @Transactional
-    public void unfollowArtist(UserSession userSession, String artistIdStr) throws NumberFormatException {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
+    public void unfollowArtist(String artistIdStr) throws NumberFormatException {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
             Long artistId = Long.parseLong(artistIdStr);
             Optional<ArtistUser> artistUserOptional = artistUserService.findById(artistId);
 
-            NormalUser user = (NormalUser) userSession.getCurrentUser();
+            NormalUser user = (NormalUser) UserSession.getCurrentUser();
             Optional<NormalUser> userOptional = normalUserRepository.findById(user.getId());
 
             if (artistUserOptional.isPresent() && userOptional.isPresent()) {
@@ -199,9 +199,9 @@ public class NormalUserService {
         throw new SecurityException("Only normal users can unfollow artists.");
     }
 
-    public List<Notification> getNotifications(UserSession userSession) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
-            NormalUser normalUser = (NormalUser) userSession.getCurrentUser();
+    public List<Notification> getNotifications() {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
+            NormalUser normalUser = (NormalUser) UserSession.getCurrentUser();
             List<Notification> notifications = normalUser.getNotifications();
             normalUser.setNotifications(new ArrayList<>());
             return notifications;

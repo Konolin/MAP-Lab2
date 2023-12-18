@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/admin")
 public class AdminEndpoint {
     private final AdminService adminService;
-    private final UserSession userSession;
 
     @Autowired
-    public AdminEndpoint(AdminService adminService, UserSession userSession) {
+    public AdminEndpoint(AdminService adminService) {
         this.adminService = adminService;
-        this.userSession = userSession;
     }
 
     @PostMapping("/login")
@@ -30,7 +28,7 @@ public class AdminEndpoint {
         LoginResponseDTO response = new LoginResponseDTO();
 
         if (admin != null) {
-            userSession.login(admin);
+            UserSession.login(admin);
             response.setStatus("success");
             response.setMessage("Admin login successful");
         } else {
@@ -45,7 +43,7 @@ public class AdminEndpoint {
     public LoginResponseDTO adminLogout() {
         LoginResponseDTO response = new LoginResponseDTO();
 
-        userSession.logout();
+        UserSession.logout();
         response.setStatus("success");
         response.setMessage("Admin logout successful.");
 

@@ -18,18 +18,16 @@ import java.util.Map;
 @RequestMapping("/normalUser")
 public class NormalUserEndpoint {
     private final NormalUserService normalUserService;
-    private final UserSession userSession;
 
     @Autowired
-    public NormalUserEndpoint(NormalUserService normalUserService, UserSession userSession) {
+    public NormalUserEndpoint(NormalUserService normalUserService) {
         this.normalUserService = normalUserService;
-        this.userSession = userSession;
     }
 
     @GetMapping("/list")
     public String listUsers() {
         try {
-            return normalUserService.findAll(userSession).toString();
+            return normalUserService.findAll().toString();
         } catch (SecurityException e) {
             return e.getMessage();
         }
@@ -38,7 +36,7 @@ public class NormalUserEndpoint {
     @PostMapping("/add")
     public String addUser(@RequestBody NormalUserDTO request) {
         try {
-            return normalUserService.addNormalUser(userSession, request.getName(), request.getEmail(), request.getPassword(), request.getIsPremiumStr(), request.getBirthdateStr()).toString();
+            return normalUserService.addNormalUser(request.getName(), request.getEmail(), request.getPassword(), request.getIsPremiumStr(), request.getBirthdateStr()).toString();
         } catch (EntityExistsException | IllegalArgumentException | SecurityException e) {
             return e.getMessage();
         }
@@ -47,7 +45,7 @@ public class NormalUserEndpoint {
     @DeleteMapping("/delete")
     public String deleteUser(@RequestParam String idStr) {
         try {
-            normalUserService.deleteNormalUser(userSession, idStr);
+            normalUserService.deleteNormalUser(idStr);
             return "User with ID " + idStr + " has been deleted successfully!";
         } catch (NumberFormatException e) {
             return "Error: Invalid id format";
@@ -59,7 +57,7 @@ public class NormalUserEndpoint {
     @PutMapping("/update")
     public String updateUser(@RequestParam boolean updatePassword, @RequestParam boolean updatePremium) {
         try {
-            Long id = userSession.getCurrentUser().getId();
+            Long id = UserSession.getCurrentUser().getId();
             Map<String, Object> updates = new HashMap<>();
             if (updatePassword) {
                 updates.put("password", true);
@@ -67,7 +65,7 @@ public class NormalUserEndpoint {
             if (updatePremium) {
                 updates.put("isPremium", true);
             }
-            return normalUserService.updateUser(userSession, id, updates);
+            return normalUserService.updateUser(id, updates);
         } catch (NumberFormatException e) {
             return "Error: Invalid user ID format. Please provide a valid number.";
         } catch (SecurityException | IllegalArgumentException | EntityNotFoundException e) {
@@ -78,7 +76,7 @@ public class NormalUserEndpoint {
     @GetMapping("/getByName")
     public String getByName(@RequestParam String name) {
         try {
-            return normalUserService.findByName(userSession, name).toString();
+            return normalUserService.findByName(name).toString();
         } catch (SecurityException e) {
             return e.getMessage();
         }
@@ -88,8 +86,8 @@ public class NormalUserEndpoint {
     public String login(@RequestParam String email, @RequestParam String password) {
         NormalUser user = normalUserService.login(email, password);
         if (user != null) {
-            userSession.login(user);
-            return "Login successful. Welcome, " + userSession.getCurrentUser().getName();
+            UserSession.login(user);
+            return "Login successful. Welcome, " + UserSession.getCurrentUser().getName();
         } else {
             return "Invalid credentials. Please try again.";
         }
@@ -97,9 +95,9 @@ public class NormalUserEndpoint {
 
     @PutMapping("/logout")
     public String logout() {
-        if (userSession.isLoggedIn()) {
-            String goodbyeMessage = "Logout successful. Goodbye " + userSession.getCurrentUser().getName();
-            userSession.logout();
+        if (UserSession.isLoggedIn()) {
+            String goodbyeMessage = "Logout successful. Goodbye " + UserSession.getCurrentUser().getName();
+            UserSession.logout();
             return goodbyeMessage;
         } else {
             return "No user is currently logged in.";
@@ -108,8 +106,8 @@ public class NormalUserEndpoint {
 
     @GetMapping("/currentUserInfo")
     public String currentUserInfo() {
-        if (userSession.isLoggedIn()) {
-            return userSession.getCurrentUser().toString();
+        if (UserSession.isLoggedIn()) {
+            return UserSession.getCurrentUser().toString();
         } else {
             return "No user is currently logged in.";
         }
@@ -118,7 +116,7 @@ public class NormalUserEndpoint {
     @PutMapping("/followArtist")
     public String followArtist(@RequestParam String artistId) {
         try {
-            normalUserService.followArtist(userSession, artistId);
+            normalUserService.followArtist(artistId);
             return "You are now following the artist with ID " + artistId;
         } catch (NumberFormatException e) {
             return "Error: Invalid integer format. Please provide a valid number.";
@@ -130,7 +128,7 @@ public class NormalUserEndpoint {
     @PutMapping("/unfollowArtist")
     public String unfollowArtist(@RequestParam String artistId) {
         try {
-            normalUserService.unfollowArtist(userSession, artistId);
+            normalUserService.unfollowArtist(artistId);
             return "You have unfollowed the artist with ID " + artistId;
         } catch (NumberFormatException e) {
             return "Error: Invalid integer format. Please provide a valid number.";
@@ -142,7 +140,7 @@ public class NormalUserEndpoint {
     @GetMapping("/notifications")
     public String seeNewNotifications() {
         try {
-            List<Notification> notifications = normalUserService.getNotifications(userSession);
+            List<Notification> notifications = normalUserService.getNotifications();
             return (!notifications.isEmpty()) ? notifications.toString() : "No new notifications";
         } catch (SecurityException e) {
             return e.getMessage();

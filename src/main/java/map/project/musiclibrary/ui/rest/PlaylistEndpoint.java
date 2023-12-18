@@ -10,18 +10,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/playlists")
 public class PlaylistEndpoint {
     private final PlaylistService playlistService;
-    private final UserSession userSession;
 
     @Autowired
-    public PlaylistEndpoint(PlaylistService playlistService, UserSession userSession) {
+    public PlaylistEndpoint(PlaylistService playlistService) {
         this.playlistService = playlistService;
-        this.userSession = userSession;
     }
 
     @GetMapping("/list")
     public String listPlaylists() {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
-            return playlistService.findByUser(userSession.getCurrentUser()).toString();
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
+            return playlistService.findByUser(UserSession.getCurrentUser()).toString();
         } else {
             return "You must log in into a normal user account to see your playlists.";
         }
@@ -29,8 +27,8 @@ public class PlaylistEndpoint {
 
     @PostMapping("/add")
     public String addPlaylist(@RequestParam String name) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
-            return playlistService.addPlaylist(name, (NormalUser) userSession.getCurrentUser()).toString();
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
+            return playlistService.addPlaylist(name, (NormalUser) UserSession.getCurrentUser()).toString();
         } else {
             return "You must log into a normal user account to add a playlist.";
         }
@@ -38,10 +36,10 @@ public class PlaylistEndpoint {
 
     @DeleteMapping("/delete")
     public String deletePlaylist(@RequestParam String playlistIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
             try {
                 Long playlistId = Long.parseLong(playlistIdStr);
-                NormalUser currentUser = (NormalUser) userSession.getCurrentUser();
+                NormalUser currentUser = (NormalUser) UserSession.getCurrentUser();
                 if (playlistService.deletePlaylist(playlistId, currentUser))
                     return "Playlist with ID " + playlistId + " has been deleted.";
                 else
@@ -56,7 +54,7 @@ public class PlaylistEndpoint {
 
     @PutMapping("/update")
     public String updatePlaylist(@RequestParam String id) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
             try {
                 Long playListId = Long.parseLong(id);
                 return playlistService.updatePlaylistName(playListId);
@@ -70,9 +68,9 @@ public class PlaylistEndpoint {
 
     @PostMapping("/addSong")
     public String addSongToPlaylist(@RequestParam String playlistIdStr, @RequestParam String songIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
             try {
-                return playlistService.addSong(songIdStr, playlistIdStr, (NormalUser) userSession.getCurrentUser()).toString();
+                return playlistService.addSong(songIdStr, playlistIdStr, (NormalUser) UserSession.getCurrentUser()).toString();
             } catch (NumberFormatException e) {
                 return "Error: Invalid integer format. Please provide a valid number.";
             } catch (RuntimeException e) {
@@ -85,7 +83,7 @@ public class PlaylistEndpoint {
 
     @DeleteMapping("/removeSong")
     public String removeSongFromPlaylist(@RequestParam String playlistIdStr, @RequestParam String songIdStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isNormalUser()) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isNormalUser()) {
             try {
                 Long playlistId = Long.parseLong(playlistIdStr);
                 Long songId = Long.parseLong(songIdStr);

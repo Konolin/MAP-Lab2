@@ -18,18 +18,16 @@ import java.util.Map;
 @ShellComponent
 public class NormalUserCLICommands {
     private final NormalUserService normalUserService;
-    private final UserSession userSession;
 
     @Autowired
-    public NormalUserCLICommands(NormalUserService normalUserService, UserSession userSession) {
+    public NormalUserCLICommands(NormalUserService normalUserService) {
         this.normalUserService = normalUserService;
-        this.userSession = userSession;
     }
 
     @ShellMethod(key = "listUsers", value = "List all users")
     public String listUsers() {
         try {
-            return normalUserService.findAll(userSession).toString();
+            return normalUserService.findAll().toString();
         } catch (SecurityException e) {
             return e.getMessage();
         }
@@ -42,7 +40,7 @@ public class NormalUserCLICommands {
                           @ShellOption(value = {"birthdate"}, help = "Birthdate of the user (yyyy-MM-dd)") final String birthdateStr,
                           @ShellOption(value = {"isPremium"}, help = "Is the user premium (boolean)") final String isPremiumStr) {
         try {
-            return normalUserService.addNormalUser(userSession, name, email, password, isPremiumStr, birthdateStr).toString();
+            return normalUserService.addNormalUser(name, email, password, isPremiumStr, birthdateStr).toString();
         } catch (EntityExistsException | IllegalArgumentException | SecurityException e) {
             return e.getMessage();
         }
@@ -51,7 +49,7 @@ public class NormalUserCLICommands {
     @ShellMethod(key = "deleteUser", value = "Delete a user")
     public String deleteUser(@ShellOption(value = {"userId"}, help = "Id of the user to be deleted") final String userIdStr) {
         try {
-            normalUserService.deleteNormalUser(userSession, userIdStr);
+            normalUserService.deleteNormalUser(userIdStr);
             return "User with ID " + userIdStr + " has been deleted.";
         } catch (NumberFormatException e) {
             return "Error: Invalid integer format. Please provide a valid number.";
@@ -64,7 +62,7 @@ public class NormalUserCLICommands {
     public String updateUser(@ShellOption(value = {"password"}, help = "Update user password") final boolean updatePassword,
                              @ShellOption(value = {"isPremium"}, help = "Update subscription plan") final boolean updatePremium) {
         try {
-            Long id = userSession.getCurrentUser().getId();
+            Long id = UserSession.getCurrentUser().getId();
             Map<String, Object> updates = new HashMap<>();
             if (updatePassword) {
                 updates.put("password", true);
@@ -72,7 +70,7 @@ public class NormalUserCLICommands {
             if (updatePremium) {
                 updates.put("isPremium", true);
             }
-            return normalUserService.updateUser(userSession, id, updates);
+            return normalUserService.updateUser(id, updates);
         } catch (NumberFormatException e) {
             return "Error: Invalid user ID format. Please provide a valid number.";
         } catch (SecurityException | IllegalArgumentException | EntityNotFoundException e) {
@@ -84,7 +82,7 @@ public class NormalUserCLICommands {
     @ShellMethod(key = "findUser", value = "Find a user by name")
     public String findUser(@ShellOption(value = {"name"}, help = "Name of the user") final String name) {
         try {
-            return normalUserService.findByName(userSession, name).toString();
+            return normalUserService.findByName(name).toString();
         } catch (SecurityException e) {
             return e.getMessage();
         }
@@ -95,8 +93,8 @@ public class NormalUserCLICommands {
                         @ShellOption(value = {"password"}, help = "Password of the user") final String password) {
         NormalUser user = normalUserService.login(email, password);
         if (user != null) {
-            userSession.login(user);
-            return "Login successful. Welcome, " + userSession.getCurrentUser().getName();
+            UserSession.login(user);
+            return "Login successful. Welcome, " + UserSession.getCurrentUser().getName();
         } else {
             return "Invalid credentials. Please try again.";
         }
@@ -104,9 +102,9 @@ public class NormalUserCLICommands {
 
     @ShellMethod(key = "logout", value = "Log out the current user")
     public String logout() {
-        if (userSession.isLoggedIn()) {
-            String goodbyeMessage = "Logout successful. Goodbye " + userSession.getCurrentUser().getName();
-            userSession.logout();
+        if (UserSession.isLoggedIn()) {
+            String goodbyeMessage = "Logout successful. Goodbye " + UserSession.getCurrentUser().getName();
+            UserSession.logout();
             return goodbyeMessage;
         } else {
             return "No user is currently logged in.";
@@ -116,8 +114,8 @@ public class NormalUserCLICommands {
 
     @ShellMethod(key = "currentUser", value = "Get the current user that is logged in")
     public String getCurrentUser() {
-        if (userSession.isLoggedIn()) {
-            return this.userSession.getCurrentUser().toString();
+        if (UserSession.isLoggedIn()) {
+            return UserSession.getCurrentUser().toString();
         } else {
             return "No user is currently logged in.";
         }
@@ -126,7 +124,7 @@ public class NormalUserCLICommands {
     @ShellMethod(key = "followArtist", value = "Follow an artist")
     public String followArtist(@ShellOption(value = {"artistId"}, help = "ID of the artist") final String artistId) {
         try {
-            normalUserService.followArtist(userSession, artistId);
+            normalUserService.followArtist(artistId);
             return "You are now following the artist with ID " + artistId;
         } catch (NumberFormatException e) {
             return "Error: Invalid integer format. Please provide a valid number.";
@@ -138,7 +136,7 @@ public class NormalUserCLICommands {
     @ShellMethod(key = "unfollowArtist", value = "Unfollow an artist")
     public String unfollowArtist(@ShellOption(value = {"artistId"}, help = "ID of the artist") final String artistId) {
         try {
-            normalUserService.unfollowArtist(userSession, artistId);
+            normalUserService.unfollowArtist(artistId);
             return "You have unfollowed the artist with ID " + artistId;
         } catch (NumberFormatException e) {
             return "Error: Invalid integer format. Please provide a valid number.";
@@ -150,7 +148,7 @@ public class NormalUserCLICommands {
     @ShellMethod(key = "seeNewNotifications", value = "See new notifications")
     public String seeNewNotifications() {
         try {
-            List<Notification> notifications = normalUserService.getNotifications(userSession);
+            List<Notification> notifications = normalUserService.getNotifications();
             return (!notifications.isEmpty()) ? notifications.toString() : "No new notifications";
         } catch (SecurityException e) {
             return e.getMessage();

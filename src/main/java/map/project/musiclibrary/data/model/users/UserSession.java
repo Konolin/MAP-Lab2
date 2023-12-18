@@ -3,20 +3,20 @@ package map.project.musiclibrary.data.model.users;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
-@Getter
 @Component
 public class UserSession {
-    private User currentUser;
+    @Getter
+    private static User currentUser;
 
-    public void login(User user) {
-        this.currentUser = user;
+    public static void login(User user) {
+        currentUser = user;
     }
 
-    public void logout() {
-        this.currentUser = null;
+    public static void logout() {
+        currentUser = null;
     }
 
-    public boolean isLoggedIn() {
+    public static boolean isLoggedIn() {
         return currentUser != null;
     }
 }

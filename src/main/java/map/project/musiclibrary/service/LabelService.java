@@ -24,8 +24,8 @@ public class LabelService {
         this.artistUserRepository = artistUserRepository;
     }
 
-    public Label addLabel(UserSession userSession, String name) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public Label addLabel(String name) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             Label label = new Label();
             label.setName(name);
             label.setArtists(new ArrayList<>());
@@ -34,8 +34,8 @@ public class LabelService {
         throw new SecurityException("Only admin can add labels");
     }
 
-    public void deleteLabel(UserSession userSession, String idStr) throws NumberFormatException {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public void deleteLabel(String idStr) throws NumberFormatException {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             Long id = Long.parseLong(idStr);
             Optional<Label> labelOptional = labelRepository.findById(id);
 
@@ -61,15 +61,15 @@ public class LabelService {
         return labelRepository.findByName(name).stream().findFirst().orElse(null);
     }
 
-    public List<Label> findAll(UserSession userSession) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public List<Label> findAll() {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             return labelRepository.findAll();
         }
         throw new SecurityException("Only admin can list all labels");
     }
 
-    public Label addArtist(UserSession userSession, String artistIdStr, String labelIdStr) throws NumberFormatException {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public Label addArtist(String artistIdStr, String labelIdStr) throws NumberFormatException {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             Long artistId = Long.parseLong(artistIdStr);
             Long labelId = Long.parseLong(labelIdStr);
 

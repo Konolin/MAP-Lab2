@@ -31,8 +31,8 @@ public class ArtistUserService {
         this.albumService = albumService;
     }
 
-    public ArtistUser addArtist(UserSession userSession, String name, String birthdateStr) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public ArtistUser addArtist(String name, String birthdateStr) {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date birthdate;
             try {
@@ -56,8 +56,8 @@ public class ArtistUserService {
         return artistUserRepository.findByName(name).stream().findFirst().orElse(null);
     }
 
-    public List<ArtistUser> findAll(UserSession userSession) {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public List<ArtistUser> findAll() {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             return artistUserRepository.findAll();
         }
         throw new SecurityException("Only admin can list all artists");
@@ -67,8 +67,8 @@ public class ArtistUserService {
         return artistUserRepository.findById(id);
     }
 
-    public List<NormalUser> getFollowers(UserSession userSession, String artistIdStr) throws NumberFormatException {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public List<NormalUser> getFollowers(String artistIdStr) throws NumberFormatException {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             Long artistId = Long.parseLong(artistIdStr);
             Optional<ArtistUser> artistUserOptional = findById(artistId);
             if (artistUserOptional.isPresent()) {
@@ -81,8 +81,8 @@ public class ArtistUserService {
     }
 
     @Transactional
-    public void delete(UserSession userSession, String idStr) throws NumberFormatException {
-        if (userSession.isLoggedIn() && userSession.getCurrentUser().isAdmin()) {
+    public void delete(String idStr) throws NumberFormatException {
+        if (UserSession.isLoggedIn() && UserSession.getCurrentUser().isAdmin()) {
             Long id = Long.parseLong(idStr);
             Optional<ArtistUser> optional = artistUserRepository.findById(id);
             if (optional.isPresent()) {
@@ -95,7 +95,7 @@ public class ArtistUserService {
                 }
                 // remove albums associated with the artist
                 for (Album album : artist.getAlbums()) {
-                    albumService.delete(userSession, album.getId().toString());
+                    albumService.delete(album.getId().toString());
                 }
                 artistUserRepository.deleteById(id);
             }

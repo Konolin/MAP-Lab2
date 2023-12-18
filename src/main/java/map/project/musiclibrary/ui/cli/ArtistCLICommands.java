@@ -1,30 +1,25 @@
 package map.project.musiclibrary.ui.cli;
 
 import jakarta.persistence.EntityNotFoundException;
-import map.project.musiclibrary.data.model.users.UserSession;
 import map.project.musiclibrary.service.ArtistUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
-import java.text.ParseException;
-
 @ShellComponent
 public class ArtistCLICommands {
     private final ArtistUserService artistUserService;
-    private final UserSession userSession;
 
     @Autowired
-    public ArtistCLICommands(ArtistUserService artistUserService, UserSession userSession) {
+    public ArtistCLICommands(ArtistUserService artistUserService) {
         this.artistUserService = artistUserService;
-        this.userSession = userSession;
     }
 
     @ShellMethod(key = "listArtists", value = "List all artists")
     public String listArtists() {
         try {
-            return artistUserService.findAll(userSession).toString();
+            return artistUserService.findAll().toString();
         } catch (SecurityException e) {
             return e.getMessage();
         }
@@ -34,7 +29,7 @@ public class ArtistCLICommands {
     public String addArtist(@ShellOption(value = {"name"}, help = "Name of the artist") final String name,
                             @ShellOption(value = {"birthdate"}, help = "Birthdate of the artist") final String birthdateStr) {
         try {
-            return artistUserService.addArtist(userSession, name, birthdateStr).toString();
+            return artistUserService.addArtist(name, birthdateStr).toString();
         } catch (SecurityException | IllegalArgumentException e) {
             return e.getMessage();
         }
@@ -48,7 +43,7 @@ public class ArtistCLICommands {
     @ShellMethod(key = "listFollowers", value = "List the followers of an artist")
     public String getFollowers(@ShellOption(value = {"artistId"}, help = "ID of the artist") final String artistIdStr) {
         try {
-            return artistUserService.getFollowers(userSession, artistIdStr).toString();
+            return artistUserService.getFollowers(artistIdStr).toString();
         } catch (NumberFormatException e) {
             return "Error: Invalid integer format. Please provide a valid number.";
         } catch (SecurityException | EntityNotFoundException e) {
@@ -59,7 +54,7 @@ public class ArtistCLICommands {
     @ShellMethod(key = "deleteArtist", value = "Delete an artist by id (It also deletes their songs!)")
     public String deleteAlbum(@ShellOption(value = {"id"}, help = "Id of the artist") final String idStr) {
         try {
-            artistUserService.delete(userSession, idStr);
+            artistUserService.delete(idStr);
             return "Artist with ID " + idStr + " has been deleted successfully!";
         } catch (NumberFormatException e) {
             return "Invalid id format";
