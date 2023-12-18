@@ -52,7 +52,7 @@ public class HostUserService {
                 HostUser host = hostUserOptional.get();
 
                 for (Podcast podcast : host.getPodcasts()) {
-                    podcastService.deletePodcast(podcast.getId());
+                    podcastService.deletePodcast(podcast.getId().toString());
                 }
                 host.getPodcasts().clear();
                 hostUserRepository.deleteById(id);
